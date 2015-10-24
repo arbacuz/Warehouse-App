@@ -1,0 +1,69 @@
+//== INPUT SIZE
+$input-size-md: 140px;
+$input-padding-md: 14px 18px;
+$input-size-lg: 300px;
+$input-padding-lg: 14px 18px;
+
+$input-background-color: $color-input;
+$input-border-radius: 4.5px;
+
+::-webkit-input-placeholder,
+:-moz-placeholder,
+::-moz-placeholder, 
+:-ms-input-placeholder {
+   color: $color-lightgrey;
+}
+
+
+//== INPUT Size
+.form-text {
+  padding: 13px 20px 13px 0;
+}
+.input-md {
+	width: $input-size-md;
+	padding: $input-padding-md;
+}
+.input-lg {
+	width: 100%;
+	max-width: $input-size-lg;
+	padding: $input-padding-lg;
+}
+
+//== INPUT Text
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"] {
+	color: $color-grey;
+	background-color: $input-background-color;
+	border-radius: $input-border-radius;
+	border: none;
+}
+
+//== INPUT Text Area
+textarea {
+	color: $color-grey;
+	background-color: $input-background-color;
+	border-radius: $input-border-radius;
+	border: none;
+}
+
+//== INPUT Select
+select {
+	color: $color-grey;
+	background-color: $input-background-color !important;
+	border: none;
+	border-radius: $input-border-radius;
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
+  background-image: none;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+
+//== INPUT radio button
+
+//== INPUT checkbox button
+

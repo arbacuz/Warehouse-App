@@ -1,0 +1,39 @@
+//== Color Palatte
+$color-skyblue: rgb(69,156,255);
+$color-green: rgb(68,219,93);
+$color-yellow: rgb(255,198,0);
+$color-red: rgb(231,76,60);
+$color-midnight: rgb(32,43,64);
+$color-lightmidnight: rgb(44,62,80);
+$color-grey: rgb(115,134,153);
+$color-lightgrey: rgb(212,212,212);
+$color-almostwhite: rgb(242,242,242);
+$color-very-almostwhite: rgb(249,249,249);
+$color-white: rgb(255,255,255);
+
+
+//== Color Use Class
+$color-primary: $color-skyblue;
+$color-default: $color-lightgrey;
+$color-warning: $color-yellow;
+$color-danger: $color-red;
+$color-success: $color-green;
+$color-text: $color-grey;
+$color-bold: $color-midnight;
+$color-input: $color-almostwhite;
+$color-input-light: $color-very-almostwhite;
+
+.text-primary {
+	color: $color-primary;
+}
+.text-default {
+	color: $color-default;
+}
+.text-danger {
+	color: $color-danger;
+}
+.text-warning {
+	color: $color-warning;
+}
+
+

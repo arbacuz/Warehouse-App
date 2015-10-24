@@ -1,0 +1,56 @@
+//== Tables
+
+$table-head-color-bg: $color-primary;
+$table-row-color-odd: $color-input-light;
+$table-row-color-even: $color-input;
+
+table {
+	width: 100%;
+	text-align: left;
+  margin: 20px 0 10px 0;
+	thead {
+		th {
+			background-color: $table-head-color-bg;
+			padding: 25px 15px;
+			font-family: $font-family-topic;
+			font-size: $font-size-topic;
+			font-weight: $font-weight-topic;
+			color: $color-white;
+			text-transform: uppercase;
+		}
+		tr:nth-child(2) {
+			th {
+				background-color: lighten($table-head-color-bg,$hover-percent);
+				text-transform: none;
+				padding: 15px 15px;
+			}
+		}
+	}
+	tbody {
+		tr {
+			cursor: pointer;
+			&:nth-child(odd) {
+				background-color: $table-row-color-odd;
+			}
+			&:nth-child(even) {
+				background-color: $table-row-color-even;
+			}
+			&:hover {
+				background-color: lighten($table-row-color-even,1);
+			}
+		}
+		td {
+			padding: 15px 15px;
+			font-family: $font-family-p-small;
+			font-size: $font-size-p-small;
+			font-weight: $font-weight-p-small;
+			color: $color-grey;
+		}
+		td.bold {
+			color: $color-bold;
+		}
+		td.narrow {
+			width: 80px;
+		}
+	}
+}

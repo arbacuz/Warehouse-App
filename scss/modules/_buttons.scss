@@ -1,0 +1,108 @@
+//== Button
+$btn-size-md: 145px;
+$btn-radius-md: 2px;
+$btn-padding-md: 15px 10px;
+
+$btn-size-lg: 255px;
+$btn-radius-lg: 4.5px;
+$btn-padding-lg: 25px 10px;
+
+$hover-percent: 10;
+
+.btn {
+	outline: none;
+	border: none;
+	color: $color-white;
+	border: 2px solid transparent;
+	&-md {
+		min-width: $btn-size-md;
+		border-radius: $btn-radius-md;
+		padding: $btn-padding-md;
+		font-size: 12px;
+	}
+	&-lg {
+		min-width: $btn-size-lg;
+		border-radius: $btn-radius-lg;
+		padding: $btn-padding-lg;
+	}
+	&-danger {
+		background-color: $color-danger;
+		&-border {
+			background-color: transparent;
+			color: $color-danger;
+			border: 2px solid $color-danger;
+			&:hover {
+				background-color: darken($color-danger,$hover-percent);
+				border-color: darken($color-danger,$hover-percent);
+				color: $color-white;
+			}
+		}
+		&:hover {
+			background-color: darken($color-danger,$hover-percent);
+		}
+	}
+	&-warning {
+		background-color: $color-warning;
+		&-border {
+			background-color: transparent;
+			color: $color-warning;
+			border: 2px solid $color-warning;
+			&:hover {
+				background-color: darken($color-warning,$hover-percent);
+				border-color: darken($color-warning,$hover-percent);
+				color: $color-white;
+			}
+		}
+		&:hover {
+			background-color: darken($color-warning,$hover-percent);
+		}
+	}
+	&-primary {
+		background-color: $color-primary;
+		&-border {
+			background-color: transparent;
+			color: $color-primary;
+			border: 2px solid $color-primary;
+			&:hover {
+				background-color: darken($color-primary,$hover-percent);
+				border-color: darken($color-primary,$hover-percent);
+				color: $color-white;
+			}
+		}
+		&:hover {
+			background-color: darken($color-primary,$hover-percent);
+		}
+	}
+	&-default {
+		background-color: $color-default;
+		&-border {
+			background-color: transparent;
+			color: $color-default;
+			border: 2px solid $color-default;
+			&:hover {
+				background-color: darken($color-default,$hover-percent);
+				border-color: darken($color-default,$hover-percent);
+				color: $color-white;
+			}
+		}
+		&:hover {
+			background-color: darken($color-default,$hover-percent);
+		}
+	}
+	&-success {
+		background-color: $color-success;
+		&-border {
+			background-color: transparent;
+			color: $color-success;
+			border: 2px solid $color-success;
+			&:hover {
+				background-color: darken($color-success,$hover-percent);
+				border-color: darken($color-success,$hover-percent);
+				color: $color-white;
+			}
+		}
+		&:hover {
+			background-color: darken($color-success,$hover-percent);
+		}
+	}
+}

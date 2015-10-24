@@ -1,0 +1,153 @@
+//== Typography
+
+//== Font Family
+$font-family-primary: 'Roboto', 'sans-serif';
+$font-family-secondary: 'Lato', 'sans-serif';
+
+//== Font Weight
+$font-weight-light: 100;
+$font-weight-regular: 400;
+$font-weight-bold: 600;
+$font-weight-heavy: 700;
+
+//== H1
+$font-size-h1: 43px;
+$font-family-h1: $font-family-primary;
+$font-weight-h1: $font-weight-light;
+h1 {
+	font-size: $font-size-h1;
+	font-family: $font-family-h1;
+	font-weight: $font-weight-h1;
+	color: $color-bold;
+}
+
+//== H2
+$font-size-h2: 36px;
+$font-family-h2: $font-family-primary;
+$font-weight-h2: $font-weight-light;
+h2 {
+	font-size: $font-size-h2;
+	font-family: $font-family-h2;
+	font-weight: $font-weight-h2;
+	color: $color-bold;
+}
+
+//== H3
+$font-size-h3: 22px;
+$font-family-h3: $font-family-primary;
+$font-weight-h3: $font-weight-regular;
+h3 {
+	font-size: $font-size-h3;
+	font-family: $font-family-h3;
+	font-weight: $font-weight-h3;
+	color: $color-bold;
+}
+
+//== H4
+$font-size-h4: 18px;
+$font-family-h4: $font-family-primary;
+$font-weight-h4: $font-weight-regular;
+h4 {
+	font-size: $font-size-h4;
+	font-family: $font-family-h4;
+	font-weight: $font-weight-h4;
+	color: $color-bold;
+}
+
+//== H5
+$font-size-h5: 14px;
+$font-family-h5: $font-family-primary;
+$font-weight-h5: $font-weight-regular;
+h5 {
+	font-size: $font-size-h5;
+	font-family: $font-family-h5;
+	font-weight: $font-weight-h5;
+	color: $color-bold;
+}
+
+//== H6
+$font-size-h6: 10px;
+$font-family-h6: $font-family-primary;
+$font-weight-h6: $font-weight-regular;
+h6 {
+	font-size: $font-size-h6;
+	font-family: $font-family-h6;
+	font-weight: $font-weight-h6;
+	color: $color-bold;
+}
+
+//== p
+$font-size-p: 18px;
+$font-family-p: $font-family-primary;
+$font-weight-p: $font-weight-regular;
+p {
+	font-size: $font-size-p;
+	font-family: $font-family-p;
+	font-weight: $font-weight-p;
+	color: $color-grey;
+}
+
+//== p (small)
+$font-size-p-small: 16px;
+$font-family-p-small: $font-family-primary;
+$font-weight-p-small: $font-weight-light;
+p.small {
+	font-size: $font-size-p-small;
+	font-family: $font-family-p-small;
+	font-weight: $font-weight-p-small;
+	color: $color-grey;
+}
+
+//== topic
+$font-size-topic: 14px;
+$font-family-topic: $font-family-primary;
+$font-weight-topic: $font-weight-bold;
+.topic {
+	font-size: $font-size-topic;
+	font-family: $font-family-topic;
+	font-weight: $font-weight-topic;
+	color: $color-bold;
+	text-transform: uppercase;
+}
+
+//== button
+$font-size-button: 14px;
+$font-family-button: $font-family-secondary;
+$font-weight-button: $font-weight-heavy;
+.btn {
+	font-size: $font-size-button;
+	font-family: $font-family-button;
+	font-weight: $font-weight-button;
+	color: $color-bold;
+	letter-spacing: 1.5px;
+	text-transform: uppercase;
+}
+
+//== small
+$font-size-small: 10px;
+$font-family-small: $font-family-primary;
+$font-weight-small: $font-weight-regular;
+small {
+	font-size: $font-size-small;
+	font-family: $font-family-small;
+	font-weight: $font-weight-small;
+	color: $color-lightgrey;
+}
+
+//== MORE
+.text-right {
+	text-align: right;
+}
+.text-left {
+	text-align: left;
+}
+.text-center {
+	text-align: center;
+}
+.bold {
+	color: $color-bold !important;
+	font-weight: $font-weight-regular !important;
+}
+.underline {
+	text-decoration: underline;
+}

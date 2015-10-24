@@ -1,0 +1,91 @@
+* {
+	transition: all .1s linear;
+	-o-transition: all .1s linear;
+	-webkit-transition: all .1s linear;
+	-moz-transition: all .1s linear;
+}
+.sidebar {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	top: 0;
+	padding-bottom: 100px;
+	min-height: 100vh;
+	// height: 100%;
+	background-color: $color-lightmidnight;
+	width: 240px;
+	&-brand {
+		display: block;
+		height: 80px;
+		width: 100%;
+		background-color: $color-primary;
+		color: $color-white;
+		text-align: center;
+		vertical-align: middle;
+		img {
+			margin: 19px 0;
+		}
+	}
+	&-tab {
+		color: $color-white;
+	}
+	.topic {
+		color: $color-grey;
+		margin-left: 25px;
+	}
+	ul.menu-list {
+		.topic {
+			margin-bottom: 15px;
+		}
+		a {
+			padding: 10px 25px;
+			display: block;
+			color: $color-white;
+			text-decoration: none;
+			border-left: 3px solid transparent;
+			cursor: pointer;
+			font-family: $font-family-primary;
+			font-weight: $font-weight-regular;
+			&:hover,
+			&:active,
+			&:focus,
+			&.active {
+				border-left: 3px solid $color-primary;
+				background-color: darken($color-lightmidnight,$hover-percent);
+			}
+			&.menu-item {
+				i.fa {
+					color: $color-lightgrey;
+					margin-right: 12px;
+					width: 13px;
+				}
+			}
+			&.menu-user {
+				padding: 5px 25px;
+			}
+		}
+	}
+	.tab-section {
+		margin-top: 35px;
+	}
+}
+.profile-img {
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	background: $color-lightgrey;
+	display: inline-block;
+	vertical-align: middle;
+}
+.profile-detail {
+	margin-left: 12px;
+	display: inline-block;
+	vertical-align: -40%;
+	.user-name {
+		font-size: 12px;
+	}
+	.user-position {
+		font-size: 10px;
+		color: $color-grey;
+	}
+}

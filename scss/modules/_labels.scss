@@ -1,0 +1,36 @@
+//== Label
+$lbl-font-size: 10px;
+$lbl-font-family: $font-family-primary;
+$lbl-font-weight: $font-weight-bold;
+$lbl-padding: 7px 8px;
+$lbl-radius: 5px;
+
+.label {
+	cursor: default;
+	font-size: $lbl-font-size;
+	font-family: $lbl-font-family;
+	font-weight: $lbl-font-weight;
+	color: $color-white;
+	padding: $lbl-padding;
+	border-radius: $lbl-radius;
+	display: inline;
+	min-width: 60px;
+	text-align: center;
+	text-transform: uppercase;
+	
+	&-warning {
+		background-color: $color-warning;
+	}
+	&-default {
+		background-color: $color-default;
+	}
+	&-success {
+		background-color: $color-success;
+	}
+	&-danger {
+		background-color: $color-danger;
+	}
+	&-primary {
+		background-color: $color-primary;
+	}
+}

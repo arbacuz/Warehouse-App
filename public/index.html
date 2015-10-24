@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>WH</title>
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="./css/main.css">
+</head>
+<body class="animated fadeIn">
+	<div class="sidebar">
+		<a ui-sref="home" class="sidebar-brand">
+			<img class="animated bounceIn" src="./assets/logo.svg" alt="">
+		</a>
+		<div class="sidebar-tab">
+			<div class="tab-section">
+				<ul class="menu-list">
+					<p class="topic">user</p>
+					<a ui-sref="home" ui-sref-active="active" class="menu-item menu-user">
+						<div style="background-image:url('./assets/profile.png');" class="profile-img"></div>
+						<div class="profile-detail">
+							<div class="user-name">
+								Michelle Morris
+							</div>
+							<div class="user-position">
+								Manager
+							</div>
+						</div>
+					</a>
+				</ul>
+			</div>
+			<div class="tab-section">
+				<ul class="menu-list">
+					<p class="topic">menu</p>
+					<a ui-sref="itemRegistration" ui-sref-active="active" class="menu-item">
+						<i class="fa fa-plus"></i> Item Registration
+					</a>
+					<a ui-sref="stockAdjustment" ui-sref-active="active" class="menu-item">
+						<i class="fa fa-list-alt"></i> Stock Adjustment
+					</a>
+					<a ui-sref="orderedItems" ui-sref-active="active" class="menu-item">
+						<i class="fa fa-cube"></i> Ordered Items
+					</a>
+					<a ui-sref="requestedItems" ui-sref-active="active" class="menu-item">
+						<i class="fa fa-truck"></i> Requested Items
+					</a>
+				</ul>
+			</div>
+			<div class="tab-section">
+				<ul class="menu-list">
+					<p class="topic">report</p>
+					<a ui-sref="stockcard" ui-sref-active="active" class="menu-item">
+						<i class="fa fa-money"></i> Stock Card
+					</a>
+					<a ui-sref="invoice" ui-sref-active="active" class="menu-item">
+						<i class="fa fa-list-alt"></i> Invoice History
+					</a>
+					<a ui-sref="itemRemain" ui-sref-active="active" class="menu-item">
+						<i class="fa fa-archive"></i> Item Report
+					</a>
+					<a href="#" class="menu-item">
+						<i class="fa fa-list-alt"></i> Order Report
+					</a>
+					<a href="#" class="menu-item">
+						<i class="fa fa-exclamation-circle"></i> More
+					</a>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div ui-view></div>
+
+	<!-- SCRIPT -->
+	<!-- vendors -->
+	<script src="./vendors/angular.min.js"></script>
+	<script src="./vendors/angular-ui-router.min.js"></script>
+	<script src="https://code.angularjs.org/1.4.7/angular-route.min.js"></script>
+	<!-- app -->
+	<script src="./app/app.module.js"></script>
+	<script src="./app/app.config.js"></script>
+	<!-- form -->
+	<script src="./app/form/itemregistration.form.controller.js"></script>
+	<script src="./app/form/ordered.form.controller.js"></script>
+	<script src="./app/form/requested.form.controller.js"></script>
+
+</body>
+</html>
