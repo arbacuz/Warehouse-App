@@ -5257,7 +5257,7 @@ Copyright (c) 2015 Daniel Eden
   color: #d4d4d4; }
 
 .form-text {
-  padding: 13px 20px 13px 0; }
+  padding: 13px 0px 13px 0; }
 
 .input-md {
   width: 140px;
@@ -5386,6 +5386,8 @@ small {
   border: none;
   color: white;
   border: 2px solid transparent; }
+  .btn-full {
+    width: 100%; }
   .btn-md {
     min-width: 145px;
     border-radius: 2px;
@@ -5557,7 +5559,7 @@ table {
     font-weight: 400; }
     .sidebar ul.menu-list a:hover, .sidebar ul.menu-list a:active, .sidebar ul.menu-list a:focus, .sidebar ul.menu-list a.active {
       border-left: 3px solid #459cff;
-      background-color: #1a242f; }
+      background-color: #1a252f; }
     .sidebar ul.menu-list a.menu-item i.fa {
       color: #d4d4d4;
       margin-right: 12px;
@@ -5590,6 +5592,7 @@ table {
   margin: 25px 40px 40px 280px;
   min-height: 200px;
   padding: 30px 40px;
+  min-width: 340px;
   width: auto;
   box-shadow: 0px 2px 4px 0px rgba(210, 210, 210, 0.5);
   border-radius: 3px; }
@@ -5641,7 +5644,14 @@ table {
     color: white;
     background-color: #459cff; }
 
+.content--member {
+  margin: 20vh auto;
+  width: 30%; }
+
 body {
   background: #f2f2f2; }
+
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none !important; }
 
 /*# sourceMappingURL=main.css.map */

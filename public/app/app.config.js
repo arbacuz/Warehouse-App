@@ -11,6 +11,11 @@
 		$urlRouterProvider.otherwise('/');
 
 		$stateProvider
+			.state('member', {
+				url: '/member',
+				templateUrl: './views/member.html',
+				controller: 'MemberCtrl'
+			})
 			.state('home', {
 				url: '/',
 				templateUrl: './views/styleguide.html'

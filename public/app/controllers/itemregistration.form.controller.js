@@ -5,10 +5,11 @@
 			.module('app')
 			.controller('ItemRegistrationCtrl', ItemRegistrationCtrl);
 
-	ItemRegistrationCtrl.$inject = ['$scope','$stateParams'];
+	ItemRegistrationCtrl.$inject = ['$scope','$stateParams','ItemServices'];
 
-	function ItemRegistrationCtrl($scope,$stateParams) {
+	function ItemRegistrationCtrl($scope,$stateParams,ItemServices) {
 		$scope.addItem = addItem;
+		$scope.completeItems = completeItems;
 		$scope.items = [
 				{
 					name: 'TV Sony 42" Model: 5G112TG',
@@ -36,6 +37,15 @@
 			item.type = "";
 			item.cost = "";
 			item.quantity = "";
+		}
+
+		function completeItems(supplier, items) {
+			ItemServices.registerItem(supplier, items)
+				.success(function(data) {
+					console.log(data);
+				}).error(function(error) {
+					console.log(error);
+				})
 		}
 	}
 })();

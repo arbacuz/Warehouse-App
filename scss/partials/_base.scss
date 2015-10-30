@@ -1,7 +1,12 @@
 @import "sidebar";
 @import "content";
 @import "menubox";
+@import "content-member";
 
 body {
 	background: $color-almostwhite;
+}
+
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none !important;
 }

@@ -7,7 +7,7 @@
 	<link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="./css/main.css">
 </head>
-<body class="animated fadeIn">
+<body class="animated fadeIn" ng-cloak>
 	<div class="sidebar">
 		<a ui-sref="home" class="sidebar-brand">
 			<img class="animated bounceIn" src="./assets/logo.svg" alt="">
@@ -79,10 +79,15 @@
 	<!-- app -->
 	<script src="./app/app.module.js"></script>
 	<script src="./app/app.config.js"></script>
-	<!-- form -->
-	<script src="./app/form/itemregistration.form.controller.js"></script>
-	<script src="./app/form/ordered.form.controller.js"></script>
-	<script src="./app/form/requested.form.controller.js"></script>
+	<!-- controllers -->
+	<script src="./app/controllers/itemregistration.form.controller.js"></script>
+	<script src="./app/controllers/ordered.form.controller.js"></script>
+	<script src="./app/controllers/requested.form.controller.js"></script>
+	<script src="./app/controllers/member.controller.js"></script>
+	<!-- services -->
+	<script src="./app/services/item.service.js"></script>
+	<script src="./app/services/member.service.js"></script>
+
 
 </body>
 </html>
