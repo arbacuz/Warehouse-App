@@ -14,6 +14,9 @@ $hover-percent: 10;
 	border: none;
 	color: $color-white;
 	border: 2px solid transparent;
+	&-full {
+		width: 100%;
+	}
 	&-md {
 		min-width: $btn-size-md;
 		border-radius: $btn-radius-md;

@@ -15,7 +15,7 @@ define ("TB_COMPANY","company");
 define ("TB_COMPANYTYPE","companyType");
 define ("TB_ITEM","item");
 define ("TB_ITEMBRANCH","itemBranch");
-define ("TB_ORDER","order");
+define ("TB_ORDER","order_list");
 define ("TB_ORDERITEM","orderItem");
 define ("TB_ORDERTYPE","orderType");
 define ("TB_POSITION","position");
