@@ -90,6 +90,7 @@ class Database {
 			}
 			$set = $set.$key[$i]."='".$value[$i]."'";
 		}
+		
 		#-> UPDATE tbl SET username='$name',password='$pass' WHERE .....=....
 		$sql = "UPDATE ".$table." SET ".$set." WHERE ".$where;
 		if(mysql_query($sql)) {
