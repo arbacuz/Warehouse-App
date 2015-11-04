@@ -31,7 +31,6 @@ if($query) {
 		$arr["data"]["attributes"]["email"]=$result["email"];
 
 		$arr["data"]["relationships"]["position"]["name"]=$result["positionName"];
-
 		$arr["data"]["relationships"]["branch"]["name"]=$result["branchName"];
 		$arr["data"]["relationships"]["branch"]["address"]=$result["branchAddress"];
 	} else {

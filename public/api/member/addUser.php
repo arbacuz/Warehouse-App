@@ -6,26 +6,37 @@ include_once("../../includes/class_mysql.php");
 #-> Get data from js and initialize
 $data = file_get_contents("php://input");
 $json = json_decode($data);
-// $branchID = $json->branchID;
-$branchID = 8;
+// $staffName = $json->staffName;
+$staffName = "name1";
+$email = "a@a.com";
+$password = "1234";
+$positionID = 1;
+$branchID = 1;
+
 
 #-> Connect to the database
 $db = new Database();
 $db->connectdb(DB_NAME,DB_USER,DB_PASS);
 
-#-> Delete the data.
-$table = TB_BRANCH;
-$where = "branchID = '$branchID'";
-$query = $db->delete($table,$where);
+#-> Add the data.
+$table = TB_STAFF;
+$data = array(
+	"staffName" => $staffName,
+	"email" => $email,
+	"password" => $password,
+	"positionID" => $positionID,
+	"branchID" => $branchID
+	);
+$query = $db->add($table,$data);
 
 #-> Preparing return data.
 $arr = array();
 if($query) {
 	$arr["status"] = "success";
-	$arr["messages"] = "Complete deleting data in $table table.";
+	$arr["messages"] = "Complete adding data to $table table.";
 } else {
 	$arr["status"] = "error";
-	$arr["messages"] = "Error occure when you delete the data in $table table.";
+	$arr["messages"] = "Error occure when you add the data to $table table.";
 }
 
 #-> Return json data.

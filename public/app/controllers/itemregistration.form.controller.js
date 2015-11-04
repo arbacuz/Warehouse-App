@@ -11,6 +11,7 @@
 		$scope.addItem = addItem;
 		$scope.completeItems = completeItems;
 		$scope.items = [];
+		$scope.today = new Date().getTime();
 
 		getCompanyByTypeName("supplier");
 		getItemTypesAll();

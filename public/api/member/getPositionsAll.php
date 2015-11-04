@@ -12,48 +12,21 @@ $json = json_decode($data);
 $db = new Database();
 $db->connectdb(DB_NAME,DB_USER,DB_PASS);
 
-// IF ADD: 		$query = $db->add($table,$data)
-// IF UPDATE:   $query = $db->update($table,$data,$where)
-// IF DELETE:	$query = $db->delete($table,$where)
-// IF QUERY: 	$query = $db->querydb("QUERY STATEMENT");
-//
-// SEE MORE ./includes/class_mysql.php
-
-$arr = array();
+#-> Query the data.
+$query = $db->querydb("SELECT * FROM ".TB_POSITION);
 
 #-> Preparing return data.
-/*************** JSON SHOULD BE *******************
-**
-** {
-**	 status: "success or error",
-**   messages: "error messages",
-**   data: {
-**     attributes: {
-**        columns1: data1,
-**        columns2: data2,
-**		  ..
-**	   }
-**	   relations: {
-**		  tables1: {
-**			columns1: data1,
-**			columns2: data2,
-**			..
-**		  },
-**		  tables2: {
-**			columns1: data1,
-**			columns2: data2,
-**			..
-**		  }
-**	   }
-**   }	
-** }
-**
-***************************************************/
+$arr = array();
 if($query) {
-	$result = $db->fetch($query);
-	// ASSIGN DATA TO ARRAY
+	$arr["status"] = "success";
+	$i = 0;
+	while($result = $db->fetch($query)) {
+		$arr["data"][$i]["attributes"]["_id"] = $result["positionID"];
+		$arr["data"][$i]["attributes"]["name"] = $result["positionName"];
+		$i ++;
+	}
 } else {
-	// IF NO RESULT
+	$arr["status"] = "error";
 }
 
 #-> Return json data.
