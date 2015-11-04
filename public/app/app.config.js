@@ -83,11 +83,11 @@
 				controller: 'itemRemainCtrl'
 			})
 
-			/***************************
+			/**************************
 			***
 			*** Order Page
 			*** 
-			****************************/
+			***************************/
 			.state('orderedItems', {
 				url: '/form/order/ordering',
 				templateUrl: './views/form/ordereditems.html',
@@ -139,6 +139,7 @@
 				templateUrl: './views/report/invoice.html',
 				controller: 'orderedHistoryCtrl'
 			})
+		}
 
 			/***************************
 			***

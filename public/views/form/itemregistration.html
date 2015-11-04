@@ -53,9 +53,8 @@
 						<p class="small bold form-text">Supplier</p>
 					</div>
 					<div class="col-md-7 ">
-						<select class="input-lg">
-							<option value="1">Hitachi</option>
-							<option value="2">Aroler</option>
+						<select ng-model="supplier" class="input-lg">
+							<option ng-repeat="company in companies" value="{{company.attributes._id}}">{{company.attributes.name}}</option>
 						</select>
 						<i class="fa fa-caret-down caret-select"></i>
 					</div>
@@ -75,16 +74,19 @@
 						</tr>
 					</thead>
 					<tbody>
+						<tr style="cursor: default;"class="animated fadeIn" ng-show="items.length == 0">
+							<td class="text-center" colspan="5">Please add the items</td>
+						</tr>
 						<tr class="animated fadeIn" ng-repeat="item in items">
 							<td class="bold text-center narrow">{{ $index + 1 }}</td>
 							<td>{{ item.name }}</td>
-							<td>{{ item.type }}</td>
+							<td>{{ item.type.attributes.name }}</td>
 							<td>{{ item.cost }}</td>
 							<td>{{ item.quantity }}</td>
 						</tr>
 					</tbody>
 				</table>
-				<button ng-click="completeItems(items)" class="btn btn-lg btn-success u__margin20 right">complete registration</button>
+				<button ng-click="completeItems(supplier,items)" class="btn btn-lg btn-success u__margin20 right">complete registration</button>
 			</div>
 		</div>
 		<hr>
@@ -117,9 +119,10 @@
 						<p class="small bold form-text">Item Type</p>
 					</div>
 					<div class="col-md-7 ">
-						<select ng-model="newItem.type" placeholder="Choose the type" class="input-lg">
-							<option value="Material">Material</option>
-							<option value="Product">Product</option>
+						<select ng-init="newItem.type = itemTypes[0]" 
+								ng-model="newItem.type"
+								ng-options="type.attributes.name for type in itemTypes"
+								class="input-lg">
 						</select>
 						<i class="fa fa-caret-down caret-select"></i>
 					</div>

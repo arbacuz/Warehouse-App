@@ -46,7 +46,7 @@
 
 		function login(user) {
 			var data = angular.toJson(user);
-			// console.log(data);
+			console.log(data);
 			return $http.post(urlBase+'api/member/login.php',data);
 		}
 

@@ -6,6 +6,7 @@ include_once("../../includes/class_mysql.php");
 #-> Get data from js and initialize
 $data = file_get_contents("php://input");
 $json = json_decode($data);
+
 $email = $json->email;
 $password = $json->password;
 $email = stripslashes($email);
@@ -25,6 +26,7 @@ if($query) {
 	$result = $db->fetch($query);
 	if($result["staffID"]) {
 		$arr["status"] = "success";
+		
 		$arr["data"]["attributes"]["name"]=$result["staffName"];
 		$arr["data"]["attributes"]["email"]=$result["email"];
 

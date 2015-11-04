@@ -67,7 +67,8 @@ class Database {
 
 		$add = $add.")";
 		$val = $val.")";
-
+		// $table = table name (config.php)
+		// $data = ["name":"Company1"]
 		#-> INSERT INTO tbl (data1,data2) VALUES ('val1','val2')
 		$sql = "INSERT INTO ".$table." ".$add."VALUES ".$val;
 		if(mysql_query($sql)) {

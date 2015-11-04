@@ -10,10 +10,14 @@ define ("DB_PASS","root");
 define ("DB_NAME","warehouse");
 
 #-> Table
+
+#define TB_BRANCH "branch";
+
 define ("TB_BRANCH","branch");
 define ("TB_COMPANY","company");
 define ("TB_COMPANYTYPE","companyType");
 define ("TB_ITEM","item");
+define ("TB_ITEMTYPE","itemType");
 define ("TB_ITEMBRANCH","itemBranch");
 define ("TB_ORDER","order_list");
 define ("TB_ORDERITEM","orderItem");

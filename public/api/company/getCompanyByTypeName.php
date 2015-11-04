@@ -6,8 +6,8 @@ include_once("../../includes/class_mysql.php");
 #-> Get data from js and initialize
 $data = file_get_contents("php://input");
 $json = json_decode($data);
+$typeName = $json->typeName;
 
-echo "test";
 #-> Connect to the database
 $db = new Database();
 $db->connectdb(DB_NAME,DB_USER,DB_PASS);
@@ -19,6 +19,7 @@ $db->connectdb(DB_NAME,DB_USER,DB_PASS);
 //
 // SEE MORE ./includes/class_mysql.php
 
+$query = $db->querydb("SELECT companyID,companyName,companyAddress,companyTel,companyTypeName,".TB_COMPANY.".companyTypeID FROM ".TB_COMPANY." INNER JOIN ".TB_COMPANYTYPE." ON ".TB_COMPANY.".companyTypeID = ".TB_COMPANYTYPE.".companyTypeID WHERE companyTypeName='$typeName'");
 $arr = array();
 
 #-> Preparing return data.
@@ -50,10 +51,20 @@ $arr = array();
 **
 ***************************************************/
 if($query) {
-	$result = $db->fetch($query);
-	// ASSIGN DATA TO ARRAY
+	$arr["status"] = "success";
+	$i = 0;
+	while($result = $db->fetch($query)) {
+		$arr["data"][$i]["attributes"]["_id"] = $result["companyID"];
+		$arr["data"][$i]["attributes"]["name"] = $result["companyName"];
+		$arr["data"][$i]["attributes"]["address"] = $result["companyAddress"];
+		$arr["data"][$i]["attributes"]["telephone"] = $result["companyTel"];
+
+		$arr["data"][$i]["relationships"]["companyType"]["_id"] = $result["companyTypeID"];
+		$arr["data"][$i]["relationships"]["companyType"]["name"] = $result["companyTypeName"];
+		$i ++;
+	}
 } else {
-	// IF NO RESULT
+	$arr["status"] = "error";
 }
 
 #-> Return json data.

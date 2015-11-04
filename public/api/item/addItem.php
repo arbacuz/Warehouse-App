@@ -6,6 +6,8 @@ include_once("../../includes/class_mysql.php");
 #-> Get data from js and initialize
 $data = file_get_contents("php://input");
 $json = json_decode($data);
+$company = $json->supplier;
+$items = $json->items;
 
 #-> Connect to the database
 $db = new Database();
@@ -13,8 +15,12 @@ $db->connectdb(DB_NAME,DB_USER,DB_PASS);
 
 #-> Add Data
 $i = 0;
-while($json[$[i]) {
-	// $query = $db->add(TB_BILL,array("timestamp"=>$timestamp,"user_id"=>$user_id,"bill_status"=>$bill_status,"bill_price"=>$bill_price));
+while($items[$i]) {
+	$name = $items[$i]->name;
+	$type = $items[$i]->type->attributes->_id;
+	$cost = $items[$i]->cost;
+	$quantity = $items[$i]->quantity;
+	// $query = $db->add(TB_ITEM,array("itemName"=>$timestamp,"itemCode"=>$user_id,"typeID"=>$bill_status,"costPerUnit"=>$bill_price));
 	$i ++;
 }
 

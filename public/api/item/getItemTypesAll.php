@@ -7,7 +7,7 @@ include_once("../../includes/class_mysql.php");
 $data = file_get_contents("php://input");
 $json = json_decode($data);
 
-echo "test";
+
 #-> Connect to the database
 $db = new Database();
 $db->connectdb(DB_NAME,DB_USER,DB_PASS);
@@ -18,7 +18,7 @@ $db->connectdb(DB_NAME,DB_USER,DB_PASS);
 // IF QUERY: 	$query = $db->querydb("QUERY STATEMENT");
 //
 // SEE MORE ./includes/class_mysql.php
-
+$query = $db->querydb("SELECT * FROM ".TB_ITEMTYPE);
 $arr = array();
 
 #-> Preparing return data.
@@ -50,10 +50,16 @@ $arr = array();
 **
 ***************************************************/
 if($query) {
-	$result = $db->fetch($query);
-	// ASSIGN DATA TO ARRAY
+	$arr["status"] = "success";
+	$i = 0;
+	while($result = $db->fetch($query)) {
+		$arr["data"][$i]["attributes"]["_id"] = $result["typeID"];
+		$arr["data"][$i]["attributes"]["name"] = $result["typeName"];
+		$i ++;
+	}
 } else {
 	// IF NO RESULT
+	$arr["status"] = "error";
 }
 
 #-> Return json data.

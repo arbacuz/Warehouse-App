@@ -15,6 +15,7 @@
 			deleteCompany: 		deleteCompany,
 			getCompaniesAll: 	getCompaniesAll,
 			getCompany: 		getCompany,
+			getCompanyByTypeName:getCompanyByTypeName,
 			addCompanyType: 	addCompanyType,
 			updateCompanyType: 	updateCompanyType,
 			deleteCompanyType: 	deleteCompanyType,
@@ -40,6 +41,11 @@
 
 		function getCompany(company) {
 
+		}
+
+		function getCompanyByTypeName(type) {
+			var data = angular.toJson({'typeName':type});
+			return $http.post(urlBase+'api/company/getCompanyByTypeName.php',data);
 		}
 
 		function addCompanyType() {

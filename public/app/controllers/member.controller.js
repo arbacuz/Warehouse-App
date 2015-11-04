@@ -11,7 +11,9 @@
 		$scope.login = login;
 
 		function login(user) {
+
 			MemberServices.login(user)
+			
 				.success(function(data) {
 					if(data.status == "success") {
 						// $state.go('home');
@@ -24,5 +26,6 @@
 					console.log(error);
 				})
 		}
+
 	}
 })();
