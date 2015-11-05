@@ -7,7 +7,7 @@
 	<link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="./css/main.css">
 </head>
-<body class="animated fadeIn" ng-cloak>
+<body class="animated fadeIn" ng-cloak ng-controller="mainCtrl">
 	<div class="sidebar">
 		<a ui-sref="home" class="sidebar-brand">
 			<img class="animated bounceIn" src="./assets/logo.svg" alt="">
@@ -16,14 +16,14 @@
 			<div class="tab-section">
 				<ul class="menu-list">
 					<p class="topic">user</p>
-					<a ui-sref="home" ui-sref-active="active" class="menu-item menu-user">
+					<a ui-sref="profile" ui-sref-active="active" class="menu-item menu-user">
 						<div style="background-image:url('./assets/profile.png');" class="profile-img"></div>
 						<div class="profile-detail">
 							<div class="user-name">
-								Michelle Morris
+								{{ user.attributes.name }}
 							</div>
 							<div class="user-position">
-								Manager
+								{{ user.relationships.position.name }}
 							</div>
 						</div>
 					</a>
@@ -55,10 +55,10 @@
 					<a ui-sref="invoice" ui-sref-active="active" class="menu-item">
 						<i class="fa fa-list-alt"></i> Invoice History
 					</a>
-					<a ui-sref="itemRemain" ui-sref-active="active" class="menu-item">
+					<a ui-sref="item" ui-sref-active="active" class="menu-item">
 						<i class="fa fa-archive"></i> Item Report
 					</a>
-					<a href="#" class="menu-item">
+					<a ui-sref="order" ui-sref-active="active" class="menu-item">
 						<i class="fa fa-list-alt"></i> Order Report
 					</a>
 					<a href="#" class="menu-item">
@@ -76,14 +76,28 @@
 	<script src="./vendors/angular.min.js"></script>
 	<script src="./vendors/angular-ui-router.min.js"></script>
 	<script src="https://code.angularjs.org/1.4.7/angular-route.min.js"></script>
+	<script src="https://code.angularjs.org/1.4.7/angular-cookies.min.js"></script>
+
 	<!-- app -->
 	<script src="./app/app.module.js"></script>
+	<script src="./app/app.run.js"></script>
 	<script src="./app/app.config.js"></script>
+
 	<!-- controllers -->
+	<script src="./app/controllers/member.controller.js"></script>
+	<script src="./app/controllers/main.controller.js"></script>
+	<script src="./app/controllers/profile.controller.js"></script>
+
 	<script src="./app/controllers/itemRegistration.form.controller.js"></script>
+	<script src="./app/controllers/stockAdjustment.form.controller.js"></script>
 	<script src="./app/controllers/ordered.form.controller.js"></script>
 	<script src="./app/controllers/requested.form.controller.js"></script>
-	<script src="./app/controllers/member.controller.js"></script>
+
+	<script src="./app/controllers/itemInfo.report.controller.js"></script>
+	<script src="./app/controllers/itemRegHistory.report.controller.js"></script>
+	<script src="./app/controllers/itemRemain.report.controller.js"></script>
+	<script src="./app/controllers/orderedHistoryCtrl.report.controller.js"></script>
+	<script src="./app/controllers/stockCard.report.controller.js"></script>
 	<!-- services -->
 	<script src="./app/services/item.service.js"></script>
 	<script src="./app/services/member.service.js"></script>

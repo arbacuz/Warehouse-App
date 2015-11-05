@@ -5,9 +5,18 @@
 			.module('app')
 			.controller('orderedHistoryCtrl', orderedHistoryCtrl);
 
-	orderedHistoryCtrl.$inject = ['$scope','$stateParams'];
+	orderedHistoryCtrl.$inject = ['$state','$cookieStore','$scope','$stateParams'];
 
-	function orderedHistoryCtrl($scope,$stateParams) {
+	function orderedHistoryCtrl($state,$cookieStore,$scope,$stateParams) {
 
+		isLogin();
+
+		function isLogin() {
+			$scope.user = $cookieStore.get('user');
+			if(!$scope.user) {
+				$state.go('member');
+			}
+		}
+		
 	}
 })();

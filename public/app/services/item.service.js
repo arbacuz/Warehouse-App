@@ -27,9 +27,13 @@
 		};
 		return itemServices;
 
+		function addItem(supplier, items, user) {
+			var data = angular.toJson({'supplier':supplier,'items':items,'user':user});
+			return $http.post(urlBase+'api/item/registerItem.php',data);
+		}
+
 		function addItem(supplier, items) {
 			var data = angular.toJson({'supplier':supplier,'items':items});
-			// console.log(data);
 			return $http.post(urlBase+'api/item/addItem.php',data);
 		}
 

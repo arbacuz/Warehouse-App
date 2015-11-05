@@ -5,20 +5,21 @@
 			.module('app')
 			.controller('MemberCtrl', MemberCtrl);
 
-	MemberCtrl.$inject = ['$state','$scope','MemberServices'];
+	MemberCtrl.$inject = ['$state','$scope','$cookieStore','MemberServices'];
 
-	function MemberCtrl($state,$scope,MemberServices) {
+	function MemberCtrl($state,$scope,$cookieStore,MemberServices) {
 		$scope.login = login;
 
-		function login(user) {
+		console.log($cookieStore.get('user'));
 
+		function login(user) {
 			MemberServices.login(user)
-			
 				.success(function(data) {
 					if(data.status == "success") {
-						// $state.go('home');
-						console.log(data);
-						
+						var user = data.data;
+						$cookieStore.put('user',user);
+						console.log($cookieStore.get('user'));
+						$state.go('home');
 					} else {
 						console.log(data);
 					}

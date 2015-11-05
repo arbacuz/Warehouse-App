@@ -5,9 +5,26 @@
 			.module('app')
 			.controller('itemRegHistoryCtrl', itemRegHistoryCtrl);
 
-	itemRegHistoryCtrl.$inject = ['$scope','$stateParams'];
+	itemRegHistoryCtrl.$inject = [
+								'$state',
+								'$cookieStore',
+								'$scope',
+								'$stateParams'
+								];
 
-	function itemRegHistoryCtrl($scope,$stateParams) {
-		
+	function itemRegHistoryCtrl(
+								$state,
+								$cookieStore,
+								$scope,
+								$stateParams
+								) {
+		isLogin();
+
+		function isLogin() {
+			$scope.user = $cookieStore.get('user');
+			if(!$scope.user) {
+				$state.go('member');
+			}
+		}	
 	}
 })();

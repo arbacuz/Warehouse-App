@@ -12,43 +12,11 @@ $json = json_decode($data);
 $db = new Database();
 $db->connectdb(DB_NAME,DB_USER,DB_PASS);
 
-// IF ADD: 		$query = $db->add($table,$data)
-// IF UPDATE:   $query = $db->update($table,$data,$where)
-// IF DELETE:	$query = $db->delete($table,$where)
-// IF QUERY: 	$query = $db->querydb("QUERY STATEMENT");
-//
-// SEE MORE ./includes/class_mysql.php
+#-> GET,ADD,DEL,EDIT
+//$db->......
 
+#-> Preparing data.
 $arr = array();
-
-#-> Preparing return data.
-/*************** JSON SHOULD BE *******************
-**
-** {
-**	 status: "success or error",
-**   messages: "error messages",
-**   data: {
-**     attributes: {
-**        columns1: data1,
-**        columns2: data2,
-**		  ..
-**	   }
-**	   relations: {
-**		  tables1: {
-**			columns1: data1,
-**			columns2: data2,
-**			..
-**		  },
-**		  tables2: {
-**			columns1: data1,
-**			columns2: data2,
-**			..
-**		  }
-**	   }
-**   }	
-** }
-**
-***************************************************/
 if($query) {
 	$result = $db->fetch($query);
 	// ASSIGN DATA TO ARRAY

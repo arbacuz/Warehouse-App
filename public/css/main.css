@@ -5239,7 +5239,7 @@ Copyright (c) 2015 Daniel Eden
   content: "\f280"; }
 
 .text-primary {
-  color: #459cff; }
+  color: #4183d7; }
 
 .text-default {
   color: #d4d4d4; }
@@ -5422,17 +5422,17 @@ small {
     .btn-warning:hover {
       background-color: #cc9e00; }
   .btn-primary {
-    background-color: #459cff; }
+    background-color: #4183d7; }
     .btn-primary-border {
       background-color: transparent;
-      color: #459cff;
-      border: 2px solid #459cff; }
+      color: #4183d7;
+      border: 2px solid #4183d7; }
       .btn-primary-border:hover {
-        background-color: #1281ff;
-        border-color: #1281ff;
+        background-color: #286abd;
+        border-color: #286abd;
         color: white; }
     .btn-primary:hover {
-      background-color: #1281ff; }
+      background-color: #286abd; }
   .btn-default {
     background-color: #d4d4d4; }
     .btn-default-border {
@@ -5463,7 +5463,7 @@ table {
   text-align: left;
   margin: 20px 0 10px 0; }
   table thead th {
-    background-color: #459cff;
+    background-color: #4183d7;
     padding: 25px 15px;
     font-family: "Roboto", "sans-serif";
     font-size: 14px;
@@ -5471,7 +5471,7 @@ table {
     color: white;
     text-transform: uppercase; }
   table thead tr:nth-child(2) th {
-    background-color: #78b7ff;
+    background-color: #6b9ee0;
     text-transform: none;
     padding: 15px 15px; }
   table tbody tr {
@@ -5514,7 +5514,7 @@ table {
   .label-danger {
     background-color: #e74c3c; }
   .label-primary {
-    background-color: #459cff; }
+    background-color: #4183d7; }
 
 * {
   transition: all .1s linear;
@@ -5535,7 +5535,7 @@ table {
     display: block;
     height: 80px;
     width: 100%;
-    background-color: #459cff;
+    background-color: #4183d7;
     color: white;
     text-align: center;
     vertical-align: middle; }
@@ -5558,7 +5558,7 @@ table {
     font-family: "Roboto", "sans-serif";
     font-weight: 400; }
     .sidebar ul.menu-list a:hover, .sidebar ul.menu-list a:active, .sidebar ul.menu-list a:focus, .sidebar ul.menu-list a.active {
-      border-left: 3px solid #459cff;
+      border-left: 3px solid #4183d7;
       background-color: #1a252f; }
     .sidebar ul.menu-list a.menu-item i.fa {
       color: #d4d4d4;
@@ -5619,6 +5619,7 @@ table {
   margin: 20px 0; }
 
 .menu-box {
+  display: block;
   cursor: pointer;
   width: 100%;
   height: 250px;
@@ -5631,8 +5632,8 @@ table {
   font-weight: 700;
   border-radius: 3px;
   background-color: transparent;
-  border: 3px solid #459cff;
-  color: #459cff; }
+  border: 3px solid #4183d7;
+  color: #4183d7; }
   .menu-box .fa {
     font-size: 100px;
     margin-top: 37px;
@@ -5642,7 +5643,11 @@ table {
     margin-top: 27px; }
   .menu-box.active, .menu-box:hover {
     color: white;
-    background-color: #459cff; }
+    background-color: #4183d7; }
+
+a.menu-box {
+  display: block;
+  text-decoration: none; }
 
 .content--member {
   margin: 20vh auto;

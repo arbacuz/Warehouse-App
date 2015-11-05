@@ -19,7 +19,7 @@
 						<p class="small bold form-text">Branch</p>
 					</div>
 					<div class="col-md-7 ">
-						<p class="small form-text">Bangmod</p>
+						<p class="small form-text">{{user.relationships.branch.name}}</p>
 					</div>
 				</div>
 			</div>
@@ -31,7 +31,7 @@
 						<p class="small bold form-text">Staff</p>
 					</div>
 					<div class="col-md-7">
-						<p class="small form-text">Michelle Morris</p>
+						<p class="small form-text">{{user.attributes.name}}</p>
 					</div>
 				</div>
 			</div>
@@ -41,7 +41,7 @@
 						<p class="small bold form-text">Address</p>
 					</div>
 					<div class="col-md-7 ">
-						<p class="small form-text">134 Prachauthid Ladprao Rd.</p>
+						<p class="small form-text">{{user.relationships.branch.address}}</p>
 					</div>
 				</div>
 			</div>
@@ -53,8 +53,10 @@
 						<p class="small bold form-text">Supplier</p>
 					</div>
 					<div class="col-md-7 ">
-						<select ng-model="supplier" class="input-lg">
-							<option ng-repeat="company in companies" value="{{company.attributes._id}}">{{company.attributes.name}}</option>
+						<select ng-init="supplier = companies[0]" 
+								ng-model="supplier"
+								ng-options="company.attributes.name for company in companies"
+								class="input-lg">
 						</select>
 						<i class="fa fa-caret-down caret-select"></i>
 					</div>
@@ -86,7 +88,7 @@
 						</tr>
 					</tbody>
 				</table>
-				<button ng-click="completeItems(supplier,items)" class="btn btn-lg btn-success u__margin20 right">complete registration</button>
+				<button ng-click="completeItems(supplier,items,user)" class="btn btn-lg btn-success u__margin20 right">complete registration</button>
 			</div>
 		</div>
 		<hr>

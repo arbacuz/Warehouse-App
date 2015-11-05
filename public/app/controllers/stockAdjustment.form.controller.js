@@ -5,9 +5,30 @@
 			.module('app')
 			.controller('stockAdjustmentCtrl', stockAdjustmentCtrl);
 
-	stockAdjustmentCtrl.$inject = ['$scope','$stateParams'];
+	stockAdjustmentCtrl.$inject = [
+									'$state',
+									'$cookieStore',
+									'$scope',
+									'$stateParams',
+									'ItemServices'
+									];
 
-	function stockAdjustmentCtrl($scope,$stateParams) {
+	function stockAdjustmentCtrl(
+								$state,
+								$cookieStore,
+								$scope,
+								$stateParams,
+								ItemServices
+								) {
 		
+		$scope.today = new Date().getTime();
+		isLogin();
+
+		function isLogin() {
+			$scope.user = $cookieStore.get('user');
+			if(!$scope.user) {
+				$state.go('member');
+			}
+		}		
 	}
 })();

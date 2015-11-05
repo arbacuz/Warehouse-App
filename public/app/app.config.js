@@ -33,8 +33,8 @@
 			})
 			.state('profile', {
 				url: '/me',
-				templateUrl: './views/member.html',
-				controller: 'MemberCtrl'
+				templateUrl: './views/profile.html',
+				controller: 'ProfileCtrl'
 			})
 			.state('staffAll', {
 				url: '/report/staff/all',
@@ -52,6 +52,11 @@
 			*** Item Page
 			*** 
 			****************************/
+			.state('item', {
+				url: '/report/item',
+				templateUrl: './views/report/item.html'
+				// controller: 'ItemRegistrationCtrl'
+			})
 			.state('itemRegistration', {
 				url: '/form/item/registration',
 				templateUrl: './views/form/itemregistration.html',
@@ -79,7 +84,7 @@
 			})
 			.state('itemRefillAlert', {
 				url: '/report/item/refillAlert',
-				templateUrl: './views/report/itemRemaining.html',
+				templateUrl: './views/report/itemRefillAlert.html',
 				controller: 'itemRemainCtrl'
 			})
 
@@ -88,6 +93,11 @@
 			*** Order Page
 			*** 
 			***************************/
+			.state('order', {
+				url: '/report/order',
+				templateUrl: './views/report/order.html'
+				// controller: 'ItemRegistrationCtrl'
+			})
 			.state('orderedItems', {
 				url: '/form/order/ordering',
 				templateUrl: './views/form/ordereditems.html',
@@ -108,24 +118,25 @@
 				templateUrl: './views/report/invoice.html',
 				controller: 'orderedHistoryCtrl'
 			})
+
 			.state('orderHistoryByTime', {
 				url: '/report/order/history/time',
-				templateUrl: './views/report/invoice.html',
+				templateUrl: './views/report/orderHistoryByTime.html',
 				controller: 'orderedHistoryCtrl'
 			})
 			.state('orderHistoryByItem', {
 				url: '/report/order/history/item',
-				templateUrl: './views/report/invoice.html',
+				templateUrl: './views/report/orderHistoryByItem.html',
 				controller: 'orderedHistoryCtrl'
 			})
 			.state('orderHistoryByStatus', {
 				url: '/report/ordere/istory/status',
-				templateUrl: './views/report/invoice.html',
+				templateUrl: './views/report/orderHistoryByStatus.html',
 				controller: 'orderedHistoryCtrl'
 			})
 			.state('orderInfo', {
 				url: '/report/order/info',
-				templateUrl: './views/report/invoice.html',
+				templateUrl: './views/report/orderInfo.html',
 				controller: 'orderedHistoryCtrl'
 			})
 
@@ -136,7 +147,7 @@
 			****************************/
 			.state('capacity', {
 				url: '/report/branch/capacity',
-				templateUrl: './views/report/invoice.html',
+				templateUrl: './views/report/capacity.html',
 				controller: 'orderedHistoryCtrl'
 			})
 		}

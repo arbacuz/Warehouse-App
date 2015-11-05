@@ -14,7 +14,7 @@ $db = new Database();
 $db->connectdb(DB_NAME,DB_USER,DB_PASS);
 
 #-> Query the data.
-$query = $db->querydb("SELECT ".TB_BRANCH.".branchName,".TB_BRANCH.".branchAddress, ".TB_STAFF.".staffID, ".TB_STAFF.".staffName, ".TB_STAFF.".email, ".TB_POSITION.".positionName FROM ".TB_STAFF." INNER JOIN ".TB_BRANCH." ON ".TB_STAFF.".branchID = ".TB_BRANCH.".branchID INNER JOIN ".TB_POSITION." ON ".TB_STAFF.".positionID = ".TB_POSITION.".positionID  WHERE staffID = '$staffID'");
+$query = $db->querydb("SELECT * FROM ".TB_STAFF." INNER JOIN ".TB_BRANCH." ON ".TB_STAFF.".branchID = ".TB_BRANCH.".branchID INNER JOIN ".TB_POSITION." ON ".TB_STAFF.".positionID = ".TB_POSITION.".positionID  WHERE staffID = '$staffID'");
 
 #-> Preparing return data.
 $arr = array();
@@ -24,7 +24,9 @@ if($query) {
 		$arr["data"]["attributes"]["_id"] = $result["staffID"];
 		$arr["data"]["attributes"]["name"] = $result["staffName"];
 		$arr["data"]["attributes"]["email"] = $result["email"];
+		$arr["data"]["relationships"]["position"]["_id"] = $result["positionID"];
 		$arr["data"]["relationships"]["position"]["name"] = $result["positionName"];
+		$arr["data"]["relationships"]["branch"]["_id"] = $result["branchID"];
 		$arr["data"]["relationships"]["branch"]["name"] = $result["branchName"];
 		$arr["data"]["relationships"]["branch"]["address"] = $result["branchAddress"];
 	}

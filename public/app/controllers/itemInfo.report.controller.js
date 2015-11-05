@@ -5,9 +5,28 @@
 			.module('app')
 			.controller('itemInfoCtrl', itemInfoCtrl);
 
-	itemInfoCtrl.$inject = ['$scope','$stateParams'];
+	itemInfoCtrl.$inject = [
+							'$state',
+							'$cookieStore',
+							'$scope',
+							'$stateParams'
+							];
 
-	function itemInfoCtrl($scope,$stateParams) {
-		
+	function itemInfoCtrl (
+							$state,
+							$cookieStore,
+							$scope,
+							$stateParams
+							) {
+
+		isLogin();
+
+		function isLogin() {
+			$scope.user = $cookieStore.get('user');
+			if(!$scope.user) {
+				$state.go('member');
+			}
+		}		
+
 	}
 })();

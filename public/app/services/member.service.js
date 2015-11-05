@@ -10,13 +10,10 @@
 	function MemberServices($q, $http, $rootScope) {
 		var urlBase = "http://localhost:8888/warehouse-proj/Warehouse-App/public/";
 		var memberServices = {
-			base64: 			base64,
 			registerUser: 		registerUser,
 			login: 				login,
 			logout: 			logout,
-			addCredetial: 		addCredetial,
-			removeCredetial: 	removeCredetial,
-			getUserByUsername: 	getUserByUsername,
+			getUser: 			getUser,
 			getUsersAll: 		getUsersAll,
 			updateUser: 		updateUser,
 			deleteUser: 		deleteUser,
@@ -27,26 +24,12 @@
 		};
 		return memberServices;
 
-		var base64 = {
-			encode: encode,
-			decode: decode
-		};
-
-		function encode(username,password) {
-			console.log("base64.decode");
-		}
-
-		function decode(username,token) {
-			console.log("base64.decode");
-		}
-
 		function registerUser(user) {
 			console.log("registerUser");
 		}
 
 		function login(user) {
 			var data = angular.toJson(user);
-			console.log(data);
 			return $http.post(urlBase+'api/member/login.php',data);
 		}
 
@@ -54,43 +37,42 @@
 			console.log("logout");
 		}
 
-		function addCredetial() {
-			console.log("addCredetial");
-		}
-
-		function removeCredetial(username) {
-			console.log("removeCredetial");
-		}
-
-		function getUserByUsername(username) {
-			console.log("getUserByUserName");
+		function getUser(user) {
+			var data = angular.toJson(user);
+			return $http.post(urlBase+'api/member/getUser.php',data);
 		}
 
 		function getUsersAll() {
-			console.log("getUserAll");
+			return $http.get(urlBase+'api/item/getUsersAll.php');
 		}
 
-		function updateUser(username) {
-
+		function updateUser(user) {
+			var data = angular.toJson({'user':user});
+			return $http.post(urlBase+'api/item/updateUser.php',data);
 		}
-		function deleteUser(username) {
-			console.log("deleteUserByUserName");
+
+		function deleteUser(user) {
+			var data = angular.toJson({'user':user});
+			return $http.post(urlBase+'api/item/deleteUser.php',data);
 		}
 
 		function addPosition(position) {
-
+			var data = angular.toJson({'position':position});
+			return $http.post(urlBase+'api/item/addPosition.php',data);
 		}
 
 		function updatePosition(position) {
-
+			var data = angular.toJson({'position':position});
+			return $http.post(urlBase+'api/item/updatePosition.php',data);
 		}
 
 		function deletePosition(position) {
-
+			var data = angular.toJson({'position':position});
+			return $http.post(urlBase+'api/item/deletePosition.php',data);
 		}
 
 		function getPositionsAll() {
-
+			return $http.get(urlBase+'api/item/getPositionsAll.php');
 		}
 	}
 
