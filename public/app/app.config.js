@@ -135,7 +135,7 @@
 				controller: 'orderedHistoryCtrl'
 			})
 			.state('orderInfo', {
-				url: '/report/order/info',
+				url: '/report/order/info:id',
 				templateUrl: './views/report/orderInfo.html',
 				controller: 'orderedHistoryCtrl'
 			})
@@ -150,18 +150,32 @@
 				templateUrl: './views/report/capacity.html',
 				controller: 'orderedHistoryCtrl'
 			})
-		}
+
 
 			/***************************
 			***
 			*** ADMIN Page
 			*** 
 			****************************/
-			// add staff
 			// add position
 			// add branch
-			// add company
-			// add companyType
-			// add status
+			.state('companyAdmin', {
+				url: '/admin/company',
+				templateUrl: './views/admin/company.html'
+				// controller: 'orderedHistoryCtrl'
+			}) // Crashes with select and views
+
+			.state('itemAdmin', {
+				url: '/admin/item',
+				templateUrl: './views/admin/item.html'
+				// controller: 'orderedHistoryCtrl'
+			})	// no itemID
+
+			.state('staffAdmin', {
+				url: '/admin/staff',
+				templateUrl: './views/admin/staff.html'
+				// controller: 'orderedHistoryCtrl'
+			})
+		}
 
 })();

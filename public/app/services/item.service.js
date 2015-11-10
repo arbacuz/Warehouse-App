@@ -10,7 +10,8 @@
 	function ItemServices($q, $http, $rootScope) {
 		var urlBase = "http://localhost:8888/warehouse-proj/Warehouse-App/public/";
 		var itemServices = {
-			addItem: 		addItem,
+			registerItem: 		registerItem,
+			addItem: 			addItem,
 			addItemByBranch: 	addItemByBranch,
 			updateItems: 		updateItems,
 			updateItemsByBranch:updateItemsByBranch,
@@ -27,9 +28,14 @@
 		};
 		return itemServices;
 
-		function addItem(supplier, items, user) {
+		function registerItem(supplier, items, user) {
 			var data = angular.toJson({'supplier':supplier,'items':items,'user':user});
 			return $http.post(urlBase+'api/item/registerItem.php',data);
+		}
+
+		function addItem(supplier, items, user) {
+			var data = angular.toJson({'supplier':supplier,'items':items,'user':user});
+			return $http.post(urlBase+'api/item/addItem.php',data);
 		}
 
 		function addItem(supplier, items) {
@@ -58,7 +64,7 @@
 		}
 
 		function getItemsAll() {
-
+			return $http.get(urlBase+'api/item/getItemsAll.php');
 		}
 
 		function getItem(item) {
@@ -78,6 +84,8 @@
 		}
 
 		function getItemsByBranch(branch) {
+			var data = angular.toJson({'branch':branch});
+			return $http.post(urlBase+'api/item/getItemsByBranch.php',data);
 
 		}
 

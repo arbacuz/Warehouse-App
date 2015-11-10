@@ -12,19 +12,36 @@ $json = json_decode($data);
 $db = new Database();
 $db->connectdb(DB_NAME,DB_USER,DB_PASS);
 
-#-> GET,ADD,DEL,EDIT
-//$db->......
+$fromDate = "2015-11-06 00:00:00";
+$toDate = "2015-01-06 00:00:00";
 
-#-> Preparing data.
-$arr = array();
-if($query) {
-	$result = $db->fetch($query);
-	// ASSIGN DATA TO ARRAY
-} else {
-	// IF NO RESULT
-}
+#-> Connect to the database
+$db = new Database();
+$db->connectdb(DB_NAME,DB_USER,DB_PASS);
 
-#-> Return json data.
+$query = $db->querydb("SELECT * FROM ".TB_ORDER." WHERE orderDate >= '$fromDate' AND orderDate <= '$fromDate'");
+if($query)
+	{
+		$arr["status"] = "success";
+		$i = 0;
+		while($result = $db->fetch($query)){
+			$arr["data"][$i]["order_list"]["order_id"] = $result["orderID"];
+			$arr["data"][$i]["order_list"]["orderDate"] = $result["orderDate"];
+			$arr["data"][$i]["order_list"]["branch_id"] = $result["branchID"];
+			$arr["data"][$i]["order_list"]["staff_id"] = $result["staffID"];
+			$arr["data"][$i]["order_list"]["company_id"] = $result["companyID"];
+			$arr["data"][$i]["order_list"]["status_id"] = $result["statusID"];
+			$arr["data"][$i]["order_list"]["invoiceCode"] = $result["invoiceCode"];
+			$arr["data"][$i]["order_list"]["deliverdDate"] = $result["deliverdDate"];
+			$arr["data"][$i]["order_list"]["orderTypeID"] = $result["orderTypeID"];
+			$arr["data"][$i]["order_list"]["toBranchID"] = $result["toBranchID"];
+			$i++;
+		}
+	} 
+else {
+		$arr["status"] = "error";
+		$arr["messages"] = "failed to get order information";
+	}
 echo json_encode($arr);
 
 #-> Close database.

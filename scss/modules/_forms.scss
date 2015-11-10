@@ -37,7 +37,7 @@ input[type="date"] {
 	color: $color-grey;
 	background-color: $input-background-color;
 	border-radius: $input-border-radius;
-	border: none;
+	border: 1px solid darken($input-background-color,10);
 }
 
 //== INPUT Text Area
@@ -45,7 +45,7 @@ textarea {
 	color: $color-grey;
 	background-color: $input-background-color;
 	border-radius: $input-border-radius;
-	border: none;
+	border: 1px solid darken($input-background-color,10);
 }
 
 //== INPUT Select
@@ -54,13 +54,32 @@ select {
 	background-color: $input-background-color !important;
 	border: none;
 	border-radius: $input-border-radius;
-  border: none;
-  box-shadow: none;
-  background-color: transparent;
-  background-image: none;
+	border: 1px solid darken($input-background-color,10);
+  	box-shadow: none;
+  	background-color: transparent;
+  	background-image: none;
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
+}
+
+table {
+	input[type="text"],
+	input[type="email"],
+	input[type="password"],
+	input[type="date"],
+	textarea,
+	select {
+		padding: 10px 5px !important;
+		background-color: transparent;
+		border: 1px solid transparent;
+		&:hover,
+		&:active,
+		&:focus {
+			background-color: darken($input-background-color,5);
+			border: 1px solid darken($input-background-color,10);
+		}
+	}
 }
 
 //== INPUT radio button

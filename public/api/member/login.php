@@ -26,7 +26,7 @@ if($query) {
 	$result = $db->fetch($query);
 	if($result["staffID"]) {
 		$arr["status"] = "success";
-		
+		$arr["data"]["attributes"]["_id"]=$result["staffID"];
 		$arr["data"]["attributes"]["name"]=$result["staffName"];
 		$arr["data"]["attributes"]["email"]=$result["email"];
 

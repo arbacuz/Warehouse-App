@@ -6,27 +6,36 @@ include_once("../../includes/class_mysql.php");
 #-> Get data from js and initialize
 $data = file_get_contents("php://input");
 $json = json_decode($data);
-
+$statusID = 1; 
 
 #-> Connect to the database
 $db = new Database();
 $db->connectdb(DB_NAME,DB_USER,DB_PASS);
 
-#-> GET,ADD,DEL,EDIT
-//$db->......
-
-#-> Preparing data.
-$arr = array();
-if($query) {
-	$result = $db->fetch($query);
-	// ASSIGN DATA TO ARRAY
-} else {
-	// IF NO RESULT
-}
-
-#-> Return json data.
+$query = $db->querydb("SELECT * FROM ".TB_ORDER." INNER JOIN ".TB_STATUS." ON ".TB_ORDER.".statusID = ".TB_STATUS.".statusID WHERE ".TB_STATUS.".statusID = '$statusID' ");
+if($query)
+	{
+		$arr["status"] = "success";
+		$i = 0;
+		while($result = $db->fetch($query)){
+			$arr["data"][$i]["order_list"]["order_id"] = $result["orderID"];
+			$arr["data"][$i]["order_list"]["orderDate"] = $result["orderDate"];
+			$arr["data"][$i]["order_list"]["branch_id"] = $result["branchID"];
+			$arr["data"][$i]["order_list"]["staff_id"] = $result["staffID"];
+			$arr["data"][$i]["order_list"]["company_id"] = $result["companyID"];
+			$arr["data"][$i]["order_list"]["status_id"] = $result["statusID"];
+			$arr["data"][$i]["order_list"]["invoiceCode"] = $result["invoiceCode"];
+			$arr["data"][$i]["order_list"]["deliverdDate"] = $result["deliverdDate"];
+			$arr["data"][$i]["order_list"]["orderTypeID"] = $result["orderTypeID"];
+			$arr["data"][$i]["order_list"]["toBranchID"] = $result["toBranchID"];
+			$i++;
+		}
+	} 
+else {
+		$arr["status"] = "error";
+		$arr["messages"] = "failed to get order information";
+	}
 echo json_encode($arr);
-
 #-> Close database.
 $db->closedb();
 

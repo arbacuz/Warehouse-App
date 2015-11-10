@@ -7,26 +7,26 @@ include_once("../../includes/class_mysql.php");
 $data = file_get_contents("php://input");
 $json = json_decode($data);
 
-
 #-> Connect to the database
 $db = new Database();
 $db->connectdb(DB_NAME,DB_USER,DB_PASS);
 
-#-> GET,ADD,DEL,EDIT
-//$db->......
-
-#-> Preparing data.
-$arr = array();
-if($query) {
-	$result = $db->fetch($query);
-	// ASSIGN DATA TO ARRAY
-} else {
-	// IF NO RESULT
-}
-
-#-> Return json data.
+$query = $db->querydb("SELECT * FROM ".TB_STATUS." ");
+if($query)
+	{
+		$arr["status"] = "success";
+		$i = 0;
+		while($result = $db->fetch($query)) {
+			$arr["data"][$i]["order_list"]["_id"] = $result["statusID"];
+			$arr["data"][$i]["order_list"]["name"] = $result["statusName"];
+			$i++;
+		}
+	} 
+else {
+		$arr["status"] = "error";
+		$arr["messages"] = "failed to get order information";
+	}
 echo json_encode($arr);
-
 #-> Close database.
 $db->closedb();
 

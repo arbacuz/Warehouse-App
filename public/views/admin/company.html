@@ -1,0 +1,141 @@
+<div class="content animated fadeIn">
+	<h1>Company</h1>
+	<hr>
+	
+	<div class="row">
+	<div class="col-md-12">
+	<table>
+					<thead>
+						<tr>
+							<th></th>
+							<th>company ID</th>
+							<th>company Name</th>
+							<th>company adress</th>
+							<th>company Tel.</th>
+							<th>type</th>
+							<th>option</th>
+						
+							
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="bold text-center narrow">1</td>
+							<td><input type="text" class="input-lg"placeholder="Company ID" ></td>
+							<td><input type="text" class="input-lg"placeholder="Company name" ></td>
+							<td><input type="text" class="input-lg"placeholder="Company address" ></td>
+							<td><input type="text" class="input-lg"placeholder="Company tel." ></td>
+							<td><select class="input-md">
+									<option value="1">Product</option>
+									<option value="2">Raw</option>
+									</select>
+									<i class="fa fa-caret-down caret-select select-md"></i></td>
+							<td> <i ng-click="deleteItem($index)" class="fa fa-close"></i></td>
+							
+
+							
+						</tr>
+						<tr>
+							<td class="bold text-center narrow">1</td>
+							<td><input type="text" class="input-lg"placeholder="Company ID" ></td>
+							<td><input type="text" class="input-lg"placeholder="Company name" ></td>
+							<td><input type="text" class="input-lg"placeholder="Company address" ></td>
+							<td><input type="text" class="input-lg"placeholder="Company tel." ></td>
+							<td><select class="input-md">
+									<option value="1">Product</option>
+									<option value="2">Raw</option>
+									</select>
+									<i class="fa fa-caret-down caret-select select-md"></i></td>
+							<td> <i ng-click="deleteItem($index)" class="fa fa-close"></i></td>
+							
+
+						</tr>
+					</tbody>
+
+				</table>
+				<button  class="btn btn-lg btn-success u__margin20 right">complete</button>
+
+	</div>
+	</div>
+	<br>
+<hr>
+<br>
+	<div>
+	<div class="row">
+			<div class="col-md-6">
+				<div class="row">
+					<div class="col-md-5 text-right">
+						<p class="small bold form-text">Company name</p>
+					</div>
+					<div class="col-md-7 ">
+						<input class="input-lg" type="text" >
+					</div>
+				</div>
+			</div>
+	
+
+	
+			<div class="col-md-6">
+				<div class="row">
+					<div class="col-md-5 text-right">
+						<p class="small bold form-text">Company adress</p>
+					</div>
+					<div class="col-md-7 ">
+						<input class="input-lg" type="text" >
+					</div>
+				</div>
+			</div>
+	</div>
+	<br>
+	<div class="row">
+			<div class="col-md-6">
+				<div class="row">
+					<div class="col-md-5 text-right">
+						<p class="small bold form-text">Company tel.</p>
+					</div>
+					<div class="col-md-7 ">
+						<input class="input-lg" type="text" >
+					</div>
+				</div>
+			</div>
+	
+
+			<div class="col-md-5 text-right">
+				<div class="row">
+					<p class="small bold form-text">Company type</p>
+					
+					<div class="col-md-7 ">
+						<select ng-init="newItem.type = itemTypes[0]" 
+								ng-model="newItem.type"
+								ng-options="type.attributes.name for type in itemTypes"
+								class="input-lg">
+
+						</select>
+
+					</div>	<i class="fa fa-caret-down caret-select"></i>
+				</div>
+			</div>
+</div>
+
+
+		<div class="row">
+		<div class="col-md-6 col-md-offset-6">
+				<div class="row">
+					<div class="col-md-7 col-md-offset-5">
+						<button  class="btn btn-md btn-success u__margin20 ">Add staff</button>
+					</div>
+				</div>
+			</div>
+	</div>
+
+
+
+
+
+
+
+
+
+</div>
+
+		

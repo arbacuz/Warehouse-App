@@ -9,7 +9,7 @@
 						<p class="small bold form-text">Date</p>
 					</div>
 					<div class="col-md-7 ">
-						<p class="small form-text">{{ today | date:'d MMM yyyy'}}</p>
+						<p class="small form-text">{{ today | date:'d MMM yyyy' }}</p>
 					</div>
 				</div>
 			</div>
@@ -71,12 +71,13 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td class="bold text-center narrow">1</td>
-							<td><input type="text" class="input-lg" placeholder="Item Name" ></td>
-							<td><input type="text" class="input-lg" placeholder="Product" ></td>
-							<td><input type="text" class="input-md" placeholder="300" ></td>
-							<td><input type="text" class="input-md" placeholder="1500" ></td>
+						<tr ng-repeat="item in items">
+							<td class="bold text-center narrow">{{ $index + 1 }}</td>
+
+							<td><input ng-model="item.attributes.name" type="text" class="input-lg" placeholder="Item Name" ></td>
+							<td><input type="text" ng-model="item.relationships.type.name" class="input-lg" placeholder="Product" ></td>
+							<td><input type="text" ng-model="item.attributes.cost" class="input-md" placeholder="300" ></td>
+							<td><input type="text" ng-model="item.attributes.quantity" class="input-md" placeholder="1500" ></td>
 						</tr>
 					</tbody>
 				</table>

@@ -12,50 +12,34 @@ $json = json_decode($data);
 $db = new Database();
 $db->connectdb(DB_NAME,DB_USER,DB_PASS);
 
-// IF ADD: 		$query = $db->add($table,$data)
-// IF UPDATE:   $query = $db->update($table,$data,$where)
-// IF DELETE:	$query = $db->delete($table,$where)
-// IF QUERY: 	$query = $db->querydb("QUERY STATEMENT");
-//
-// SEE MORE ./includes/class_mysql.php
-
-$arr = array();
-
+#-> Query the data.
+$query = $db->querydb("SELECT * FROM ".TB_ITEM.";");
 #-> Preparing return data.
-/*************** JSON SHOULD BE *******************
-**
-** {
-**	 status: "success or error",
-**   messages: "error messages",
-**   data: {
-**     attributes: {
-**        columns1: data1,
-**        columns2: data2,
-**		  ..
-**	   }
-**	   relations: {
-**		  tables1: {
-**			columns1: data1,
-**			columns2: data2,
-**			..
-**		  },
-**		  tables2: {
-**			columns1: data1,
-**			columns2: data2,
-**			..
-**		  }
-**	   }
-**   }	
-** }
-**
-***************************************************/
-if($query) {
-	$result = $db->fetch($query);
-	// ASSIGN DATA TO ARRAY
-} else {
-	// IF NO RESULT
+$i =0;
+$arr = array();
+if($query){
+	while($itemData = $db->fetch($query)){
+		$arr["data"][$i]["attributes"]["_id"] = $itemData["itemID"];
+		$arr["data"][$i]["attributes"]["code"] = $itemData["itemCode"];
+		$arr["data"][$i]["attributes"]["name"] = $itemData["itemName"];
+		$arr["data"][$i]["attributes"]["cost"] = $itemData["costPerUnit"];
+		$sql = "SELECT typeName FROM ".TB_ITEMTYPE." WHERE typeID =".$itemData["typeID"].";";
+		$subquery = $db->querydb($sql);
+		if($subquery){
+			if($itemTypeData = $db->fetch($subquery)){
+				$arr["data"][$i]["relationships"]["type"]["name"]=$itemTypeData["typeName"];
+			}
+		}
+		$i++;
+	}
+}else{
+	$arr["status"] = "error";
+	$arr["messages"] = "Error occure when you query the data to item table.";
+	echo json_encode($arr);
+	exit();
 }
-
+$arr["status"] = "success";
+$arr["messages"] = "success query all items";
 #-> Return json data.
 echo json_encode($arr);
 

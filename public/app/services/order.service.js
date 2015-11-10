@@ -24,7 +24,7 @@
 			getOrdersByItem: 		getOrdersByItem,
 			getOrdersByStatus: 		getOrdersByStatus,
 			getOrdersByInvoice: 	getOrdersByInvoice,
-			getStatus: 				getStatus
+			getStatusesAll: 		getStatusesAll
 		};
 		return orderServices;
 

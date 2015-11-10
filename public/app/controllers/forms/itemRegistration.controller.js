@@ -29,15 +29,16 @@
 		$scope.completeItems = completeItems;
 		$scope.items = [];
 		$scope.today = new Date().getTime();
-
+		$scope.deleteItem = deleteItem;
 
 		isLogin();
-		getCompanyByTypeID(1);
+		getCompanyByTypeID(2);
 		getItemTypesAll();
 
 
 		function isLogin() {
 			$scope.user = $cookieStore.get('user');
+			console.log($scope.user);
 			if(!$scope.user) {
 				$state.go('member');
 			}
@@ -61,12 +62,12 @@
 		}
 
 		function completeItems(supplier, items, user) {
-			// ItemServices.addItem(supplier, items, user)
-			// 	.success(function(data) {
-			// 		console.log(data);
-			// 	}).error(function(error) {
-			// 		console.log(error);
-			// 	})
+			ItemServices.registerItem(supplier, items, user)
+				.success(function(data) {
+					console.log(data);
+				}).error(function(error) {
+					console.log(error);
+				})
 		}
 
 		function getCompanyByTypeID(type) {
@@ -86,6 +87,7 @@
 			ItemServices.getItemTypesAll()
 				.success(function(data) {
 					if(data.status == "success") {
+						console.log(data.data);
 						$scope.itemTypes = data.data;
 					} else {
 						console.log(data.status + data.messages);
@@ -94,5 +96,9 @@
 					console.log(error);
 				})
 		}
+
+		function deleteItem(idx) {
+	    	$scope.items.splice(idx, 1);
+	  	}
 	}
 })();

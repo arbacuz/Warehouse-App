@@ -6,54 +6,37 @@ include_once("../../includes/class_mysql.php");
 #-> Get data from js and initialize
 $data = file_get_contents("php://input");
 $json = json_decode($data);
+$itemID = $json->$items->_id;
 
 
 #-> Connect to the database
 $db = new Database();
 $db->connectdb(DB_NAME,DB_USER,DB_PASS);
 
-// IF ADD: 		$query = $db->add($table,$data)
-// IF UPDATE:   $query = $db->update($table,$data,$where)
-// IF DELETE:	$query = $db->delete($table,$where)
-// IF QUERY: 	$query = $db->querydb("QUERY STATEMENT");
-//
-// SEE MORE ./includes/class_mysql.php
-
-$arr = array();
+#-> Query the data.
+$query = $db->querydb("SELECT * FROM ".TB_ITEM. "WHERE itemID =".$itemID);
 
 #-> Preparing return data.
-/*************** JSON SHOULD BE *******************
-**
-** {
-**	 status: "success or error",
-**   messages: "error messages",
-**   data: {
-**     attributes: {
-**        columns1: data1,
-**        columns2: data2,
-**		  ..
-**	   }
-**	   relations: {
-**		  tables1: {
-**			columns1: data1,
-**			columns2: data2,
-**			..
-**		  },
-**		  tables2: {
-**			columns1: data1,
-**			columns2: data2,
-**			..
-**		  }
-**	   }
-**   }	
-** }
-**
-***************************************************/
+$arr = array();
 if($query) {
-	$result = $db->fetch($query);
-	// ASSIGN DATA TO ARRAY
+	$arr["status"] = "success";
+	$i = 0;
+	while($result = $db->fetch($query)) {
+		$arr["data"][$i]["attributes"]["itemID"] = $result["itemID"];
+		$arr["data"][$i]["attributes"]["itemCode"] = $result["itemCode"];
+		$arr["data"][$i]["attributes"]["itemName"] = $result["itemName"];
+		$sql = "SELECT typeName FROM ".TB_ITEMTYPE." WHERE typeID =".$result["typeID"].";";
+		$query = $db->querydb($sql);
+		if($query){
+			if($fetchdata = $db->fetch($query)){
+				$arr["data"][$i]["attributes"]["type"]=$fetchdata["typeName"];
+			}
+		}
+		$arr["data"][$i]["attributes"]["costPerUnit"] = $result["costPerUnit"];
+		$i ++;
+	}
 } else {
-	// IF NO RESULT
+	$arr["status"] = "error";
 }
 
 #-> Return json data.
