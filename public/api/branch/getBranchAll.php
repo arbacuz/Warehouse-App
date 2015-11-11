@@ -26,6 +26,7 @@ if($query) {
 		$arr["data"][$i]["attributes"]["address"] = $result["branchAddress"];
 		$arr["data"][$i]["attributes"]["telephone"] = $result["branchTel"];
 		$arr["data"][$i]["attributes"]["capacity"] = $result["capacity"];
+		$arr["data"][$i]["update"] = false;
 		$i ++;
 	}
 } else {
@@ -33,7 +34,7 @@ if($query) {
 }
 
 #-> Return json data.
-echo json_encode($arr);
+echo json_encode($arr,JSON_NUMERIC_CHECK);
 
 #-> Close database.
 $db->closedb();

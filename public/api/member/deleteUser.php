@@ -6,8 +6,8 @@ include_once("../../includes/class_mysql.php");
 #-> Get data from js and initialize
 $data = file_get_contents("php://input");
 $json = json_decode($data);
-// $staffID = $json->staffID;
-$staffID = 3;
+$staffID = $json->user->attributes->_id;
+// $staffID = 3;
 
 #-> Connect to the database
 $db = new Database();

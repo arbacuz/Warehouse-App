@@ -34,6 +34,7 @@
 		}
 
 		function deleteCompany(company) {
+			console.log(company);
 			var data = angular.toJson({'company':company});
 			return $http.post(urlBase+'api/company/deleteCompany.php',data);
 		}

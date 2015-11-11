@@ -6,13 +6,12 @@ include_once("../../includes/class_mysql.php");
 #-> Get data from js and initialize
 $data = file_get_contents("php://input");
 $json = json_decode($data);
-// $staffName = $json->staffName;
-$staffID = 4;
-$staffName = "name1asasdasddasd";
-$email = "a@a.comasdaasdasdsd";
-$password = "1234asdasdasdasdsasd";
-$positionID = 1;
-$branchID = 1;
+$staffName = $json->user->attributes->name;
+$staffID = $json->user->attributes->_id;
+$email = $json->user->attributes->email;
+// $password = $json->user->attributes->;
+$positionID = $json->user->relationships->position->_id;
+$branchID = $json->user->relationships->branch->_id;
 
 #-> Connect to the database
 $db = new Database();
@@ -23,7 +22,6 @@ $table = TB_STAFF;
 $data = array(
 	"staffName" => $staffName,
 	"email" => $email,
-	"password" => $password,
 	"positionID" => $positionID,
 	"branchID" => $branchID
 	);

@@ -23,6 +23,7 @@ if($query){
 		$arr["data"][$i]["attributes"]["code"] = $itemData["itemCode"];
 		$arr["data"][$i]["attributes"]["name"] = $itemData["itemName"];
 		$arr["data"][$i]["attributes"]["cost"] = $itemData["costPerUnit"];
+		$arr["data"][$i]["update"] = false;
 		$sql = "SELECT typeName FROM ".TB_ITEMTYPE." WHERE typeID =".$itemData["typeID"].";";
 		$subquery = $db->querydb($sql);
 		if($subquery){

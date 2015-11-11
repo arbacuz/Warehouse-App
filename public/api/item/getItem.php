@@ -14,7 +14,7 @@ $db = new Database();
 $db->connectdb(DB_NAME,DB_USER,DB_PASS);
 
 #-> Query the data.
-$query = $db->querydb("SELECT * FROM ".TB_ITEM. "WHERE itemID =".$itemID);
+$query = $db->querydb("SELECT * FROM ".TB_ITEM." i INNER JOIN ".TB_ITEMTYPE." it ON i.typeID=it.typeID WHERE i.itemID =".$itemID);
 
 #-> Preparing return data.
 $arr = array();
@@ -25,14 +25,8 @@ if($query) {
 		$arr["data"][$i]["attributes"]["itemID"] = $result["itemID"];
 		$arr["data"][$i]["attributes"]["itemCode"] = $result["itemCode"];
 		$arr["data"][$i]["attributes"]["itemName"] = $result["itemName"];
-		$sql = "SELECT typeName FROM ".TB_ITEMTYPE." WHERE typeID =".$result["typeID"].";";
-		$query = $db->querydb($sql);
-		if($query){
-			if($fetchdata = $db->fetch($query)){
-				$arr["data"][$i]["attributes"]["type"]=$fetchdata["typeName"];
-			}
-		}
-		$arr["data"][$i]["attributes"]["costPerUnit"] = $result["costPerUnit"];
+		$arr["data"][$i]["relationships"]["type"]["name"]=$fetchdata["typeName"];
+		$arr["data"][$i]["attributes"]["cost"] = $result["costPerUnit"];
 		$i ++;
 	}
 } else {

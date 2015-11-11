@@ -30,7 +30,7 @@ if($query) {
 }
 
 #-> Return json data.
-echo json_encode($arr);
+echo json_encode($arr,JSON_NUMERIC_CHECK);
 
 #-> Close database.
 $db->closedb();

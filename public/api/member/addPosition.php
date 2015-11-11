@@ -6,8 +6,7 @@ include_once("../../includes/class_mysql.php");
 #-> Get data from js and initialize
 $data = file_get_contents("php://input");
 $json = json_decode($data);
-// $positionName = $json->positionName;
-$positionName = "Staff";
+$positionName = $json->position->name;
 
 #-> Connect to the database
 $db = new Database();

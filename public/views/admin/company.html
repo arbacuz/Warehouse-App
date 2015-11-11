@@ -1,141 +1,105 @@
 <div class="content animated fadeIn">
 	<h1>Company</h1>
+	<button ui-sref="admin" class="btn btn-md btn-primary-border btn-goback-top">Go Back</button>
 	<hr>
-	
-	<div class="row">
-	<div class="col-md-12">
-	<table>
+	<div class="form-control">
+		<div class="row">
+			<div class="col-md-12">
+				<table ng-class="{ 'loading': loading }">
 					<thead>
 						<tr>
-							<th></th>
-							<th>company ID</th>
+							<th class="text-center">ID</th>
 							<th>company Name</th>
 							<th>company adress</th>
 							<th>company Tel.</th>
 							<th>type</th>
 							<th>option</th>
-						
-							
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td class="bold text-center narrow">1</td>
-							<td><input type="text" class="input-lg"placeholder="Company ID" ></td>
-							<td><input type="text" class="input-lg"placeholder="Company name" ></td>
-							<td><input type="text" class="input-lg"placeholder="Company address" ></td>
-							<td><input type="text" class="input-lg"placeholder="Company tel." ></td>
-							<td><select class="input-md">
-									<option value="1">Product</option>
-									<option value="2">Raw</option>
-									</select>
-									<i class="fa fa-caret-down caret-select select-md"></i></td>
-							<td> <i ng-click="deleteItem($index)" class="fa fa-close"></i></td>
-							
-
-							
-						</tr>
-						<tr>
-							<td class="bold text-center narrow">1</td>
-							<td><input type="text" class="input-lg"placeholder="Company ID" ></td>
-							<td><input type="text" class="input-lg"placeholder="Company name" ></td>
-							<td><input type="text" class="input-lg"placeholder="Company address" ></td>
-							<td><input type="text" class="input-lg"placeholder="Company tel." ></td>
-							<td><select class="input-md">
-									<option value="1">Product</option>
-									<option value="2">Raw</option>
-									</select>
-									<i class="fa fa-caret-down caret-select select-md"></i></td>
-							<td> <i ng-click="deleteItem($index)" class="fa fa-close"></i></td>
-							
-
+						<tr class="animated fadeIn" ng-repeat="company in companies | orderBy:'attributes._id'">
+							<td class="bold text-center narrow">
+								{{ company.attributes._id }}
+							</td>
+							<td>
+								<input ng-change="company.update = true" type="text" class="input-md"placeholder="Company name" ng-model="company.attributes.name">
+							</td>
+							<td>
+								<input ng-change="company.update = true" type="text" class="input-lg"placeholder="Company address" ng-model="company.attributes.address">
+							</td>
+							<td>
+								<input ng-change="company.update = true" type="text" class="input-md"placeholder="Company tel." ng-model="company.attributes.telephone">
+							</td>
+							<td>
+								{{ company.relationships.companyType.name }}
+							</td>
+							<td style="width: 170px;">
+								<button ng-class="{'btn-success-border':company.update}" class="btn btn-sm btn-default animated fadeIn" ng-click="company.update && updateCompany(company)">update</button>
+							</td>
 						</tr>
 					</tbody>
-
 				</table>
-				<button  class="btn btn-lg btn-success u__margin20 right">complete</button>
-
-	</div>
-	</div>
-	<br>
-<hr>
-<br>
-	<div>
-	<div class="row">
+			</div>
+		</div>
+		<hr>
+		<div class="row">
 			<div class="col-md-6">
 				<div class="row">
 					<div class="col-md-5 text-right">
 						<p class="small bold form-text">Company name</p>
 					</div>
 					<div class="col-md-7 ">
-						<input class="input-lg" type="text" >
+						<input ng-model="newCompany.name" class="input-lg" type="text" >
 					</div>
 				</div>
 			</div>
-	
-
-	
-			<div class="col-md-6">
-				<div class="row">
-					<div class="col-md-5 text-right">
-						<p class="small bold form-text">Company adress</p>
-					</div>
-					<div class="col-md-7 ">
-						<input class="input-lg" type="text" >
-					</div>
-				</div>
-			</div>
-	</div>
-	<br>
-	<div class="row">
 			<div class="col-md-6">
 				<div class="row">
 					<div class="col-md-5 text-right">
 						<p class="small bold form-text">Company tel.</p>
 					</div>
 					<div class="col-md-7 ">
-						<input class="input-lg" type="text" >
+						<input ng-model="newCompany.telephone" class="input-lg" type="text" >
 					</div>
 				</div>
 			</div>
-	
-
-			<div class="col-md-5 text-right">
+		</div>
+		<div class="row">
+			<div class="col-md-6">
 				<div class="row">
-					<p class="small bold form-text">Company type</p>
-					
+					<div class="col-md-5 text-right">
+						<p class="small bold form-text">Company Address</p>
+					</div>
 					<div class="col-md-7 ">
-						<select ng-init="newItem.type = itemTypes[0]" 
-								ng-model="newItem.type"
-								ng-options="type.attributes.name for type in itemTypes"
-								class="input-lg">
-
-						</select>
-
-					</div>	<i class="fa fa-caret-down caret-select"></i>
+						<input ng-model="newCompany.address" class="input-lg" type="text" >
+					</div>
 				</div>
 			</div>
-</div>
-
-
+			<div class="col-md-6 text-right">
+				<div class="row">
+					<div class="col-md-5 text-right">
+						<p class="small bold form-text">Company type</p>
+					</div>
+					<div class="col-md-7 ">
+						<select ng-init="newCompany.type = companiesType[0]" 
+								ng-model="newCompany.type"
+								ng-options="type.attributes.name for type in companiesType"
+								class="input-lg">
+						</select>
+						<i class="fa fa-caret-down caret-select"></i>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="row">
-		<div class="col-md-6 col-md-offset-6">
+			<div class="col-md-6 col-md-offset-6">
 				<div class="row">
 					<div class="col-md-7 col-md-offset-5">
-						<button  class="btn btn-md btn-success u__margin20 ">Add staff</button>
+						<button ng-click="addCompany(newCompany)" class="btn btn-md btn-success">Add</button>
 					</div>
 				</div>
 			</div>
+		</div>
 	</div>
-
-
-
-
-
-
-
-
-
 </div>
-
 		

@@ -1,147 +1,94 @@
 <div class="content animated fadeIn">
-	<h1>Staff</h1>
+	<h1>Item</h1>
+	<button ui-sref="admin" class="btn btn-md btn-primary-border btn-goback-top">Go Back</button>
 	<hr>
-	
-	<div class="row">
-	<div class="col-md-12">
-	<table>
+	<div class="form-control">
+		<div class="row">
+			<div class="col-md-12">
+				<table ng-class="{ 'loading': loading }">
 					<thead>
 						<tr>
-							<th></th>
-							<th>item ID</th>
-							<th>item code</th>
-							<th>item name</th>
-							<th>type id</th>
-							<th>cost per unit</th>
-							<th>Option</th>
+							<th class="text-center">ID</th>
+							<th>code</th>
+							<th>name</th>
+							<th>cost</th>
+							<th>type</th>
+							<th>option</th>
 						</tr>
 					</thead>
-					
 					<tbody>
-						<tr>
-							<td class="bold text-center narrow">1</td>
-							<td><input type="text" class="input-lg"placeholder="Item ID" ></td>
-							<td><input type="text" class="input-lg"placeholder="Item code" ></td>
-							<td><input type="text" class="input-lg"placeholder="Item name" ></td>
-							<td><input type="text" class="input-lg"placeholder="Type ID" ></td>
-							<td><input type="text" class="input-lg"placeholder="Cost per unit" ></td>
-							<td> <i ng-click="deleteItem($index)" class="fa fa-close"></i></td>
-							
-
-							
-						</tr>
-						<tr>
-							<td class="bold text-center narrow">2</td>
-							<td><input type="text" class="input-lg"placeholder="Item ID" ></td>
-							<td><input type="text" class="input-lg"placeholder="Item code" ></td>
-							<td><input type="text" class="input-lg"placeholder="Item name" ></td>
-							<td><input type="text" class="input-lg"placeholder="Type ID" ></td>
-							<td><input type="text" class="input-lg"placeholder="Cost per unit" ></td>
-							<td> <i ng-click="deleteItem($index)" class="fa fa-close"></i></td>
-							
-
-							
+						<tr class="animated fadeIn" ng-repeat="item in items | orderBy:'attributes._id'">
+							<td class="bold text-center narrow">
+								{{ item.attributes._id }} 
+							</td>
+							<td class="narrow">
+								<input ng-change="item.update = true" type="text" class="input-sm" placeholder="Item code" ng-model="item.attributes.code">
+							</td>
+							<td>
+								<input ng-change="item.update = true" type="text" class="input-lg" placeholder="Item name" ng-model="item.attributes.name">
+							</td>
+							<td>
+								<input ng-change="item.update = true"  type="text" class="input-sm" placeholder="Item cost" ng-model="item.attributes.cost">
+							</td>
+							<td>
+								{{ item.relationships.type.name }}
+							</td>
+							<td style="width: 170px;">
+								<button ng-click="deleteItem(item)" class="btn btn-sm btn-danger">delete</button>
+								<button ng-show="item.update" class="btn btn-sm btn-success-border animated fadeIn" ng-click="updateItem(item)">update</button>
+							</td>
 						</tr>
 					</tbody>
-
 				</table>
-				<button  class="btn btn-lg btn-success u__margin20 right">complete registration</button>
-
-	</div>
-	</div>
-	<br>
-<hr>
-<br>
-	<div>
-	<div class="row">
-			<div class="col-md-6">
-				<div class="row">
-					<div class="col-md-5 text-right">
-						<p class="small bold form-text">Item ID</p>
-					</div>
-					<div class="col-md-7 ">
-						<input class="input-lg" type="text" >
-					</div>
-				</div>
 			</div>
-	
-
-	
-			<div class="col-md-6">
-				<div class="row">
-					<div class="col-md-5 text-right">
-						<p class="small bold form-text">Item code</p>
-					</div>
-					<div class="col-md-7 ">
-						<input class="input-lg" type="text" >
-					</div>
-				</div>
-			</div>
-	</div>
-	<br>
-	<div class="row">
-			<div class="col-md-6">
-				<div class="row">
-					<div class="col-md-5 text-right">
-						<p class="small bold form-text">Item name</p>
-					</div>
-					<div class="col-md-7 ">
-						<input class="input-lg" type="text" >
-					</div>
-				</div>
-			</div>
-	
-
-
-			<div class="col-md-6">
-				<div class="row">
-					<div class="col-md-5 text-right">
-						<p class="small bold form-text">Type id</p>
-					</div>
-					<div class="col-md-7 ">
-						<input class="input-lg" type="text" >
-					</div>
-				</div>
-			</div>
-	</div>
-	<br>
-	<div class="row">
-			<div class="col-md-6">
-				<div class="row">
-					<div class="col-md-5 text-right">
-						<p class="small bold form-text">Cost per unit</p>
-					</div>
-					<div class="col-md-7 ">
-						<input class="input-lg" type="text" >
-					</div>
-				</div>
-			</div>
-	
-	</div>
-		
-	
-
-		
-
-
+		</div>
+		<hr>
 		<div class="row">
-		<div class="col-md-6 col-md-offset-6">
+			<div class="col-md-6">
+				<div class="row">
+					<div class="col-md-5 text-right">
+						<p class="small bold form-text">Item Name</p>
+					</div>
+					<div class="col-md-7 ">
+						<input ng-model="newItem.name" class="input-lg" type="text" placeholder="Enter the name">
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="row">
+					<div class="col-md-5 text-right">
+						<p class="small bold form-text">Cost per Unit</p>
+					</div>
+					<div class="col-md-7 ">
+						<input ng-model="newItem.cost" class="input-md" type="text" placeholder="3xxxx">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="row">
+					<div class="col-md-5 text-right">
+						<p class="small bold form-text">Item Type</p>
+					</div>
+					<div class="col-md-7 ">
+						<select ng-init="newItem.type = itemTypes[0]" 
+								ng-model="newItem.type"
+								ng-options="type.attributes.name for type in itemTypes"
+								class="input-lg">
+						</select>
+						<i class="fa fa-caret-down caret-select"></i>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
 				<div class="row">
 					<div class="col-md-7 col-md-offset-5">
-						<button  class="btn btn-md btn-success u__margin20 ">Add item</button>
+						<button ng-click="addItem(newItem)" class="btn btn-md btn-success">Add</button>
 					</div>
 				</div>
 			</div>
+		</div>
 	</div>
-
-
-
-
-
-
-
-
-
 </div>
-
 		

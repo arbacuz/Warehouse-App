@@ -19,17 +19,17 @@
 		return branchServices;
 
 		function addBranch(branch) {
-			var data = angular.toJson(branch);
+			var data = angular.toJson({'branch':branch});
 			return $http.post(urlBase+'api/branch/addBranch.php',data);
 		}
 
 		function updateBranch(branch) {
-			var data = angular.toJson(branch);
+			var data = angular.toJson({'branch':branch});
 			return $http.post(urlBase+'api/branch/updateBranch.php',data);
 		}
 
 		function deleteBranch(branch) {
-			var data = angular.toJson(branch);
+			var data = angular.toJson({'branch':branch});
 			return $http.post(urlBase+'api/branch/deleteBranch.php',data);
 		}
 
@@ -38,7 +38,7 @@
 		}
 
 		function getBranch(branch) {
-			var data = angular.toJson(branch);
+			var data = angular.toJson({'branch':branch});
 			return $http.post(urlBase+'api/branch/getBranch.php',data);
 		}
 

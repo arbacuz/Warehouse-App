@@ -38,7 +38,7 @@
 			ItemServices.getItemsByBranch(branch)
 				.success(function(data) {
 					console.log(data);
-					// $scope.items = data.data;
+					$scope.items = data.data;
 				}).error(function(error) {
 					console.log(error);
 				})

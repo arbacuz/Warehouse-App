@@ -9,7 +9,7 @@
 						<p class="small bold form-text">Registration ID</p>
 					</div>
 					<div class="col-md-7 ">
-						<input type="text" class="input-lg" placeholder="REGxxxx">
+						<input ng-model="regCode" type="text" class="input-lg" placeholder="REGxxx">
 					</div>
 				</div>
 			</div>
@@ -28,7 +28,7 @@
 			<div class="col-md-6">
 				<div class="row" ng-hide="showTable">
 					<div class="col-md-7 col-md-offset-5">
-						<button ng-click="showTable = !showTable" class="btn btn-md btn-success">Search</button>
+						<button ng-click="getItemsByReg(regCode,user.relationships.branch)" class="btn btn-md btn-success">Search</button>
 					</div>
 				</div>
 				<div class="row" ng-show="showTable">
@@ -36,7 +36,7 @@
 						<p class="small bold form-text">Registration Date</p>
 					</div>
 					<div class="col-md-7">
-						<p class="small form-text">21 Feb 2015</p>
+						<p class="small form-text">{{ items[0].relationships.register.registerdate }}</p>
 					</div>
 				</div>
 			</div>
@@ -55,7 +55,7 @@
 			<div class="col-md-6">
 				<div class="row" ng-show="showTable">
 					<div class="col-md-7 col-md-offset-5">
-						<button ng-click="showTable = !showTable" class="btn btn-md btn-success">Search</button>
+						<button ng-click="getItemsByReg(regCode,user.relationships.branch)" class="btn btn-md btn-success">Search</button>
 					</div>
 				</div>
 			</div>
@@ -84,19 +84,15 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td class="bold narrow text-center">1</td>
-							<td class="underline">P001</td>
-							<td class="underline">TV Sony 42" Model 5G112TG</td>
-							<td>Product</td>
-							<td>3,000</td>
+						<tr ng-hide="items[0].attributes" style="cursor: default;"class="animated fadeIn" >
+							<td class="text-center" colspan="5">No Items</td>
 						</tr>
-						<tr>
-							<td class="bold narrow text-center">2</td>
-							<td class="underline">P002</td>
-							<td class="underline">TV Samsung 34" Model: SM-5976</td>
-							<td>Product</td>
-							<td>3,000</td>
+						<tr ng-show="item.attributes" ng-repeat="item in items">
+							<td class="bold narrow text-center">{{ $index + 1 }}</td>
+							<td class="underline">{{ item.attributes.code}}</td>
+							<td class="underline">{{ item.attributes.name }}</td>
+							<td>{{ item.relationships.type.name }}</td>
+							<td>{{ item.attributes.quantity }}</td>
 						</tr>
 					</tbody>
 				</table>

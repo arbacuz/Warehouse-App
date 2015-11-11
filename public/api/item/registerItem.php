@@ -6,6 +6,7 @@ include_once("../../includes/class_mysql.php");
 #-> Get data from js and initialize
 $data = file_get_contents("php://input");
 $json = json_decode($data);
+
 $items = $json->items;
 $companyID = $json->supplier->attributes->_id;
 $staffID = $json->user->attributes->_id;
@@ -60,43 +61,29 @@ $data = array(
 	"companyID"=>$companyID,
 	"registerCode"=>$registerCode
 	);
-// $query = $db->add(TB_REGISTER,$data);
-
+$checkaddquery = $db->add(TB_REGISTER,$data);
+$getRegisterID = $db->querydb("SELECT registerID FROM ".TB_REGISTER." ORDER BY registerID DESC LIMIT 1");
+if($getRegisterID && $result=$db->fetch($getRegisterID)){
+	$registerID = $result["registerID"];
+}
 #Add item to itemBranch and registerItem
 $i = 0;
-while($items[$i]) { 
+while($items[$i]) {
 	#initialize data
 	$itemName = $items[$i]->name;
 	$type = $items[$i]->type->attributes->_id;
+	$typeName = $items[$i]->type->attributes->name;
 	$costPerUnit = $items[$i]->cost;
 	$qty = $items[$i]->quantity;
 	#check if item exist in item table
-	$sql = "SELECT * FROM ".TB_ITEM." WHERE itemName=".$itemName.";";
-	$query = $db->querydb($sql);
+	$sql = "SELECT * FROM ".TB_ITEM." WHERE itemName='".$itemName."';";
 	// var_dump($items[$i]->type);
-	if(!$query) {
+	if(!$db->fetch($db->querydb($sql))) {
 		#Create Item Code
-		$sqlItemType = "SELECT * FROM ".TB_ITEMTYPE." WHERE typeID=".$type.";"; // quey itemType
 		$sqlItemID = "SELECT itemID FROM ".TB_ITEM." ORDER BY itemID DESC LIMIT 1"; //query last itemID
-		$queryItemType = $db->querydb($sqlItemType);
 		$queryItemID = $db->querydb($sqlItemID);
-		if(!$queryItemType){
-			$arr["status"] = "error";
-			$arr["messages"] = "Fail query item type";
-			echo json_encode($arr);
-			exit();
-		}
-		if(!$sqlItemID){
-			$arr["status"] = "error";
-			$arr["messages"] = "Fail query item ID";
-			echo json_encode($arr);
-			exit();
-		}
 		#Check if itemType and itemID is valid
-		if($queryItemType && $queryItemID){
-			if($itemTypeData = $db->fetch($queryItemType)){
-				$typeName = $itemTypeData["typeName"];
-			}
+		if($queryItemID){
 			if($itemData = $db->fetch($queryItemID)){
 				$itemID = $itemData["itemID"]+1;
 			}
@@ -110,11 +97,6 @@ while($items[$i]) {
 				$str = str_split($typeName);
 				$code = $str[0].strval($itemID);
 			}
-		}else{
-			$arr["status"] = "error";
-			$arr["messages"] = "Can't Concate Code";
-			echo json_encode($arr);
-			exit();
 		}
 		$data = array(
 			"itemCode" => $code,
@@ -122,31 +104,17 @@ while($items[$i]) {
 			"typeID"=>$type,
 			"costPerUnit"=>$costPerUnit
 			);
-		$query = $db->add(TB_ITEM,$data);
-		if(!$query){
-			$arr["status"] = "error";
-			$arr["messages"] = "Fail to add item in registration";
-			echo json_encode($arr);
-			exit();
-		}
+		$checkaddquery = $db->add(TB_ITEM,$data);
 	}
+	$queryItem = $db->querydb("SELECT * FROM ".TB_ITEM." WHERE itemName='".$itemName."';");
 	# fetch itemID
-	if($fetchItemID = $db->fetch($query)){
+	if($fetchItemID = $db->fetch($queryItem)){
 		$itemID = $fetchItemID["itemID"];
 	}
-	else{
-		$arr["status"] = "error";
-		$arr["messages"] = "Fail to fetch itemID";
-		echo json_encode($arr);
-		exit();
-	}
 	#Check if itemID is already exist in branch or not
-	$sql = "SELECT * FROM ".TB_ITEMBRANCH." WHERE itemID=".$itemID." AND branchID=".$branchID.";";
-	$query = $db->querydb($sql);
-	if($query){
-		if($itemBranchData = $db->fetch($query)){
-			$qty += $itemBranchData["quantity"];
-		}
+	$queryItemBranch = $db->querydb("SELECT * FROM ".TB_ITEMBRANCH." WHERE itemID=".$itemID." AND branchID=".$branchID.";");
+	if($itemBranchData = $db->fetch($queryItemBranch)){
+		$qty += $itemBranchData["quantity"];
 		$data = array(
 			"itemID" => $itemID,
 			"branchID"=>$branchID,
@@ -155,8 +123,9 @@ while($items[$i]) {
 			"staffID"=>$staffID
 		);
 		$where = "itemID=".$itemID." AND branchID=".$branchID.";";
-		$query = $db->update(TB_ITEMBRANCH,$data,$where);
-	}else{
+		$checkAddItemBranch = $db->update(TB_ITEMBRANCH,$data,$where);
+	}
+	else{
 		$data = array(
 			"itemID" => $itemID,
 			"branchID"=>$branchID,
@@ -164,22 +133,15 @@ while($items[$i]) {
 			"lastUpdatedDate"=>$registerDate,
 			"staffID"=>$staffID
 		);
-		$query = $db->add(TB_ITEMBRANCH,$data);
+		$checkAddItemBranch = $db->add(TB_ITEMBRANCH,$data);	
 	}
 	#Get registerID
-	$sql = "SELECT registerID FROM ".TB_REGISTER." WHERE ORDER BY registerID DESC LIMIT 1";
-	$query = $db->querydb($sql);
-	if($query){
-		if($registerData = $db->fetch($query)){
-			$registerID = $itemBranchData["registerID"];
-		}
-		$data = array(
-			"registerID" => $registerID,
-			"itemID"=>$itemID,
-			"registerQuantity"=>$qty,
-		);
-		$query = $db->add(TB_REGISTERITEM,$data);
-	}
+	$data = array(
+		"registerID" => $registerID,
+		"itemID"=>$itemID,
+		"registerQuantity"=>$qty,
+	);
+	$checkAddRegisterItem = $db->add(TB_REGISTERITEM,$data);
 	$i++;#Get next item
 }
 #Send status
@@ -189,7 +151,7 @@ if($query) {
 	$arr["messages"] = "Complete adding Item to $table table.";
 } else {
 	$arr["status"] = "error";
-	$arr[$j]["messages"] = "Error occure when you add the data to ".$table." table.";
+	$arr[$j]["messages"] = "Error occure when you add the data to registerItem table.";
 }
 
 #-> Return json data.

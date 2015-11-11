@@ -1,127 +1,122 @@
 <div class="content animated fadeIn">
 	<h1>Staff</h1>
+	<button ui-sref="admin" class="btn btn-md btn-primary-border btn-goback-top">Go Back</button>
 	<hr>
-	
-	<div class="row">
-	<div class="col-md-12">
-	<table>
+	<div class="form-control">
+		<div class="row">
+			<div class="col-md-12">
+				<table>
 					<thead>
 						<tr>
-							<th></th>
-							<th>staff ID</th>
-							<th>staff Name</th>
+							<th class="text-center">ID</th>
+							<th>name</th>
 							<th>email</th>
 							<th>position</th>
 							<th>branch</th>
 							<th>option</th>
-						
-							
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td class="bold text-center narrow">1</td>
-							<td><input type="text" class="input-lg"placeholder="Staff id" ></td>
-							<td><input type="text" class="input-lg"placeholder="Staff name" ></td>
-							<td><input type="text" class="input-lg"placeholder="Email" ></td>
-							<td><input type="text" class="input-lg"placeholder="Position" ></td>
-							<td><input type="text" class="input-lg"placeholder="Branch" ></td>
-							<td> <i ng-click="deleteItem($index)" class="fa fa-close"></i></td>
-							
-
-							
-						</tr>
-						<tr>
-							<td class="bold text-center narrow">1</td>
-							<td><input type="text" class="input-lg"placeholder="Staff id" ></td>
-							<td><input type="text" class="input-lg"placeholder="Staff name" ></td>
-							<td><input type="text" class="input-lg"placeholder="Email" ></td>
-							<td><input type="text" class="input-lg"placeholder="Position" ></td>
-							<td><input type="text" class="input-lg"placeholder="Branch" ></td>
-							<td> <i ng-click="deleteItem($index)" class="fa fa-close"></i></td>
-							
+						<tr ng-repeat="staff in staffs">
+							<td class="bold text-center narrow">
+								{{ staff.attributes._id }}
+							</td>
+							<td class="narrow">
+								<input ng-change="staff.update = true" type="text" class="input-md" placeholder="Staff name" ng-model="staff.attributes.name">
+							</td>
+							<td>
+								<input ng-change="staff.update = true" type="text" class="input-lg" placeholder="Staff email" ng-model="staff.attributes.email">
+							</td>
+							<td>
+								{{ staff.relationships.position.name }}
+							</td>
+							<td>
+								{{ staff.relationships.branch.name }}
+							</td>
+							<td style="width: 170px;">
+								<button ng-click="deleteUser(staff)" class="btn btn-sm btn-danger">delete</button>
+								<button ng-show="staff.update" class="btn btn-sm btn-success-border animated fadeIn" ng-click="updateUser(staff)">update</button>
+							</td>
 						</tr>
 					</tbody>
-
 				</table>
-				<button  class="btn btn-lg btn-success u__margin20 right">complete registration</button>
-
-	</div>
-	</div>
-	<br>
-<hr>
-<br>
-	<div>
-	<div class="row">
+			</div>
+		</div>
+		<hr>
+		<div class="row">
 			<div class="col-md-6">
 				<div class="row">
 					<div class="col-md-5 text-right">
 						<p class="small bold form-text">Staff Name</p>
 					</div>
 					<div class="col-md-7 ">
-						<input class="input-lg" type="text" >
+						<input ng-model="newUser.name" class="input-lg" type="text" placeholder="Enter the name">
 					</div>
 				</div>
 			</div>
-	
-
-	
 			<div class="col-md-6">
 				<div class="row">
 					<div class="col-md-5 text-right">
 						<p class="small bold form-text">Email</p>
 					</div>
 					<div class="col-md-7 ">
-						<input class="input-lg" type="text" >
+						<input ng-model="newUser.email" class="input-lg" type="text" placeholder="3xxxx">
 					</div>
 				</div>
 			</div>
-	</div>
-	<br>
-	<div class="row">
+		</div>
+		<div class="row">
 			<div class="col-md-6">
 				<div class="row">
 					<div class="col-md-5 text-right">
 						<p class="small bold form-text">Position</p>
 					</div>
 					<div class="col-md-7 ">
-						<input class="input-lg" type="text" >
+						<select ng-init="newUser.position = positions[0]" 
+								ng-model="newUser.position"
+								ng-options="position.attributes.name for position in positions"
+								class="input-lg">
+						</select>
+						<i class="fa fa-caret-down caret-select"></i>
 					</div>
 				</div>
 			</div>
-	
-
-
+			<div class="col-md-6">
+				<div class="row">
+					<div class="col-md-5 text-right">
+						<p class="small bold form-text">Password</p>
+					</div>
+					<div class="col-md-7 ">
+						<input ng-model="newUser.password" class="input-lg" type="text" placeholder="3xxxx">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
 			<div class="col-md-6">
 				<div class="row">
 					<div class="col-md-5 text-right">
 						<p class="small bold form-text">Branch</p>
 					</div>
 					<div class="col-md-7 ">
-						<input class="input-lg" type="text" >
+						<select ng-init="newUser.branch = branches[0]" 
+								ng-model="newUser.branch"
+								ng-options="branch.attributes.name for branch in branches"
+								class="input-lg">
+						</select>
+						<i class="fa fa-caret-down caret-select"></i>
 					</div>
 				</div>
 			</div>
-	</div>
-
-		<div class="row">
-		<div class="col-md-6 col-md-offset-6">
+			<div class="col-md-6">
 				<div class="row">
 					<div class="col-md-7 col-md-offset-5">
-						<button  class="btn btn-md btn-success u__margin20 ">Add staff</button>
+						<button ng-click="addUser(newUser)" class="btn btn-md btn-success">Add</button>
 					</div>
 				</div>
 			</div>
+		</div>
 	</div>
-
-
-
-
-
-
-
-
-
 </div>
 
 		

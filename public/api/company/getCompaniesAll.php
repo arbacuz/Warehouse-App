@@ -21,13 +21,13 @@ if($query) {
 	$arr["status"] = "success";
 	$i = 0;
 	while($result = $db->fetch($query)) {
-		$arr["data"][$i]["attributes"]["id"] = $result["companyID"];
+		$arr["data"][$i]["attributes"]["_id"] = $result["companyID"];
 		$arr["data"][$i]["attributes"]["name"] = $result["companyName"];
 		$arr["data"][$i]["attributes"]["address"] = $result["companyAddress"];
 		$arr["data"][$i]["attributes"]["telephone"] = $result["companyTel"];
-		
-		$arr["data"][$i]["relationships"]["companyType"]["name"] = $result["companyTypeName"];
+		$arr["data"][$i]["update"] = false;
 		$arr["data"][$i]["relationships"]["companyType"]["_id"] = $result["companyTypeID"];
+		$arr["data"][$i]["relationships"]["companyType"]["name"] = $result["companyTypeName"];
 		$i++;
 	}
 } else {
@@ -36,7 +36,7 @@ if($query) {
 }
 
 #-> Return the data.
-echo json_encode($arr);
+echo json_encode($arr,JSON_NUMERIC_CHECK);
 
 #-> Close database.
 $db->closedb();

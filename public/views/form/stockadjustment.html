@@ -53,7 +53,7 @@
 						<p class="small bold form-text">Filter</p>
 					</div>
 					<div class="col-md-7 ">
-						<input type="text" class="input-lg"placeholder="Type to filter the items" >
+						<input type="text" ng-model="searchFilter" class="input-lg" placeholder="Type to filter the items" >
 					</div>
 				</div>
 			</div>
@@ -71,7 +71,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="item in items">
+						<tr ng-repeat="item in items | filter: searchFilter">
 							<td class="bold text-center narrow">{{ $index + 1 }}</td>
 
 							<td><input ng-model="item.attributes.name" type="text" class="input-lg" placeholder="Item Name" ></td>

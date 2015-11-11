@@ -7,58 +7,40 @@ include_once("../../includes/class_mysql.php");
 $data = file_get_contents("php://input");
 $json = json_decode($data);
 $branchID = $json->branch->_id;
-$branchName = $json->branch->_id;
-var_dump($json);
+$branchName = $json->branch->name;
+
 
 #-> Connect to the database
 $db = new Database();
 $db->connectdb(DB_NAME,DB_USER,DB_PASS);
 
+
 #-> Query the data.
-$query = $db->querydb("SELECT * FROM ".TB_ITEMBRANCH. "WHERE branchID =".$branchID);
+$query = $db->querydb("SELECT * FROM ".TB_ITEMBRANCH. " ib INNER JOIN ".TB_STAFF." sf ON ib.staffID=sf.staffID INNER JOIN "
+	.TB_ITEM." i ON ib.itemID=i.itemID INNER JOIN "
+	.TB_ITEMTYPE." it ON i.typeID = it.typeID WHERE ib.branchID =".$branchID);
 
 #-> Preparing return data.
 $arr = array();
 if($query) {
 	$arr["status"] = "success";
 	$i = 0;
-
-
-	while($result = $db->fetch($query)) {
-		#Query item name from itemID
-		$sql = "SELECT * FROM ".TB_ITEM." WHERE itemID =".$result["itemID"].";";
-		$subquery = $db->querydb($sql);
-		if($subquery){
-			if($subresult = $db->fetch($subquery)){
-				$arr["data"][$i]["attributes"]["_id"] = $subresult["itemID"];
-				$arr["data"][$i]["attributes"]["code"] = $subresult["itemCode"];
-				$arr["data"][$i]["attributes"]["name"] = $subresult["itemName"];
-				$arr["data"][$i]["attributes"]["cost"] = $subresult["costPerUnit"];
-				$sql = "SELECT typeName FROM ".TB_ITEMTYPE." WHERE typeID =".$subresult["typeID"].";";
-				$subquery = $db->querydb($sql);
-				if($subquery){
-					if($subresult = $db->fetch($subquery)){
-						$arr["data"][$i]["relationships"]["type"]["name"]=$subresult["typeName"];
-					}
-				}
-				
-			}
-		}
-		#Query staff name from staffID
-		$sql = "SELECT * FROM ".TB_STAFF." WHERE staffID =".$result["staffID"].";";
-		$subquery = $db->querydb($sql);
-		if($subquery){
-			if($subresult = $db->fetch($subquery)){
-				$arr["data"][$i]["relationships"]["staff"]["name"] = $subresult["staffName"];
-			}
-		}
-
-		$arr["data"][$i]["relationships"]["branch"]["name"]=$branchName;
-		$arr["data"][$i]["attributes"]["lastUpdatedDate"] = $result["lastUpdatedDate"];
-		$arr["data"][$i]["attributes"]["quantity"] = $result["quantity"];
-		$i ++;
+	while($result = $db->fetch($query)){
+	$arr["data"][$i]["attributes"]["_id"] = $result["itemID"];
+	$arr["data"][$i]["attributes"]["code"] = $result["itemCode"];
+	$arr["data"][$i]["attributes"]["name"] = $result["itemName"];
+	$arr["data"][$i]["attributes"]["cost"] = $result["costPerUnit"];
+	$arr["data"][$i]["relationships"]["type"]["name"]=$result["typeName"];
+	$arr["data"][$i]["relationships"]["type"]["_id"]=$result["typeID"];
+	$arr["data"][$i]["attributes"]["quantity"] = $result["quantity"];
+	$arr["data"][$i]["attributes"]["lastupdateddate"] = $result["lastUpdatedDate"];
+	$arr["data"][$i]["relationships"]["staff"]["name"] = $result["staffName"];
+	$arr["data"][$i]["relationships"]["branch"]["_id"] = $branchID;
+	$arr["data"][$i]["relationships"]["branch"]["name"] = $branchName;
+	$i++;
 	}
-} else {
+}
+else {
 	$arr["status"] = "error";
 }
 

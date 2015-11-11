@@ -43,7 +43,7 @@
 			})
 			.state('staffInfo', {
 				url: '/report/staff/info',
-				templateUrl: './views/member.html',
+				templateUrl: './views/staff.html',
 				controller: 'MemberCtrl'
 			})
 
@@ -85,7 +85,7 @@
 			.state('itemRefillAlert', {
 				url: '/report/item/refillAlert',
 				templateUrl: './views/report/itemRefillAlert.html',
-				controller: 'itemRemainCtrl'
+				controller: 'itemRefillCtrl'
 			})
 
 			/**************************
@@ -93,11 +93,6 @@
 			*** Order Page
 			*** 
 			***************************/
-			.state('order', {
-				url: '/report/order',
-				templateUrl: './views/report/order.html'
-				// controller: 'ItemRegistrationCtrl'
-			})
 			.state('orderedItems', {
 				url: '/form/order/ordering',
 				templateUrl: './views/form/ordereditems.html',
@@ -118,7 +113,16 @@
 				templateUrl: './views/report/invoice.html',
 				controller: 'orderedHistoryCtrl'
 			})
-
+			.state('requestedReport', {
+				url: '/report/order/requested',
+				templateUrl: './views/report/order.html'
+				// controller: 'ItemRegistrationCtrl'
+			})
+			.state('orderHistory', {
+				url: '/report/order/history',
+				templateUrl: './views/report/order.html'
+				// controller: 'ItemRegistrationCtrl'
+			})
 			.state('orderHistoryByTime', {
 				url: '/report/order/history/time',
 				templateUrl: './views/report/orderHistoryByTime.html',
@@ -158,23 +162,34 @@
 			*** 
 			****************************/
 			// add position
-			// add branch
+			.state('admin', {
+				url: '/admin',
+				templateUrl: './views/admin/admin.html'
+			})
 			.state('companyAdmin', {
 				url: '/admin/company',
-				templateUrl: './views/admin/company.html'
-				// controller: 'orderedHistoryCtrl'
-			}) // Crashes with select and views
-
+				templateUrl: './views/admin/company.html',
+				controller: 'companyListCtrl'
+			})
 			.state('itemAdmin', {
 				url: '/admin/item',
-				templateUrl: './views/admin/item.html'
-				// controller: 'orderedHistoryCtrl'
-			})	// no itemID
-
+				templateUrl: './views/admin/item.html',
+				controller: 'itemListCtrl'
+			})
 			.state('staffAdmin', {
 				url: '/admin/staff',
-				templateUrl: './views/admin/staff.html'
-				// controller: 'orderedHistoryCtrl'
+				templateUrl: './views/admin/staff.html',
+				controller: 'staffListCtrl'
+			})
+			.state('branchAdmin', {
+				url: '/admin/branch',
+				templateUrl: './views/admin/branch.html',
+				controller: 'branchListCtrl'
+			})
+			.state('positionAdmin', {
+				url: '/admin/position',
+				templateUrl: './views/admin/position.html',
+				controller: 'positionListCtrl'
 			})
 		}
 

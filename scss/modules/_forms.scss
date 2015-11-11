@@ -1,4 +1,5 @@
 //== INPUT SIZE
+$input-size-sm: 80px;
 $input-size-md: 140px;
 $input-padding-md: 14px 18px;
 $input-size-lg: 300px;
@@ -18,6 +19,9 @@ $input-border-radius: 4.5px;
 //== INPUT Size
 .form-text {
   padding: 13px 0px 13px 0;
+}
+.input-sm {
+	width: $input-size-sm;
 }
 .input-md {
 	width: $input-size-md;
@@ -71,12 +75,12 @@ table {
 	textarea,
 	select {
 		padding: 10px 5px !important;
-		background-color: transparent;
+		background-color: transparent !important;
 		border: 1px solid transparent;
 		&:hover,
 		&:active,
 		&:focus {
-			background-color: darken($input-background-color,5);
+			background-color: darken($input-background-color,3) !important;
 			border: 1px solid darken($input-background-color,10);
 		}
 	}

@@ -71,8 +71,9 @@
 			/* itemCode,itemName */
 		}
 
-		function getItemsByReg(regCode) {
-
+		function getItemsByReg(regCode,branch) {
+			var data = angular.toJson({'register_code':regCode,'branch':branch});
+			return $http.post(urlBase+'api/item/getItemsByReg.php',data);
 		}
 
 		function getItemsByOrder(orderCode) {
@@ -86,11 +87,11 @@
 		function getItemsByBranch(branch) {
 			var data = angular.toJson({'branch':branch});
 			return $http.post(urlBase+'api/item/getItemsByBranch.php',data);
-
 		}
 
-		function getItemsByQuantity(qty) {
-
+		function getItemsByQuantity(branch,quantity) {
+			var data = angular.toJson({'branch':branch, 'quantity':quantity});
+			return $http.post(urlBase+'api/item/getItemsByQuantity.php',data);
 		}
 
 		function getItemTypesAll() {

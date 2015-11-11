@@ -6,12 +6,11 @@ include_once("../../includes/class_mysql.php");
 #-> Get data from js and initialize
 $data = file_get_contents("php://input");
 $json = json_decode($data);
-// $staffName = $json->staffName;
-$staffName = "name1";
-$email = "a@a.com";
-$password = "1234";
-$positionID = 1;
-$branchID = 1;
+$staffName = $json->user->name;
+$email = $json->user->email;
+$password = $json->user->password;
+$positionID = $json->user->position->attributes->_id;
+$branchID = $json->user->branch->attributes->_id;
 
 
 #-> Connect to the database

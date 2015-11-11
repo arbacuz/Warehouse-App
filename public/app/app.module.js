@@ -2,6 +2,6 @@
 	'use strict';
 
 	angular
-			.module('app',['ui.router','ngCookies']);
+			.module('app',['ui.router','ngCookies','oitozero.ngSweetAlert']);
 
 })();

@@ -55,14 +55,29 @@
 					<a ui-sref="invoice" ui-sref-active="active" class="menu-item">
 						<i class="fa fa-list-alt"></i> Invoice History
 					</a>
-					<a ui-sref="item" ui-sref-active="active" class="menu-item">
-						<i class="fa fa-archive"></i> Item Report
+					<a ui-sref="itemRegHistory" ui-sref-active="active" class="menu-item">
+						<i class="fa fa-archive"></i> Item Register History
 					</a>
-					<a ui-sref="order" ui-sref-active="active" class="menu-item">
-						<i class="fa fa-list-alt"></i> Order Report
+					<a ui-sref="itemRemain" ui-sref-active="active" class="menu-item">
+						<i class="fa fa-archive"></i> Item Remaining
 					</a>
-					<a href="#" class="menu-item">
-						<i class="fa fa-exclamation-circle"></i> More
+					<a ui-sref="itemRefillAlert" ui-sref-active="active" class="menu-item">
+						<i class="fa fa-archive"></i> Item Refill Alert
+					</a>
+					<a ui-sref="requestedReport" ui-sref-active="active" class="menu-item">
+						<i class="fa fa-list-alt"></i> Requested Report
+					</a>
+					<a ui-sref="orderHistory" ui-sref-active="active" class="menu-item">
+						<i class="fa fa-list-alt"></i> Order History
+					</a>
+					<a ui-sref="capacity" ui-sref-active="active" class="menu-item">
+						<i class="fa fa-list-alt"></i> Capacity
+					</a>
+					<a ui-sref="staffInfo" ui-sref-active="active" class="menu-item">
+						<i class="fa fa-list-alt"></i> Staff Info
+					</a>
+					<a ui-sref="admin" class="menu-item">
+						<i class="fa fa-exclamation-circle"></i> Admin
 					</a>
 				</ul>
 			</div>
@@ -77,6 +92,26 @@
 	<script src="./vendors/angular-ui-router.min.js"></script>
 	<script src="https://code.angularjs.org/1.4.7/angular-route.min.js"></script>
 	<script src="https://code.angularjs.org/1.4.7/angular-cookies.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script>
+		$(document).scroll(function() {
+			var scrollVal = $(window).height() + $(window).scrollTop();
+			if (scrollVal > $('.sidebar').height() + 100) {
+	            $('.sidebar').css('position','fixed');
+	            $('.sidebar').css('bottom','0');
+				$('.sidebar').css('top','auto');
+	        } else {
+            	$('.sidebar').css('position','absolute');
+				$('.sidebar').css('bottom','auto');
+				$('.sidebar').css('top','0');
+	        }
+		})
+	</script>
+
+	<!-- vendors -->
+	<script src="./vendors/SweetAlert.min.js"></script>
+	<script src="./vendors/sweet-alert.min.js"></script>
+
 
 	<!-- app -->
 	<script src="./app/app.module.js"></script>
@@ -98,8 +133,17 @@
 	<script src="./app/controllers/reports/itemInfo.controller.js"></script>
 	<script src="./app/controllers/reports/itemRegHistory.controller.js"></script>
 	<script src="./app/controllers/reports/itemRemain.controller.js"></script>
+	<script src="./app/controllers/reports/itemRefill.controller.js"></script>
 	<script src="./app/controllers/reports/orderedHistoryCtrl.controller.js"></script>
 	<script src="./app/controllers/reports/stockCard.controller.js"></script>
+
+	<!-- admin controllers -->
+	<script src="./app/controllers/reports/companyList.controller.js"></script>
+	<script src="./app/controllers/reports/itemList.controller.js"></script>
+	<script src="./app/controllers/reports/staffList.controller.js"></script>
+	<script src="./app/controllers/reports/branchList.controller.js"></script>
+	<script src="./app/controllers/reports/positionList.controller.js"></script>
+
 	<!-- services -->
 	<script src="./app/services/item.service.js"></script>
 	<script src="./app/services/member.service.js"></script>

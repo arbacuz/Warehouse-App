@@ -8,7 +8,9 @@
 	appRun.$inject = ['$rootScope','$cookieStore','$state','$timeout'];
 
 	function appRun($rootScope,$cookieStore,$state,$timeout) {
-
+		$rootScope.$on('$stateChangeSuccess', function(event, to, toParams, from, fromParams) {
+            $rootScope.$previousState = from;
+        });
 		// isLogin();
 
 		// function isLogin() {

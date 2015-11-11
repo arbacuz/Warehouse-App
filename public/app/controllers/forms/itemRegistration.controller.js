@@ -68,6 +68,7 @@
 				}).error(function(error) {
 					console.log(error);
 				})
+			$scope.items = [];
 		}
 
 		function getCompanyByTypeID(type) {

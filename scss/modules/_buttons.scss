@@ -1,4 +1,7 @@
 //== Button
+$btn-radius-sm: 2px;
+$btn-padding-sm: 4px 8px;
+
 $btn-size-md: 145px;
 $btn-radius-md: 2px;
 $btn-padding-md: 15px 10px;
@@ -16,6 +19,12 @@ $hover-percent: 10;
 	border: 2px solid transparent;
 	&-full {
 		width: 100%;
+	}
+	&-sm {
+		font-size: 10px;
+	    letter-spacing: 0.5px;
+	    border-radius: $btn-radius-sm;
+	    padding: $btn-padding-sm;
 	}
 	&-md {
 		min-width: $btn-size-md;
@@ -107,5 +116,9 @@ $hover-percent: 10;
 		&:hover {
 			background-color: darken($color-success,$hover-percent);
 		}
+	}
+	&-goback-top {
+		margin-top:-74px;
+		float: right;
 	}
 }

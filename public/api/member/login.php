@@ -7,8 +7,8 @@ include_once("../../includes/class_mysql.php");
 $data = file_get_contents("php://input");
 $json = json_decode($data);
 
-$email = $json->email;
-$password = $json->password;
+$email = $json->user->email;
+$password = $json->user->password;
 $email = stripslashes($email);
 $password = stripslashes($password);
 $email = mysql_real_escape_string($email);

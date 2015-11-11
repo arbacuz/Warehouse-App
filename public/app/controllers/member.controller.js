@@ -18,8 +18,7 @@
 					if(data.status == "success") {
 						var user = data.data;
 						$cookieStore.put('user',user);
-						console.log($cookieStore.get('user'));
-						$state.go('home');
+						$state.go('home', {} , {reload: true});
 					} else {
 						console.log(data);
 					}

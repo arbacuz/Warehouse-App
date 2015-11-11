@@ -6,14 +6,10 @@ include_once("../../includes/class_mysql.php");
 #-> Get data from js and initialize
 $data = file_get_contents("php://input");
 $json = json_decode($data);
-// $branchName = $json->branchName;
-// $branchAddress = $json->branchAddress;
-// $branchTel = $json->branchTel;
-// $capacity = $json->capacity;
-$branchName = "name1";
-$branchAddress = "address1";
-$branchTel = "028023331";
-$capacity = 100;
+$branchName = $json->branch->name;
+$branchAddress = $json->branch->address;
+$branchTel = $json->branch->telephone;
+$capacity = $json->branch->capacity;
 
 #-> Connect to the database
 $db = new Database();

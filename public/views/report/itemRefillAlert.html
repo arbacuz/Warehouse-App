@@ -39,19 +39,15 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td class="bold narrow text-center">1</td>
-							<td class="underline">P001</td>
-							<td class="underline">TV Sony 42" Model 5G112TG</td>
-							<td>Product</td>
-							<td>400</td>
+						<tr style="cursor: default;"class="animated fadeIn" ng-hide="items[0].attributes">
+							<td class="text-center" colspan="5">No Items have quantity lower than 50</td>
 						</tr>
-						<tr>
-							<td class="bold narrow text-center">2</td>
-							<td class="underline">P002</td>
-							<td class="underline">TV Samsung 34" Model: SM-5976</td>
-							<td>Product</td>
-							<td>700</td>
+						<tr ng-show="item.attributes" ng-repeat="item in items">
+							<td class="bold narrow text-center">{{ $index + 1 }}</td>
+							<td class="underline">{{ item.attributes.code }}</td>
+							<td class="underline">{{ item.attributes.name }}</td>
+							<td>{{ item.relationships.type.name }}</td>
+							<td>{{ item.attributes.quantity }}</td>
 						</tr>
 					</tbody>
 				</table>
