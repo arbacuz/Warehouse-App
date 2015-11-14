@@ -31,7 +31,12 @@
 								<input ng-change="company.update = true" type="text" class="input-md"placeholder="Company tel." ng-model="company.attributes.telephone">
 							</td>
 							<td>
-								{{ company.relationships.companyType.name }}
+								<select ng-change="company.update = true"
+										ng-model="company.relationships.companyType"
+										ng-options="type.attributes.name for type in companiesType track by type.attributes.name"
+										class="input-md">
+								</select>
+								<i class="fa fa-caret-down caret-select select-md"></i>
 							</td>
 							<td style="width: 170px;">
 								<button ng-class="{'btn-success-border':company.update}" class="btn btn-sm btn-default animated fadeIn" ng-click="company.update && updateCompany(company)">update</button>
@@ -80,7 +85,7 @@
 					<div class="col-md-5 text-right">
 						<p class="small bold form-text">Company type</p>
 					</div>
-					<div class="col-md-7 ">
+					<div class="col-md-7 text-left">
 						<select ng-init="newCompany.type = companiesType[0]" 
 								ng-model="newCompany.type"
 								ng-options="type.attributes.name for type in companiesType"

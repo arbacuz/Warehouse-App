@@ -26,8 +26,8 @@ if($query) {
 		$arr["data"][$i]["attributes"]["address"] = $result["companyAddress"];
 		$arr["data"][$i]["attributes"]["telephone"] = $result["companyTel"];
 		$arr["data"][$i]["update"] = false;
-		$arr["data"][$i]["relationships"]["companyType"]["_id"] = $result["companyTypeID"];
-		$arr["data"][$i]["relationships"]["companyType"]["name"] = $result["companyTypeName"];
+		$arr["data"][$i]["relationships"]["companyType"]["attributes"]["_id"] = $result["companyTypeID"];
+		$arr["data"][$i]["relationships"]["companyType"]["attributes"]["name"] = $result["companyTypeName"];
 		$i++;
 	}
 } else {

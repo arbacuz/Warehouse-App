@@ -34,8 +34,7 @@
 								<input ng-change="branch.update = true" type="text" class="input-sm" placeholder="Branch Capacity" ng-model="branch.attributes.capacity">
 							</td>
 							<td style="width: 170px;">
-								<button ng-click="deleteBranch(branch)" class="btn btn-sm btn-danger">delete</button>
-								<button ng-show="branch.update" class="btn btn-sm btn-success-border animated fadeIn" ng-click="updateBranch(branch)">update</button>
+								<button ng-class="{'btn-success-border':branch.update}" class="btn btn-sm btn-default animated fadeIn" ng-click="branch.update && updateBranch(branch)">update</button>
 							</td>
 						</tr>
 					</tbody>

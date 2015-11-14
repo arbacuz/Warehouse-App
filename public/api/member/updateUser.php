@@ -10,8 +10,8 @@ $staffName = $json->user->attributes->name;
 $staffID = $json->user->attributes->_id;
 $email = $json->user->attributes->email;
 // $password = $json->user->attributes->;
-$positionID = $json->user->relationships->position->_id;
-$branchID = $json->user->relationships->branch->_id;
+$positionID = $json->user->relationships->position->attributes->_id;
+$branchID = $json->user->relationships->branch->attributes->_id;
 
 #-> Connect to the database
 $db = new Database();

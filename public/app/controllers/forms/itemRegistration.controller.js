@@ -10,6 +10,7 @@
 									'$cookieStore',
 									'$scope',
 									'$stateParams',
+									'SweetAlert',
 									'ItemServices',
 									'CompanyServices',
 									'BranchServices'
@@ -20,6 +21,7 @@
 								$cookieStore,
 								$scope,
 								$stateParams,
+								SweetAlert,
 								ItemServices,
 								CompanyServices,
 								BranchServices
@@ -62,13 +64,38 @@
 		}
 
 		function completeItems(supplier, items, user) {
-			ItemServices.registerItem(supplier, items, user)
-				.success(function(data) {
-					console.log(data);
-				}).error(function(error) {
-					console.log(error);
-				})
-			$scope.items = [];
+			$scope.loading = true;
+			SweetAlert.swal({
+			    title: "Are you sure?",
+			    text: "You cannot recover the item after upadted.",
+			    type: "warning",
+			    showCancelButton: true,
+			    confirmButtonColor: "#DD6B55",
+			    confirmButtonText: "Yes, update it!",
+			    closeOnConfirm: false,
+			    cancelButtonText: "No, cancel please!",
+				closeOnCancel: false
+			  },
+			  function(isConfirm){
+			  	if (isConfirm) {
+			  		ItemServices.registerItem(supplier, items, user)
+						.success(function(data) {
+							if(data.status == "success") {
+								SweetAlert.swal("Complete!", "Item has been registered successfully", "success");
+								$scope.loading = false;
+							} else {
+								SweetAlert.swal("Error!", "Item does not register yet", "error");
+								$scope.loading = false;
+							}
+							$scope.items = [];
+						}).error(function(error) {
+							SweetAlert.swal("Error!", "Item does not register yet", "error");
+						})
+			    } else {
+			    	$scope.loading = false;
+			      	SweetAlert.swal("Cancelled", "Item does not update yet", "error");
+			    }
+			  }); 
 		}
 
 		function getCompanyByTypeID(type) {

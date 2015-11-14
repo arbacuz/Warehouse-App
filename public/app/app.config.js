@@ -152,7 +152,7 @@
 			.state('capacity', {
 				url: '/report/branch/capacity',
 				templateUrl: './views/report/capacity.html',
-				controller: 'orderedHistoryCtrl'
+				controller: 'capacityCtrl'
 			})
 
 

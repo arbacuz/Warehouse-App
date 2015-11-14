@@ -28,14 +28,23 @@
 								<input ng-change="staff.update = true" type="text" class="input-lg" placeholder="Staff email" ng-model="staff.attributes.email">
 							</td>
 							<td>
-								{{ staff.relationships.position.name }}
+								<select ng-change="staff.update = true"
+										ng-model="staff.relationships.position"
+										ng-options="position.attributes.name for position in positions track by position.attributes.name"
+										class="input-md">
+								</select>
+								<i class="fa fa-caret-down caret-select select-md"></i>
 							</td>
 							<td>
-								{{ staff.relationships.branch.name }}
+								<select ng-change="staff.update = true"
+										ng-model="staff.relationships.branch"
+										ng-options="branch.attributes.name for branch in branches track by branch.attributes.name"
+										class="input-md">
+								</select>
+								<i class="fa fa-caret-down caret-select select-md"></i>
 							</td>
 							<td style="width: 170px;">
-								<button ng-click="deleteUser(staff)" class="btn btn-sm btn-danger">delete</button>
-								<button ng-show="staff.update" class="btn btn-sm btn-success-border animated fadeIn" ng-click="updateUser(staff)">update</button>
+								<button ng-class="{'btn-success-border':staff.update}" class="btn btn-sm btn-default animated fadeIn" ng-click="staff.update && updateUser(staff)">update</button>
 							</td>
 						</tr>
 					</tbody>

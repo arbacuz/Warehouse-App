@@ -13,7 +13,7 @@
 			registerItem: 		registerItem,
 			addItem: 			addItem,
 			addItemByBranch: 	addItemByBranch,
-			updateItems: 		updateItems,
+			updateItem: 		updateItem,
 			updateItemsByBranch:updateItemsByBranch,
 			deleteItem: 		deleteItem,
 			deleteItemByBranch: deleteItemByBranch,
@@ -33,13 +33,8 @@
 			return $http.post(urlBase+'api/item/registerItem.php',data);
 		}
 
-		function addItem(supplier, items, user) {
-			var data = angular.toJson({'supplier':supplier,'items':items,'user':user});
-			return $http.post(urlBase+'api/item/addItem.php',data);
-		}
-
-		function addItem(supplier, items) {
-			var data = angular.toJson({'supplier':supplier,'items':items});
+		function addItem(item) {
+			var data = angular.toJson({'item':item});
 			return $http.post(urlBase+'api/item/addItem.php',data);
 		}
 
@@ -47,8 +42,9 @@
 
 		}
 
-		function updateItems(item) {
-			/* itemCode,itemName */
+		function updateItem(item) {
+			var data = angular.toJson({'item':item});
+			return $http.post(urlBase+'api/item/updateItem.php',data);
 		}
 
 		function updateItemsByBranch(item,branch) {
@@ -56,7 +52,8 @@
 		}
 
 		function deleteItem(item) {
-
+			var data = angular.toJson({'item':item});
+			return $http.post(urlBase+'api/item/deleteItem.php',data);
 		}
 
 		function deleteItemByBranch(item, branch) {

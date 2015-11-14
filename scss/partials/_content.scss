@@ -26,7 +26,7 @@
 				top: 2px;
 				margin-left: -27px;
 			}
-			td:hover {
+			tr:hover {
 				.caret-select {
 					display: inline-block;
 				}
@@ -39,7 +39,7 @@
 		    font-size: 21px;
 		    color: $color-grey;
 		    &.select-md {
-		    	left: 128px;
+		    	left: 0;
 		    }
 		}
 	}

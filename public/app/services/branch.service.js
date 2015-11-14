@@ -14,7 +14,8 @@
 			updateBranch: 	updateBranch,
 			deleteBranch: 	deleteBranch,
 			getBranchAll: 	getBranchAll,
-			getBranch: 		getBranch
+			getBranch: 		getBranch,
+			getCapacity: 	getCapacity
 		};
 		return branchServices;
 
@@ -40,6 +41,11 @@
 		function getBranch(branch) {
 			var data = angular.toJson({'branch':branch});
 			return $http.post(urlBase+'api/branch/getBranch.php',data);
+		}
+
+		function getCapacity(branch) {
+			var data = angular.toJson({'branch':branch});
+			return $http.post(urlBase+'api/branch/getCapacity.php',data);
 		}
 
 	}

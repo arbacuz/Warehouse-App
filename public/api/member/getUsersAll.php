@@ -25,11 +25,11 @@ if($query) {
 		$arr["data"][$i]["attributes"]["name"] = $result["staffName"];
 		$arr["data"][$i]["attributes"]["email"] = $result["email"];
 
-		$arr["data"][$i]["relationships"]["position"]["_id"] = $result["positionID"];
-		$arr["data"][$i]["relationships"]["position"]["name"] = $result["positionName"];
-		$arr["data"][$i]["relationships"]["branch"]["_id"] = $result["branchID"];
-		$arr["data"][$i]["relationships"]["branch"]["name"] = $result["branchName"];
-		$arr["data"][$i]["relationships"]["branch"]["address"] = $result["branchAddress"];
+		$arr["data"][$i]["relationships"]["position"]["attributes"]["_id"] = $result["positionID"];
+		$arr["data"][$i]["relationships"]["position"]["attributes"]["name"] = $result["positionName"];
+		$arr["data"][$i]["relationships"]["branch"]["attributes"]["_id"] = $result["branchID"];
+		$arr["data"][$i]["relationships"]["branch"]["attributes"]["name"] = $result["branchName"];
+		$arr["data"][$i]["relationships"]["branch"]["attributes"]["address"] = $result["branchAddress"];
 		$i ++;
 	}
 } else {

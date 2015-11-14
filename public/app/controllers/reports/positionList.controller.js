@@ -10,6 +10,7 @@
 							'$cookieStore',
 							'$scope',
 							'$stateParams',
+							'SweetAlert',
 							'MemberServices'
 							];
 
@@ -18,6 +19,7 @@
 							$cookieStore,
 							$scope,
 							$stateParams,
+							SweetAlert,
 							MemberServices
 							) {
 
@@ -25,7 +27,6 @@
 		$scope.positions = [];
 		$scope.addPosition = addPosition;
 		$scope.updatePosition = updatePosition;
-		$scope.deletePosition = deletePosition;
 
 		getPositionsAll();
 
@@ -65,33 +66,39 @@
 
 		function updatePosition(position) {
 			$scope.loading = true;
-			MemberServices.updatePosition(position)
-				.success(function(data) {
-					console.log(data);
-					if(data.status == "success") {
-						position.update = false;
-					}
-					$scope.loading = false;
-				}).error(function(error) {
-					console.log(error);
-					$scope.loading = false;
-				})
+			SweetAlert.swal({
+			    title: "Are you sure?",
+			    text: "You will not be able to recover this user",
+			    type: "warning",
+			    showCancelButton: true,
+			    confirmButtonColor: "#DD6B55",
+			    confirmButtonText: "Yes, update it!",
+			    closeOnConfirm: false,
+			    cancelButtonText: "No, cancel please!",
+				closeOnCancel: false
+			  },
+			  function(isConfirm){
+			  	if (isConfirm) {
+					MemberServices.updatePosition(position)
+						.success(function(data) {
+							console.log(data);
+							if(data.status == "success") {
+								position.update = false;
+							}
+							$scope.loading = false;
+						}).error(function(error) {
+							console.log(error);
+							$scope.loading = false;
+						})
+			      	SweetAlert.swal("Updated!", "User has been updated successfully", "success");
+			    } else {
+			    	$scope.loading = false;
+			    	getPositionsAll();
+			      	SweetAlert.swal("Cancelled", "User does not update yet", "error");
+			    }
+			  }); 
 		}
 
-		function deletePosition(position) {
-			$scope.loading = true;
-			MemberServices.deletePosition(position)
-				.success(function(data) {
-					console.log(data);
-					getPositionsAll();
-					$scope.loading = false;
-				}).error(function(error) {
-					console.log(error);
-					$scope.loading = false;
-				})
-		}
 
-		
-		
 	}
 })();

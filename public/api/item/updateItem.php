@@ -6,10 +6,11 @@ include_once("../../includes/class_mysql.php");
 #-> Get data from js and initialize
 $data = file_get_contents("php://input");
 $json = json_decode($data);
-$itemName = $json->items->name;
-$itemCode = $json->items->code;
-$typeID = $json->items->type->attribute->_id;
-$costPerUnit = $json->items->cost;
+$itemID = $json->item->attributes->_id;
+$itemName = $json->item->attributes->name;
+// $typeID = $json->item->->relationships->type->attribute->_id;
+$costPerUnit = $json->item->attributes->cost;
+
 
 #-> Connect to the database
 $db = new Database();
@@ -18,8 +19,6 @@ $db->connectdb(DB_NAME,DB_USER,DB_PASS);
 $table = TB_ITEM;
 $data = array(
 	"itemName" => $itemName,
-	"itemCode" => $itemCode,
-	"typeID" => $typeID,
 	"costPerUnit" => $costPerUnit
 	);
 $where = "itemID = '$itemID'";

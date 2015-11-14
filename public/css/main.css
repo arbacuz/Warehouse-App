@@ -6198,6 +6198,34 @@ body.stop-scrolling {
     -moz-transform: translateY(145%);
     -o-transform: translateY(145%);
     transform: translateY(145%); } }
+.chart-legend, .bar-legend, .line-legend, .pie-legend, .radar-legend, .polararea-legend, .doughnut-legend {
+  list-style-type: none;
+  margin-top: 5px;
+  text-align: center;
+  -webkit-padding-start: 0;
+  -moz-padding-start: 0;
+  padding-left: 0; }
+
+.chart-legend li, .bar-legend li, .line-legend li, .pie-legend li, .radar-legend li, .polararea-legend li, .doughnut-legend li {
+  display: inline-block;
+  white-space: nowrap;
+  position: relative;
+  margin-bottom: 4px;
+  border-radius: 5px;
+  padding: 2px 8px 2px 28px;
+  font-size: smaller;
+  cursor: default; }
+
+.chart-legend li span, .bar-legend li span, .line-legend li span, .pie-legend li span, .radar-legend li span, .polararea-legend li span, .doughnut-legend li span {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 5px; }
+
+/*# sourceMappingURL=angular-chart.min.css.map */
 .text-primary {
   color: #4183d7; }
 
@@ -6268,24 +6296,14 @@ table select {
   padding: 10px 5px !important;
   background-color: transparent !important;
   border: 1px solid transparent; }
-  table input[type="text"]:hover, table input[type="text"]:active, table input[type="text"]:focus,
-  table input[type="email"]:hover,
-  table input[type="email"]:active,
-  table input[type="email"]:focus,
-  table input[type="password"]:hover,
-  table input[type="password"]:active,
-  table input[type="password"]:focus,
-  table input[type="date"]:hover,
-  table input[type="date"]:active,
-  table input[type="date"]:focus,
-  table textarea:hover,
-  table textarea:active,
-  table textarea:focus,
-  table select:hover,
-  table select:active,
-  table select:focus {
-    background-color: #eaeaea !important;
-    border: 1px solid #d9d9d9; }
+table tr:hover input[type="text"],
+table tr:hover input[type="email"],
+table tr:hover input[type="password"],
+table tr:hover input[type="date"],
+table tr:hover textarea,
+table tr:hover select {
+  background-color: #eaeaea !important;
+  border: 1px solid #d9d9d9; }
 
 h1 {
   font-size: 43px;
@@ -6607,7 +6625,7 @@ table {
     left: auto;
     top: 2px;
     margin-left: -27px; }
-  .content .form-control table td:hover .caret-select {
+  .content .form-control table tr:hover .caret-select {
     display: inline-block; }
   .content .form-control .caret-select {
     position: absolute;
@@ -6616,7 +6634,7 @@ table {
     font-size: 21px;
     color: #738699; }
     .content .form-control .caret-select.select-md {
-      left: 128px; }
+      left: 0; }
 
 .right {
   float: right; }

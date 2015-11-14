@@ -10,6 +10,7 @@
 							'$cookieStore',
 							'$scope',
 							'$stateParams',
+							'SweetAlert',
 							'ItemServices'
 							];
 
@@ -18,6 +19,7 @@
 							$cookieStore,
 							$scope,
 							$stateParams,
+							SweetAlert,
 							ItemServices
 							) {
 
@@ -26,7 +28,7 @@
 		$scope.itemTypes = [];
 
 		$scope.updateItem = updateItem;
-		$scope.deleteItem = deleteItem;
+		$scope.addItem = addItem;
 		
 		getItemsAll();
 		getItemTypesAll();
@@ -64,31 +66,55 @@
 				})
 		}
 
-		function updateItem(item) {
+		function addItem(item) {
 			$scope.loading = true;
-			ItemServices.updateItem(item)
+			ItemServices.addItem(item)
 				.success(function(data) {
 					console.log(data);
 					if(data.status == "success") {
-						item.update = false;
+						getItemsAll();
 					}
 					$scope.loading = false;
 				}).error(function(error) {
 					console.log(error);
 					$scope.loading = false;
 				})
+			$scope.newItem = "";
 		}
-		
-		function deleteItem(item) {
-			ItemServices.deleteItem(item)
-				.success(function(data) {
-					console.log(data);
-					getItemsAll();
-					$scope.loading = false;
-				}).error(function(error) {
-					console.log(error);
-					$scope.loading = false;
-				})
+
+		function updateItem(item) {
+			$scope.loading = true;
+			SweetAlert.swal({
+			    title: "Are you sure?",
+			    text: "You cannot recover the item after upadted.",
+			    type: "warning",
+			    showCancelButton: true,
+			    confirmButtonColor: "#DD6B55",
+			    confirmButtonText: "Yes, update it!",
+			    closeOnConfirm: false,
+			    cancelButtonText: "No, cancel please!",
+				closeOnCancel: false
+			  },
+			  function(isConfirm){
+			  	if (isConfirm) {
+			  		ItemServices.updateItem(item)
+						.success(function(data) {
+							console.log(data);
+							if(data.status == "success") {
+								item.update = false;
+							}
+							$scope.loading = false;
+						}).error(function(error) {
+							console.log(error);
+							$scope.loading = false;
+						})
+			      	SweetAlert.swal("Updated!", "Item has been updated successfully", "success");
+			    } else {
+			    	$scope.loading = false;
+			    	getItemsAll();
+			      	SweetAlert.swal("Cancelled", "Item does not update yet", "error");
+			    }
+			  }); 
 		}
 		
 	}

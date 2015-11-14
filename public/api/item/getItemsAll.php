@@ -24,11 +24,12 @@ if($query){
 		$arr["data"][$i]["attributes"]["name"] = $itemData["itemName"];
 		$arr["data"][$i]["attributes"]["cost"] = $itemData["costPerUnit"];
 		$arr["data"][$i]["update"] = false;
-		$sql = "SELECT typeName FROM ".TB_ITEMTYPE." WHERE typeID =".$itemData["typeID"].";";
+		$sql = "SELECT * FROM ".TB_ITEMTYPE." WHERE typeID =".$itemData["typeID"].";";
 		$subquery = $db->querydb($sql);
 		if($subquery){
 			if($itemTypeData = $db->fetch($subquery)){
-				$arr["data"][$i]["relationships"]["type"]["name"]=$itemTypeData["typeName"];
+				$arr["data"][$i]["relationships"]["type"]["attributes"]["name"]=$itemTypeData["typeName"];
+				$arr["data"][$i]["relationships"]["type"]["attributes"]["_id"]=$itemTypeData["typeID"];
 			}
 		}
 		$i++;
@@ -42,7 +43,7 @@ if($query){
 $arr["status"] = "success";
 $arr["messages"] = "success query all items";
 #-> Return json data.
-echo json_encode($arr);
+echo json_encode($arr,JSON_NUMERIC_CHECK);
 
 #-> Close database.
 $db->closedb();

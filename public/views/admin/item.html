@@ -22,7 +22,7 @@
 								{{ item.attributes._id }} 
 							</td>
 							<td class="narrow">
-								<input ng-change="item.update = true" type="text" class="input-sm" placeholder="Item code" ng-model="item.attributes.code">
+								{{ item.attributes.code }}
 							</td>
 							<td>
 								<input ng-change="item.update = true" type="text" class="input-lg" placeholder="Item name" ng-model="item.attributes.name">
@@ -31,11 +31,15 @@
 								<input ng-change="item.update = true"  type="text" class="input-sm" placeholder="Item cost" ng-model="item.attributes.cost">
 							</td>
 							<td>
-								{{ item.relationships.type.name }}
+								<select ng-change="item.update = true"
+										ng-model="item.relationships.type"
+										ng-options="type.attributes.name for type in itemTypes track by type.attributes.name"
+										class="input-md">
+								</select>
+								<i class="fa fa-caret-down caret-select"></i>
 							</td>
 							<td style="width: 170px;">
-								<button ng-click="deleteItem(item)" class="btn btn-sm btn-danger">delete</button>
-								<button ng-show="item.update" class="btn btn-sm btn-success-border animated fadeIn" ng-click="updateItem(item)">update</button>
+								<button ng-class="{'btn-success-border':item.update}" class="btn btn-sm btn-default animated fadeIn" ng-click="item.update && updateItem(item)">update</button>
 							</td>
 						</tr>
 					</tbody>

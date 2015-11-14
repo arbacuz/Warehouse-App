@@ -10,7 +10,7 @@ $companyID = $json->company->attributes->_id;
 $companyName = $json->company->attributes->name;
 $companyAddress = $json->company->attributes->address;
 $companyTel = $json->company->attributes->telephone;
-$companyTypeID = $json->company->relationships->companyType->_id;
+$companyTypeID = $json->company->relationships->companyType->attributes->_id;
 
 #-> Connect to the database
 $db = new Database();

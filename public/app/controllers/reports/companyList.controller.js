@@ -77,19 +77,21 @@
 					console.log(error);
 					$scope.loading = false;
 				})
-			$scope.newCompany = ""
+			$scope.newCompany = "";
 		}
 
 		function updateCompany(company) {
 			$scope.loading = true;
 			SweetAlert.swal({
 			    title: "Are you sure?",
-			    text: "You will not be able to recover this imaginary file!",
+			    text: "You will not be able to recover this company",
 			    type: "warning",
 			    showCancelButton: true,
 			    confirmButtonColor: "#DD6B55",
-			    confirmButtonText: "Yes, delete it!",
-			    closeOnConfirm: false
+			    confirmButtonText: "Yes, update it!",
+			    closeOnConfirm: false,
+				cancelButtonText: "No, cancel please!",
+				closeOnCancel: false
 			  },
 			  function(isConfirm){
 			  	if (isConfirm) {
@@ -103,9 +105,11 @@
 						}).error(function(error) {
 							console.log(error);
 							$scope.loading = false;
-						})
-			      	SweetAlert.swal("Updated!", "Company update successfully", "success");
+						});
+			      	SweetAlert.swal("Updated!", "Company has been updated successfully", "success");
 			    } else {
+			      	$scope.loading = false;
+			    	getCompaniesAll();
 			      	SweetAlert.swal("Cancelled", "Company does not update yet", "error");
 			    }
 			  }); 

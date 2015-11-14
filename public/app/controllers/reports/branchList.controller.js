@@ -10,6 +10,7 @@
 							'$cookieStore',
 							'$scope',
 							'$stateParams',
+							'SweetAlert',
 							'BranchServices'
 							];
 
@@ -18,6 +19,7 @@
 							$cookieStore,
 							$scope,
 							$stateParams,
+							SweetAlert,
 							BranchServices
 							) {
 
@@ -25,7 +27,6 @@
 		$scope.branches = [];
 		$scope.addBranch = addBranch;
 		$scope.updateBranch = updateBranch;
-		$scope.deleteBranch = deleteBranch;
 
 		getBranchAll();
 
@@ -67,30 +68,37 @@
 
 		function updateBranch(branch) {
 			$scope.loading = true;
-			BranchServices.updateBranch(branch)
-				.success(function(data) {
-					console.log(data);
-					if(data.status == "success") {
-						branch.update = false;
-					}
-					$scope.loading = false;
-				}).error(function(error) {
-					console.log(error);
-					$scope.loading = false;
-				})
-		}
-
-		function deleteBranch(branch) {
-			$scope.loading = true;
-			BranchServices.deleteBranch(branch)
-				.success(function(data) {
-					console.log(data);
-					getBranchAll();
-					$scope.loading = false;
-				}).error(function(error) {
-					console.log(error);
-					$scope.loading = false;
-				})
+			SweetAlert.swal({
+			    title: "Are you sure?",
+			    text: "You will not be able to recover this branch",
+			    type: "warning",
+			    showCancelButton: true,
+			    confirmButtonColor: "#DD6B55",
+			    confirmButtonText: "Yes, update it!",
+			    closeOnConfirm: false,
+			    cancelButtonText: "No, cancel please!",
+				closeOnCancel: false
+			  },
+			  function(isConfirm){
+			  	if (isConfirm) {
+					BranchServices.updateBranch(branch)
+						.success(function(data) {
+							console.log(data);
+							if(data.status == "success") {
+								branch.update = false;
+							}
+							$scope.loading = false;
+						}).error(function(error) {
+							console.log(error);
+							$scope.loading = false;
+						})
+			      	SweetAlert.swal("Updated!", "Branch has been updated successfully", "success");
+			    } else {
+			    	$scope.loading = false;
+			    	getBranchAll();
+			      	SweetAlert.swal("Cancelled", "Branch does not update yet", "error");
+			    }
+			  }); 
 		}
 		
 		
