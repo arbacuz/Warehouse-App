@@ -9,7 +9,7 @@
 						<p class="small bold form-text">Date</p>
 					</div>
 					<div class="col-md-7 ">
-						<p class="small form-text">{{ today | date:'d MMM yyyy' }}</p>
+						<p class="small form-text">{{ vm.today | date:'d MMM yyyy' }}</p>
 					</div>
 				</div>
 			</div>
@@ -19,7 +19,7 @@
 						<p class="small bold form-text">Branch</p>
 					</div>
 					<div class="col-md-7 ">
-						<p class="small form-text">{{ user.relationships.branch.name }}</p>
+						<p class="small form-text">{{ vm.user.relationships.branch.name }}</p>
 					</div>
 				</div>
 			</div>
@@ -31,7 +31,7 @@
 						<p class="small bold form-text">Staff</p>
 					</div>
 					<div class="col-md-7">
-						<p class="small form-text">{{ user.attributes.name }}</p>
+						<p class="small form-text">{{ vm.user.attributes.name }}</p>
 					</div>
 				</div>
 			</div>
@@ -41,7 +41,7 @@
 						<p class="small bold form-text">Address</p>
 					</div>
 					<div class="col-md-7 ">
-						<p class="small form-text">{{ user.relationships.branch.address }}</p>
+						<p class="small form-text">{{ vm.user.relationships.branch.address }}</p>
 					</div>
 				</div>
 			</div>
@@ -53,9 +53,10 @@
 						<p class="small bold form-text">To Branch</p>
 					</div>
 					<div class="col-md-7 ">
-						<select ng-init="customer = companies[0]" 
-								ng-model="customer"
-								ng-options="customer.attributes.name for customer in companies"
+						<select ng-init="vm.branch = vm.branches[0]" 
+								ng-model="vm.branch"
+								ng-change="vm.getItemsByBranch(vm.branch.attributes)"
+								ng-options="branch.attributes.name for branch in vm.branches track by branch.attributes.name"
 								class="input-lg">
 						</select>
 						<i class="fa fa-caret-down caret-select"></i>
@@ -77,50 +78,59 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="animated fadeIn" ng-repeat="item in items">
+						<tr style="cursor: default;"class="animated fadeIn" ng-show="vm.items.length == 0">
+							<td class="text-center" colspan="6">Please add the items</td>
+						</tr>
+						<tr class="animated fadeIn" ng-repeat="item in vm.items">
 							<td class="bold text-center narrow">{{ $index + 1 }}</td>
 							<td>{{ item.name }}</td>
 							<td>{{ item.type }}</td>
 							<td>{{ item.cost }}</td>
 							<td>{{ item.quantity }}</td>
-							<td><i ng-click="deleteItem($index)" class="fa fa-close"></i></td>
+							<td><button ng-click="vm.deleteItem($index)" class="btn btn-sm btn-danger">remove</button></td>
 						</tr>
 					</tbody>
 				</table>
-				<button class="btn btn-lg btn-success u__margin20 right">complete request</button>
+				<button ng-click="vm.sendRequest(vm.branch,vm.items,vm.user)" class="btn btn-lg btn-success u__margin20 right">complete request</button>
 			</div>
 		</div>
 		<hr>
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-6 col-md-offset-6">
 				<div class="row">
 					<div class="col-md-5 text-right">
-						<p class="small bold form-text">Item Name</p>
+						<p class="small bold form-text">Search Item</p>
 					</div>
 					<div class="col-md-7 ">
-						<input class="input-lg" type="text" placeholder="Enter the name">
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="row">
-					<div class="col-md-5 text-right">
-						<p class="small bold form-text">Quantity</p>
-					</div>
-					<div class="col-md-7 ">
-						<input class="input-md" type="text" placeholder="3xxxx">
+						<input ng-model="searchItem" class="input-lg" type="text" placeholder="Enter the name">
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-6 col-md-offset-6">
-				<div class="row">
-					<div class="col-md-7 col-md-offset-5">
-						<button class="btn btn-md btn-success">Add To Request</button>
-					</div>
-				</div>
+			<div class="col-md-12">
+				<table>
+					<thead>
+						<tr>
+							<th></th>
+							<th>Name</th>
+							<th>Type</th>
+							<th>Cost per unit</th>
+							<th>Remaining</th>
+							<th>Option</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="animated fadeIn" ng-repeat="item in vm.itemsAll | filter:searchItem">
+							<td class="bold text-center narrow">{{ $index + 1 }}</td>
+							<td>{{ item.attributes.name }}</td>
+							<td>{{ item.relationships.type.name }}</td>
+							<td>{{ item.attributes.cost }}</td>
+							<td>{{ item.attributes.quantity }}</td>
+							<td><button ng-click="vm.addToRequest(item)" class="btn btn-sm btn-success-border">request</button></td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
-		</div>
 	</div>
 </div>

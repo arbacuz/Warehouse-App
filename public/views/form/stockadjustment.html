@@ -9,7 +9,7 @@
 						<p class="small bold form-text">Date</p>
 					</div>
 					<div class="col-md-7 ">
-						<p class="small form-text">{{ today | date:'d MMM yyyy' }}</p>
+						<p class="small form-text">{{ vm.today | date:'d MMM yyyy' }}</p>
 					</div>
 				</div>
 			</div>
@@ -19,7 +19,7 @@
 						<p class="small bold form-text">Branch</p>
 					</div>
 					<div class="col-md-7 ">
-						<p class="small form-text">{{ user.relationships.branch.name}}</p>
+						<p class="small form-text">{{ vm.user.relationships.branch.name}}</p>
 					</div>
 				</div>
 			</div>
@@ -31,7 +31,7 @@
 						<p class="small bold form-text">Staff</p>
 					</div>
 					<div class="col-md-7">
-						<p class="small form-text">{{ user.attributes.name }}</p>
+						<p class="small form-text">{{ vm.user.attributes.name }}</p>
 					</div>
 				</div>
 			</div>
@@ -41,7 +41,7 @@
 						<p class="small bold form-text">Address</p>
 					</div>
 					<div class="col-md-7 ">
-						<p class="small form-text">{{ user.relationships.branch.address}}</p>
+						<p class="small form-text">{{ vm.user.relationships.branch.address}}</p>
 					</div>
 				</div>
 			</div>
@@ -68,20 +68,24 @@
 							<th>Type</th>
 							<th>Cost per unit</th>
 							<th>Qty.</th>
+							<th>Status</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="item in items | filter: searchFilter">
+						<tr ng-repeat="item in vm.items | filter: searchFilter">
 							<td class="bold text-center narrow">{{ $index + 1 }}</td>
-
-							<td><input ng-model="item.attributes.name" type="text" class="input-lg" placeholder="Item Name" ></td>
-							<td><input type="text" ng-model="item.relationships.type.name" class="input-lg" placeholder="Product" ></td>
-							<td><input type="text" ng-model="item.attributes.cost" class="input-md" placeholder="300" ></td>
-							<td><input type="text" ng-model="item.attributes.quantity" class="input-md" placeholder="1500" ></td>
+							<td>{{ item.attributes.name }}</td>
+							<td>{{ item.relationships.type.name }}</td>
+							<td>{{ item.attributes.cost }}</td>
+							<td class="narrow"><input ng-change="item.update = true" type="text" ng-model="item.attributes.quantity" class="input-md" placeholder="1500" ></td>
+							<td class="narrow text-center">
+								<div ng-show="item.update" class="label label-warning">change</div>
+								<div ng-hide="item.update" class="label label-default">same</div>
+							</td>
 						</tr>
 					</tbody>
 				</table>
-				<button class="btn btn-lg btn-success u__margin20 right">complete adjustment</button>
+				<button ng-click="vm.stockAdjust(vm.items)" class="btn btn-lg btn-success u__margin20 right">complete adjustment</button>
 			</div>
 		</div>
 		<hr>

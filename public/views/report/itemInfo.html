@@ -9,7 +9,7 @@
 						<p class="small bold form-text">Item Code</p>
 					</div>
 					<div class="col-md-7 ">
-						<p class="small form-text">P001</p>
+						<p class="small form-text">{{ vm.item.attributes.code }}</p>
 					</div>
 				</div>
 			</div>
@@ -19,7 +19,7 @@
 						<p class="small bold form-text">Item Name</p>
 					</div>
 					<div class="col-md-7 ">
-						<p class="small form-text">TV Sony 42" Model: 5G112TG</p>
+						<p class="small form-text">{{ vm.item.attributes.name }}</p>
 					</div>
 				</div>
 			</div>
@@ -31,7 +31,7 @@
 						<p class="small bold form-text">Item Type</p>
 					</div>
 					<div class="col-md-7">
-						<p class="small form-text">Product</p>
+						<p class="small form-text">{{ vm.item.relationships.type.name }}</p>
 					</div>
 				</div>
 			</div>
@@ -41,21 +41,7 @@
 						<p class="small bold form-text">Cost per unit</p>
 					</div>
 					<div class="col-md-7 ">
-						<p class="small form-text">13,500</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-6 col-md-offet-6">
-				<div class="row">
-					<div class="col-md-5 text-right">
-						<p class="small bold form-text">
-							Quantity
-						</p>
-					</div>
-					<div class="col-md-7">
-						<p class="small form-text">300</p>
+						<p class="small form-text">{{ vm.item.attributes.cost }}</p>
 					</div>
 				</div>
 			</div>

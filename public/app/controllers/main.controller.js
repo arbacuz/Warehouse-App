@@ -5,21 +5,12 @@
 			.module('app')
 			.controller('mainCtrl', mainCtrl);
 
-	mainCtrl.$inject = [
-							'$state',
-							'$cookieStore',
-							'$scope',
-							'$stateParams'
-							];
+	mainCtrl.$inject = ['$cookieStore'];
 
-	function mainCtrl (
-							$state,
-							$cookieStore,
-							$scope,
-							$stateParams
-							) {
-
-		$scope.user = $cookieStore.get('user');
-
+	function mainCtrl ($cookieStore) {
+		var vm = this;
+		
+		// Var Init
+		vm.user = $cookieStore.get('user');
 	}
 })();

@@ -3,7 +3,18 @@
 	<hr>
 	<div class="form-control">
 		<div class="row">
-			<div class="col-md-7">
+			<div class="col-lg-5">
+				<div class="row">
+					<div class="col-md-12">
+						<br>
+						<br>
+						<canvas class="chart chart-pie"
+						  chart-data="vm.chartData" chart-labels="vm.chartLabels" chart-options="vm.chartOptions" chart-legend="true" chart-colours="vm.chartColours">
+						</canvas> 
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-7">
 				<div class="row">
 					<div class="col-md-12">
 						<div class="row">
@@ -11,7 +22,7 @@
 								<p class="small bold form-text">Branch</p>
 							</div>
 							<div class="col-md-9 ">
-								<p class="small form-text">{{ branch.attributes.name }}</p>
+								<p class="small form-text">{{ vm.branch.attributes.name }}</p>
 							</div>
 						</div>
 					</div>
@@ -23,7 +34,7 @@
 			                    <p class="small bold form-text">Address</p>
 			                </div>
 			                <div class="col-md-9 ">
-			                    <p class="small form-text">{{ branch.attributes.address }}</p>
+			                    <p class="small form-text">{{ vm.branch.attributes.address }}</p>
 			                </div>
 			            </div>
 			        </div>
@@ -35,7 +46,7 @@
 								<p class="small bold form-text">Usage</p>
 							</div>
 							<div class="col-md-9 ">
-								<p class="small form-text"><span class="text-danger">{{ branch.attributes.usage | number:0 }}%</span></p>
+								<p class="small form-text"><span class="text-danger">{{ vm.branch.attributes.usage | number:0 }}%</span></p>
 							</div>
 						</div>
 					</div>
@@ -47,20 +58,11 @@
 								<p class="small bold form-text">Free</p>
 							</div>
 							<div class="col-md-9">
-								<p class="small form-text">{{ branch.attributes.free | number:0 }}%</p>
+								<p class="small form-text">{{ vm.branch.attributes.free | number:0 }}%</p>
 							</div>
 						</div>
 					</div>
 				</div>	
-			</div>
-			<div class="col-md-5">
-				<div class="row">
-					<div class="col-md-12">
-						<canvas class="chart chart-pie"
-						  chart-data="chartData" chart-labels="chartLabels" chart-options="chartOptions" chart-legend="true" chart-colours="chartColours">
-						</canvas> 
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>

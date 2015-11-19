@@ -5,7 +5,7 @@
 	<div class="form-control">
 		<div class="row">
 			<div class="col-md-12">
-				<table>
+				<table ng-class="{ 'loading': vm.loading }">
 					<thead>
 						<tr>
 							<th class="text-center">ID</th>
@@ -17,7 +17,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="staff in staffs">
+						<tr ng-repeat="staff in vm.staffs">
 							<td class="bold text-center narrow">
 								{{ staff.attributes._id }}
 							</td>
@@ -30,7 +30,7 @@
 							<td>
 								<select ng-change="staff.update = true"
 										ng-model="staff.relationships.position"
-										ng-options="position.attributes.name for position in positions track by position.attributes.name"
+										ng-options="position.attributes.name for position in vm.positions track by position.attributes.name"
 										class="input-md">
 								</select>
 								<i class="fa fa-caret-down caret-select select-md"></i>
@@ -38,13 +38,13 @@
 							<td>
 								<select ng-change="staff.update = true"
 										ng-model="staff.relationships.branch"
-										ng-options="branch.attributes.name for branch in branches track by branch.attributes.name"
+										ng-options="branch.attributes.name for branch in vm.branches track by branch.attributes.name"
 										class="input-md">
 								</select>
 								<i class="fa fa-caret-down caret-select select-md"></i>
 							</td>
 							<td style="width: 170px;">
-								<button ng-class="{'btn-success-border':staff.update}" class="btn btn-sm btn-default animated fadeIn" ng-click="staff.update && updateUser(staff)">update</button>
+								<button ng-class="{'btn-success-border':staff.update}" class="btn btn-sm btn-default animated fadeIn" ng-click="staff.update && vm.updateUser(staff)">update</button>
 							</td>
 						</tr>
 					</tbody>
@@ -81,9 +81,9 @@
 						<p class="small bold form-text">Position</p>
 					</div>
 					<div class="col-md-7 ">
-						<select ng-init="newUser.position = positions[0]" 
+						<select ng-init="newUser.position = vm.positions[0]" 
 								ng-model="newUser.position"
-								ng-options="position.attributes.name for position in positions"
+								ng-options="position.attributes.name for position in vm.positions"
 								class="input-lg">
 						</select>
 						<i class="fa fa-caret-down caret-select"></i>
@@ -108,9 +108,9 @@
 						<p class="small bold form-text">Branch</p>
 					</div>
 					<div class="col-md-7 ">
-						<select ng-init="newUser.branch = branches[0]" 
+						<select ng-init="newUser.branch = vm.branches[0]" 
 								ng-model="newUser.branch"
-								ng-options="branch.attributes.name for branch in branches"
+								ng-options="branch.attributes.name for branch in vm.branches"
 								class="input-lg">
 						</select>
 						<i class="fa fa-caret-down caret-select"></i>
@@ -120,7 +120,7 @@
 			<div class="col-md-6">
 				<div class="row">
 					<div class="col-md-7 col-md-offset-5">
-						<button ng-click="addUser(newUser)" class="btn btn-md btn-success">Add</button>
+						<button ng-click="vm.addUser(newUser)" class="btn btn-md btn-success">Add</button>
 					</div>
 				</div>
 			</div>

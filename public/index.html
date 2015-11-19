@@ -7,7 +7,7 @@
 	<link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="./css/main.css">
 </head>
-<body class="animated fadeIn" ng-cloak ng-controller="mainCtrl">
+<body class="animated fadeIn" ng-cloak ng-controller="mainCtrl as vm">
 	<div class="sidebar">
 		<a ui-sref="home" class="sidebar-brand">
 			<img class="animated bounceIn" src="./assets/logo.svg" alt="">
@@ -20,10 +20,10 @@
 						<div style="background-image:url('./assets/profile.png');" class="profile-img"></div>
 						<div class="profile-detail">
 							<div class="user-name">
-								{{ user.attributes.name }}
+								{{ vm.user.attributes.name }}
 							</div>
 							<div class="user-position">
-								{{ user.relationships.position.name }}
+								{{ vm.user.relationships.position.name }}
 							</div>
 						</div>
 					</a>
@@ -63,9 +63,6 @@
 					</a>
 					<a ui-sref="itemRefillAlert" ui-sref-active="active" class="menu-item">
 						<i class="fa fa-archive"></i> Item Refill Alert
-					</a>
-					<a ui-sref="requestedReport" ui-sref-active="active" class="menu-item">
-						<i class="fa fa-list-alt"></i> Requested Report
 					</a>
 					<a ui-sref="orderHistory" ui-sref-active="active" class="menu-item">
 						<i class="fa fa-list-alt"></i> Order History
@@ -136,7 +133,11 @@
 	<script src="./app/controllers/reports/itemRegHistory.controller.js"></script>
 	<script src="./app/controllers/reports/itemRemain.controller.js"></script>
 	<script src="./app/controllers/reports/itemRefill.controller.js"></script>
-	<script src="./app/controllers/reports/orderedHistoryCtrl.controller.js"></script>
+	<script src="./app/controllers/reports/orderedInfoCtrl.controller.js"></script>
+	<script src="./app/controllers/reports/invoiceHistoryCtrl.controller.js"></script>
+	<script src="./app/controllers/reports/orderedHistoryItemCtrl.controller.js"></script>
+	<script src="./app/controllers/reports/orderedHistoryTimeCtrl.controller.js"></script>
+	<script src="./app/controllers/reports/orderedHistoryStatusCtrl.controller.js"></script>
 	<script src="./app/controllers/reports/stockCard.controller.js"></script>
 	<script src="./app/controllers/reports/capacity.controller.js"></script>
 

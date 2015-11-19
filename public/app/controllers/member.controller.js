@@ -5,12 +5,13 @@
 			.module('app')
 			.controller('MemberCtrl', MemberCtrl);
 
-	MemberCtrl.$inject = ['$state','$scope','$cookieStore','MemberServices'];
+	MemberCtrl.$inject = ['$state','$cookieStore','MemberServices'];
 
-	function MemberCtrl($state,$scope,$cookieStore,MemberServices) {
-		$scope.login = login;
+	function MemberCtrl($state,$cookieStore,MemberServices) {
+		var vm = this;
 
-		console.log($cookieStore.get('user'));
+		// Func Init
+		vm.login = login;
 
 		function login(user) {
 			MemberServices.login(user)

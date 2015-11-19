@@ -5,43 +5,30 @@
 			.module('app')
 			.controller('ItemRegistrationCtrl', ItemRegistrationCtrl);
 
-	ItemRegistrationCtrl.$inject = [
-									'$state',
-									'$cookieStore',
-									'$scope',
-									'$stateParams',
-									'SweetAlert',
-									'ItemServices',
-									'CompanyServices',
-									'BranchServices'
-									];
+	ItemRegistrationCtrl.$inject = ['$state', '$cookieStore', 'SweetAlert', 'ItemServices', 'CompanyServices', 'BranchServices'];
 
-	function ItemRegistrationCtrl (
-								$state,
-								$cookieStore,
-								$scope,
-								$stateParams,
-								SweetAlert,
-								ItemServices,
-								CompanyServices,
-								BranchServices
-								) {
+	function ItemRegistrationCtrl ($state, $cookieStore, SweetAlert, ItemServices, CompanyServices, BranchServices) {
+		var vm = this;
 
-		$scope.addItem = addItem;
-		$scope.completeItems = completeItems;
-		$scope.items = [];
-		$scope.today = new Date().getTime();
-		$scope.deleteItem = deleteItem;
+		// Var Init
+		vm.items = [];
+		vm.today = new Date().getTime();
 
+		// Func Init
+		vm.addItem = addItem;
+		vm.completeItems = completeItems;
+		vm.deleteItem = deleteItem;
+
+		// Run
 		isLogin();
 		getCompanyByTypeID(2);
 		getItemTypesAll();
 
 
 		function isLogin() {
-			$scope.user = $cookieStore.get('user');
-			console.log($scope.user);
-			if(!$scope.user) {
+			vm.user = $cookieStore.get('user');
+			console.log(vm.user);
+			if(!vm.user) {
 				$state.go('member');
 			}
 		}
@@ -55,16 +42,16 @@
 					cost: item.cost,
 					quantity: item.quantity
 				}
-				$scope.items.push(newItem);
+				vm.items.push(newItem);
 				item.name = "";
-				item.type = $scope.itemTypes[0];
+				item.type = vm.itemTypes[0];
 				item.cost = "";
 				item.quantity = "";
 			}
 		}
 
 		function completeItems(supplier, items, user) {
-			$scope.loading = true;
+			vm.loading = true;
 			SweetAlert.swal({
 			    title: "Are you sure?",
 			    text: "You cannot recover the item after upadted.",
@@ -82,17 +69,17 @@
 						.success(function(data) {
 							if(data.status == "success") {
 								SweetAlert.swal("Complete!", "Item has been registered successfully", "success");
-								$scope.loading = false;
+								vm.loading = false;
 							} else {
 								SweetAlert.swal("Error!", "Item does not register yet", "error");
-								$scope.loading = false;
+								vm.loading = false;
 							}
-							$scope.items = [];
+							vm.items = [];
 						}).error(function(error) {
 							SweetAlert.swal("Error!", "Item does not register yet", "error");
 						})
 			    } else {
-			    	$scope.loading = false;
+			    	vm.loading = false;
 			      	SweetAlert.swal("Cancelled", "Item does not update yet", "error");
 			    }
 			  }); 
@@ -102,7 +89,7 @@
 			CompanyServices.getCompanyByTypeID(type)
 				.success(function(data) {
 					if(data.status == "success") {
-						$scope.companies = data.data;
+						vm.companies = data.data;
 					} else {
 						console.log(data.status + data.messages);
 					}
@@ -115,8 +102,7 @@
 			ItemServices.getItemTypesAll()
 				.success(function(data) {
 					if(data.status == "success") {
-						console.log(data.data);
-						$scope.itemTypes = data.data;
+						vm.itemTypes = data.data;
 					} else {
 						console.log(data.status + data.messages);
 					}
@@ -126,7 +112,7 @@
 		}
 
 		function deleteItem(idx) {
-	    	$scope.items.splice(idx, 1);
+	    	vm.items.splice(idx, 1);
 	  	}
 	}
 })();

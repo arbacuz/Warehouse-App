@@ -5,31 +5,25 @@
 			.module('app')
 			.controller('itemRefillCtrl', itemRefillCtrl);
 
-	itemRefillCtrl.$inject = [
-							'$state',
-							'$cookieStore',
-							'$scope',
-							'$stateParams',
-							'ItemServices'
-							];
+	itemRefillCtrl.$inject = ['$state', '$cookieStore', '$stateParams', 'ItemServices'];
 
-	function itemRefillCtrl(
-							$state,
-							$cookieStore,
-							$scope,
-							$stateParams,
-							ItemServices
-							) {
+	function itemRefillCtrl($state, $cookieStore, $stateParams, ItemServices) {
+		var vm = this;
 
+		// Var Init
+		vm.items = [];
+
+		// Func Init
+
+		// Run
 		isLogin();
-		$scope.items = [];
 
 		function isLogin() {
-			$scope.user = $cookieStore.get('user');
-			if(!$scope.user) {
+			vm.user = $cookieStore.get('user');
+			if(!vm.user) {
 				$state.go('member');
 			} else {
-				getItemsByQuantity($scope.user.relationships.branch,50);
+				getItemsByQuantity(vm.user.relationships.branch,50);
 			}
 		}
 
@@ -38,7 +32,7 @@
 				.success(function(data) {
 					console.log(data);
 					if(data.status == "success") {
-						$scope.items = data.data;
+						vm.items = data.data;
 					}
 				}).error(function(error) {
 					console.log(error);

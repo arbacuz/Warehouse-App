@@ -11,6 +11,7 @@
 		var urlBase = "http://localhost:8888/warehouse-proj/Warehouse-App/public/";
 		var itemServices = {
 			registerItem: 		registerItem,
+			stockAdjust: 		stockAdjust,
 			addItem: 			addItem,
 			addItemByBranch: 	addItemByBranch,
 			updateItem: 		updateItem,
@@ -31,6 +32,18 @@
 		function registerItem(supplier, items, user) {
 			var data = angular.toJson({'supplier':supplier,'items':items,'user':user});
 			return $http.post(urlBase+'api/item/registerItem.php',data);
+		}
+
+		function stockAdjust(items, user) {
+			var updateItems = [];
+			angular.forEach(items,function(item) {
+				if(item.update == true) {
+					updateItems.push(item);
+				}
+			});
+			
+			var data = angular.toJson({'items':updateItems,'user':user});
+			return $http.post(urlBase+'api/item/stockAdjust.php',data);
 		}
 
 		function addItem(item) {
@@ -64,8 +77,11 @@
 			return $http.get(urlBase+'api/item/getItemsAll.php');
 		}
 
-		function getItem(item) {
-			/* itemCode,itemName */
+		function getItem(itemID) {
+			var item = {'_id':itemID};
+			var data = angular.toJson({'item':item});
+			console.log(data);
+			return $http.post(urlBase+'api/item/getItem.php',data);
 		}
 
 		function getItemsByReg(regCode,branch) {

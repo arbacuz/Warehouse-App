@@ -5,48 +5,35 @@
 			.module('app')
 			.controller('itemListCtrl', itemListCtrl);
 
-	itemListCtrl.$inject = [
-							'$state',
-							'$cookieStore',
-							'$scope',
-							'$stateParams',
-							'SweetAlert',
-							'ItemServices'
-							];
+	itemListCtrl.$inject = ['$state', '$cookieStore', '$stateParams', 'SweetAlert', 'ItemServices'];
 
-	function itemListCtrl(
-							$state,
-							$cookieStore,
-							$scope,
-							$stateParams,
-							SweetAlert,
-							ItemServices
-							) {
+	function itemListCtrl($state, $cookieStore, $stateParams, SweetAlert, ItemServices) {
+		var vm = this;
 
-		isLogin();
-		$scope.items = [];
-		$scope.itemTypes = [];
+		// Var Init
+		vm.items = [];
+		vm.itemTypes = [];
 
-		$scope.updateItem = updateItem;
-		$scope.addItem = addItem;
+		// Func Init
+		vm.updateItem = updateItem;
+		vm.addItem = addItem;
 		
+		// Run
+		isLogin();
 		getItemsAll();
 		getItemTypesAll();
 
 		function isLogin() {
-			$scope.user = $cookieStore.get('user');
-			if(!$scope.user) {
+			vm.user = $cookieStore.get('user');
+			if(!vm.user) {
 				$state.go('member');
-			} else {
-				// getItemsByBranch($scope.user.relationships.branch);
 			}
 		}
 		
 		function getItemsAll() {
 			ItemServices.getItemsAll()
 				.success(function(data) {
-					// console.log(data);
-					$scope.items = data.data;
+					vm.items = data.data;
 				}).error(function(error) {
 					console.log(error);
 				});
@@ -56,8 +43,7 @@
 			ItemServices.getItemTypesAll()
 				.success(function(data) {
 					if(data.status == "success") {
-						// console.log(data.data);
-						$scope.itemTypes = data.data;
+						vm.itemTypes = data.data;
 					} else {
 						console.log(data.status + data.messages);
 					}
@@ -67,23 +53,22 @@
 		}
 
 		function addItem(item) {
-			$scope.loading = true;
+			vm.loading = true;
 			ItemServices.addItem(item)
 				.success(function(data) {
-					console.log(data);
 					if(data.status == "success") {
 						getItemsAll();
 					}
-					$scope.loading = false;
+					vm.loading = false;
 				}).error(function(error) {
 					console.log(error);
-					$scope.loading = false;
+					vm.loading = false;
 				})
-			$scope.newItem = "";
+			vm.newItem = "";
 		}
 
 		function updateItem(item) {
-			$scope.loading = true;
+			vm.loading = true;
 			SweetAlert.swal({
 			    title: "Are you sure?",
 			    text: "You cannot recover the item after upadted.",
@@ -103,14 +88,14 @@
 							if(data.status == "success") {
 								item.update = false;
 							}
-							$scope.loading = false;
+							vm.loading = false;
 						}).error(function(error) {
 							console.log(error);
-							$scope.loading = false;
+							vm.loading = false;
 						})
 			      	SweetAlert.swal("Updated!", "Item has been updated successfully", "success");
 			    } else {
-			    	$scope.loading = false;
+			    	vm.loading = false;
 			    	getItemsAll();
 			      	SweetAlert.swal("Cancelled", "Item does not update yet", "error");
 			    }

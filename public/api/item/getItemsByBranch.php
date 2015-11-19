@@ -37,6 +37,7 @@ if($query) {
 	$arr["data"][$i]["relationships"]["staff"]["name"] = $result["staffName"];
 	$arr["data"][$i]["relationships"]["branch"]["_id"] = $branchID;
 	$arr["data"][$i]["relationships"]["branch"]["name"] = $branchName;
+	$arr["data"][$i]["update"] = false;
 	$i++;
 	}
 }

@@ -6,7 +6,7 @@ include_once("../../includes/class_mysql.php");
 #-> Get data from js and initialize
 $data = file_get_contents("php://input");
 $json = json_decode($data);
-$itemID = $json->$items->_id;
+$itemID = $json->item->_id;
 
 
 #-> Connect to the database
@@ -14,20 +14,23 @@ $db = new Database();
 $db->connectdb(DB_NAME,DB_USER,DB_PASS);
 
 #-> Query the data.
-$query = $db->querydb("SELECT * FROM ".TB_ITEM." i INNER JOIN ".TB_ITEMTYPE." it ON i.typeID=it.typeID WHERE i.itemID =".$itemID);
+$query = $db->querydb("SELECT * FROM ".TB_ITEM." i INNER JOIN ".TB_ITEMTYPE." it ON i.typeID=it.typeID INNER JOIN ".TB_ITEMBRANCH." ib ON i.itemID = ib.itemID INNER JOIN ".TB_BRANCH." b ON b.branchID = ib.branchID WHERE i.itemID = $itemID");
 
 #-> Preparing return data.
 $arr = array();
 if($query) {
 	$arr["status"] = "success";
-	$i = 0;
 	while($result = $db->fetch($query)) {
-		$arr["data"][$i]["attributes"]["itemID"] = $result["itemID"];
-		$arr["data"][$i]["attributes"]["itemCode"] = $result["itemCode"];
-		$arr["data"][$i]["attributes"]["itemName"] = $result["itemName"];
-		$arr["data"][$i]["relationships"]["type"]["name"]=$fetchdata["typeName"];
-		$arr["data"][$i]["attributes"]["cost"] = $result["costPerUnit"];
-		$i ++;
+		$arr["data"]["attributes"]["_id"] = $result["itemID"];
+		$arr["data"]["attributes"]["code"] = $result["itemCode"];
+		$arr["data"]["attributes"]["name"] = $result["itemName"];
+		$arr["data"]["attributes"]["cost"] = $result["costPerUnit"];
+		$arr["data"]["relationships"]["type"]["_id"]=$result["typeID"];
+		$arr["data"]["relationships"]["type"]["name"]=$result["typeName"];
+		$arr["data"]["relationships"]["branch"]["_id"]=$result["branchID"];
+		$arr["data"]["relationships"]["branch"]["name"]=$result["branchName"];
+		$arr["data"]["relationships"]["branch"]["address"]=$result["branchAddress"];
+		$arr["data"]["relationships"]["branch"]["telephone"]=$result["branchTel"];
 	}
 } else {
 	$arr["status"] = "error";

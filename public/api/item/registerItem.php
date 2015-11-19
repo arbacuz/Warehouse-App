@@ -52,6 +52,8 @@ if($query){
 		}else{
 			$registerCode = "REG".strval($registerData["registerID"]+1);
 		}
+	}else{
+		$registerCode = "REG000";
 	}
 }
 $data = array(
@@ -86,17 +88,20 @@ while($items[$i]) {
 		if($queryItemID){
 			if($itemData = $db->fetch($queryItemID)){
 				$itemID = $itemData["itemID"]+1;
+				$str = str_split($typeName);
+				if($itemID < 10){
+					$code = $str[0]."00".strval($itemID);
+				}else if($itemID < 100){
+					$code = $str[0]."0".strval($itemID);
+				}else{
+					$code = $str[0].strval($itemID);
+				}
 			}
-			if($itemID < 10){
+			else{
 				$str = str_split($typeName);
-				$code = $str[0]."00".strval($itemID);
-			}else if($itemID < 100){
-				$str = str_split($typeName);
-				$code = $str[0]."0".strval($itemID);
-			}else{
-				$str = str_split($typeName);
-				$code = $str[0].strval($itemID);
+				$code = $str[0]."000";
 			}
+			
 		}
 		$data = array(
 			"itemCode" => $code,

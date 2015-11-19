@@ -5,39 +5,32 @@
 			.module('app')
 			.controller('itemRemainCtrl', itemRemainCtrl);
 
-	itemRemainCtrl.$inject = [
-							'$state',
-							'$cookieStore',
-							'$scope',
-							'$stateParams',
-							'ItemServices'
-							];
+	itemRemainCtrl.$inject = ['$state', '$cookieStore', '$stateParams', 'ItemServices'];
 
-	function itemRemainCtrl(
-							$state,
-							$cookieStore,
-							$scope,
-							$stateParams,
-							ItemServices
-							) {
+	function itemRemainCtrl($state, $cookieStore, $stateParams, ItemServices) {
+		var vm = this;
 
+		// Var Init
+		vm.items = [];
+
+		// Func Init
+
+		// Run
 		isLogin();
-		$scope.items = [];
 
 		function isLogin() {
-			$scope.user = $cookieStore.get('user');
-			if(!$scope.user) {
+			vm.user = $cookieStore.get('user');
+			if(!vm.user) {
 				$state.go('member');
 			} else {
-				getItemsByBranch($scope.user.relationships.branch);
+				getItemsByBranch(vm.user.relationships.branch);
 			}
 		}
 		
 		function getItemsByBranch(branch) {
 			ItemServices.getItemsByBranch(branch)
 				.success(function(data) {
-					// console.log(data);
-					$scope.items = data.data;
+					vm.items = data.data;
 				}).error(function(error) {
 					console.log(error);
 				})

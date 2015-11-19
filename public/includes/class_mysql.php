@@ -2,7 +2,7 @@
 // if(eregi("class_mysql.php",$_SERVER['PHP_SELF'])){
 // 	header("Location: ../index.php");
 // }
-
+header('Access-Control-Allow-Origin: *');  
 class Database {
 	var $host = DB_HOST;
 

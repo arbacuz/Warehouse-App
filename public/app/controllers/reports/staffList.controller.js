@@ -5,43 +5,32 @@
 			.module('app')
 			.controller('staffListCtrl', staffListCtrl);
 
-	staffListCtrl.$inject = [
-							'$state',
-							'$cookieStore',
-							'$scope',
-							'$stateParams',
-							'SweetAlert',
-							'MemberServices',
-							'BranchServices'
-							];
+	staffListCtrl.$inject = ['$state', '$cookieStore', '$stateParams', 'SweetAlert', 'MemberServices', 'BranchServices'];
 
-	function staffListCtrl(
-							$state,
-							$cookieStore,
-							$scope,
-							$stateParams,
-							SweetAlert,
-							MemberServices,
-							BranchServices
-							) {
+	function staffListCtrl($state, $cookieStore, $stateParams, SweetAlert, MemberServices, BranchServices) {
+		var vm = this;
 
+		// Var Init
+		vm.staffs = [];
+		vm.positions = [];
+		vm.branches = [];
+
+		// Func Init
+		vm.addUser = addUser;
+		vm.updateUser = updateUser;
+
+		// Run
 		isLogin();
-		$scope.staffs = [];
-		$scope.positions = [];
-		$scope.branches = [];
-		$scope.addUser = addUser;
-		$scope.updateUser = updateUser;
-		
 		getUsersAll();
 		getPositionsAll();
 		getBranchAll();
 
 		function isLogin() {
-			$scope.user = $cookieStore.get('user');
-			if(!$scope.user) {
+			vm.user = $cookieStore.get('user');
+			if(!vm.user) {
 				$state.go('member');
 			} else {
-				// getItemsByBranch($scope.user.relationships.branch);
+				// getItemsByBranch(vm.user.relationships.branch);
 			}
 		}
 		
@@ -49,19 +38,18 @@
 			MemberServices.getUsersAll()
 				.success(function(data) {
 					// console.log(data);
-					$scope.staffs = data.data;
+					vm.staffs = data.data;
 				}).error(function(error) {
 					console.log(error);
 				});
 		}
 
 		function getBranchAll() {
-			$scope.loading = true;
+			vm.loading = true;
 			BranchServices.getBranchAll()
 				.success(function(data) {
-					// console.log(data);
-					$scope.branches = data.data;
-					$scope.loading = false;;
+					vm.branches = data.data;
+					vm.loading = false;;
 				}).error(function(error) {
 					console.log(error);
 				});
@@ -70,29 +58,29 @@
 		function getPositionsAll() {
 			MemberServices.getPositionsAll()
 				.success(function(data) {
-					$scope.positions = data.data;
+					vm.positions = data.data;
 				}).error(function(error){
 					console.log(error);
 				})
 		}
 
 		function addUser(staff) {
-			$scope.loading = true;
+			vm.loading = true;
 			MemberServices.addUser(staff)
 				.success(function(data) {
 					if(data.status == "success") {
 						getUsersAll();
 					}
-					$scope.loading = false;
+					vm.loading = false;
 				}).error(function(error) {
 					console.log(error);
-					$scope.loading = false;
+					vm.loading = false;
 				})
-			$scope.newStaff = ""
+			vm.newStaff = ""
 		}
 
 		function updateUser(staff) {
-			$scope.loading = true;
+			vm.loading = true;
 			SweetAlert.swal({
 			    title: "Are you sure?",
 			    text: "You will not be able to recover this user",
@@ -112,14 +100,14 @@
 							if(data.status == "success") {
 								staff.update = false;
 							}
-							$scope.loading = false;
+							vm.loading = false;
 						}).error(function(error) {
 							console.log(error);
-							$scope.loading = false;
+							vm.loading = false;
 						})
 			      	SweetAlert.swal("Updated!", "User has been updated successfully", "success");
 			    } else {
-			    	$scope.loading = false;
+			    	vm.loading = false;
 			    	getUsersAll();
 			      	SweetAlert.swal("Cancelled", "User does not update yet", "error");
 			    }

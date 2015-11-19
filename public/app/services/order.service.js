@@ -21,20 +21,22 @@
 			getOrdersAll: 			getOrdersAll,
 			getOrder: 				getOrder,
 			getOrdersByTime: 		getOrdersByTime,
+			getInvoiceHistory: 		getInvoiceHistory,
 			getOrdersByItem: 		getOrdersByItem,
 			getOrdersByStatus: 		getOrdersByStatus,
 			getOrdersByInvoice: 	getOrdersByInvoice,
-			getStatusesAll: 		getStatusesAll
+			getStatusesAll: 		getStatusesAll,
+			getStockcard: 			getStockcard
 		};
 		return orderServices;
 
-		function addOrder(order) {
-			var data = angular.toJson({'order':order});
+		function addOrder(company,items,user) {
+			var data = angular.toJson({'company':company,'items':items,'user':user});
 			return $http.post(urlBase+'api/order/addOrder.php',data);
 		}
 
-		function addRequest(request) {
-			var data = angular.toJson({'request':request});
+		function addRequest(company,items,user) {
+			var data = angular.toJson({'company':company,'items':items,'user':user});
 			return $http.post(urlBase+'api/order/addRequest.php',data);
 		}
 
@@ -44,7 +46,7 @@
 		}
 
 		function updateOrder(order) {
-			var data = angular.toJson({'order':order});
+			var data = angular.toJson({'order':order,'status':status});
 			return $http.post(urlBase+'api/order/updateOrder.php',data);
 		}
 
@@ -72,23 +74,29 @@
 			return $http.get(urlBase+'api/order/getOrdersAll.php');
 		}
 
-		function getOrder(order) {
+		function getOrder(orderID) {
+			var order = {'_id':orderID};
 			var data = angular.toJson({'order':order});
 			return $http.post(urlBase+'api/order/getOrder.php',data);
 		}
 
-		function getOrdersByTime(order) {
-			var data = angular.toJson({'order':order});
+		function getOrdersByTime(date,branch) {
+			var data = angular.toJson({'date':date,'branch':branch});
 			return $http.post(urlBase+'api/order/getOrdersByTime.php',data);
 		}
 
-		function getOrdersByItem(item) {
-			var data = angular.toJson({'order':order});
+		function getInvoiceHistory(date,branch) {
+			var data = angular.toJson({'date':date,'branch':branch});
+			return $http.post(urlBase+'api/order/getInvoiceHistory.php',data);
+		}
+
+		function getOrdersByItem(item,branch) {
+			var data = angular.toJson({'item':item,'branch':branch});
 			return $http.post(urlBase+'api/order/getOrdersByItem.php',data);
 		}
 
-		function getOrdersByStatus(status) {
-			var data = angular.toJson({'order':order});
+		function getOrdersByStatus(status,branch) {
+			var data = angular.toJson({'status':status,'branch':branch});
 			return $http.post(urlBase+'api/order/getOrdersByStatus.php',data);
 		}
 
@@ -99,6 +107,11 @@
 
 		function getStatusesAll() {
 			return $http.get(urlBase+'api/order/getStatusesAll.php');
+		}
+
+		function getStockcard(branch,month,item) {
+			var data = angular.toJson({'branch':branch, 'month':month, 'itemName':item});
+			return $http.post(urlBase+'api/order/getStockcard.php',data);
 		}
 
 	}

@@ -19,24 +19,24 @@
 						<p class="small bold form-text">Branch</p>
 					</div>
 					<div class="col-md-7 ">
-						<p class="small form-text">{{ user.relationships.branch.name }}</p>
+						<p class="small form-text">{{ vm.user.relationships.branch.name }}</p>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-6">
-				<div class="row" ng-hide="showTable">
+				<div class="row" ng-hide="vm.showTable">
 					<div class="col-md-7 col-md-offset-5">
-						<button ng-click="getItemsByReg(regCode,user.relationships.branch)" class="btn btn-md btn-success">Search</button>
+						<button ng-click="vm.getItemsByReg(regCode,vm.user.relationships.branch)" class="btn btn-md btn-success">Search</button>
 					</div>
 				</div>
-				<div class="row" ng-show="showTable">
+				<div class="row" ng-show="vm.showTable">
 					<div class="col-md-5 text-right">
 						<p class="small bold form-text">Registration Date</p>
 					</div>
 					<div class="col-md-7">
-						<p class="small form-text">{{ items[0].relationships.register.registerdate }}</p>
+						<p class="small form-text">{{ vm.items[0].relationships.register.registerdate }}</p>
 					</div>
 				</div>
 			</div>
@@ -46,26 +46,26 @@
 						<p class="small bold form-text">Address</p>
 					</div>
 					<div class="col-md-7 ">
-						<p class="small form-text">{{ user.relationships.branch.address }}</p>
+						<p class="small form-text">{{ vm.user.relationships.branch.address }}</p>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-6">
-				<div class="row" ng-show="showTable">
+				<div class="row" ng-show="vm.showTable">
 					<div class="col-md-7 col-md-offset-5">
-						<button ng-click="getItemsByReg(regCode,user.relationships.branch)" class="btn btn-md btn-success">Search</button>
+						<button ng-click="vm.getItemsByReg(regCode,user.relationships.branch)" class="btn btn-md btn-success">Search</button>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-6">
-				<div class="row" ng-show="showTable">
+				<div class="row" ng-show="vm.showTable">
 					<div class="col-md-5 text-right">
 						<p class="small bold form-text">Supplier</p>
 					</div>
 					<div class="col-md-7">
-						<p class="small form-text">Hitachi Company</p>
+						<p class="small form-text">{{ vm.items[0].relationships.register.companyName }}</p>
 					</div>
 				</div>
 			</div>
@@ -73,7 +73,7 @@
 		<hr>
 		<div class="row">
 			<div class="col-md-12">
-				<table class="animated fadeIn" ng-show="showTable">
+				<table class="animated fadeIn" ng-show="vm.showTable">
 					<thead>
 						<tr>
 							<th></th>
@@ -84,10 +84,10 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-hide="items[0].attributes" style="cursor: default;"class="animated fadeIn" >
+						<tr ng-hide="vm.items[0].attributes" style="cursor: default;"class="animated fadeIn" >
 							<td class="text-center" colspan="5">No Items</td>
 						</tr>
-						<tr ng-show="item.attributes" ng-repeat="item in items">
+						<tr ui-sref="itemInfo({id: '{{item.attributes._id}}'})" ng-show="vm.items[0].attributes" ng-repeat="item in vm.items"> {{ item }}
 							<td class="bold narrow text-center">{{ $index + 1 }}</td>
 							<td class="underline">{{ item.attributes.code}}</td>
 							<td class="underline">{{ item.attributes.name }}</td>

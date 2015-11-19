@@ -17,8 +17,8 @@ if($query)
 		$arr["status"] = "success";
 		$i = 0;
 		while($result = $db->fetch($query)) {
-			$arr["data"][$i]["order_list"]["_id"] = $result["statusID"];
-			$arr["data"][$i]["order_list"]["name"] = $result["statusName"];
+			$arr["data"][$i]["attributes"]["_id"] = $result["statusID"];
+			$arr["data"][$i]["attributes"]["name"] = $result["statusName"];
 			$i++;
 		}
 	} 

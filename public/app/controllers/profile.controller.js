@@ -5,17 +5,20 @@
 			.module('app')
 			.controller('ProfileCtrl', ProfileCtrl);
 
-	ProfileCtrl.$inject = ['$state','$scope','$cookieStore','MemberServices'];
+	ProfileCtrl.$inject = ['$state','$cookieStore','MemberServices'];
 
-	function ProfileCtrl($state,$scope,$cookieStore,MemberServices) {
+	function ProfileCtrl($state,$cookieStore,MemberServices) {
+		var vm = this;
 
-		$scope.logout = logout;
+		// Func Init
+		vm.logout = logout;
 		
+		// Run
 		isLogin();
 
 		function isLogin() {
-			$scope.user = $cookieStore.get('user');
-			if(!$scope.user) {
+			vm.user = $cookieStore.get('user');
+			if(!vm.user) {
 				$state.go('member');
 			}
 		}

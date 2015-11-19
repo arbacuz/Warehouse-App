@@ -5,67 +5,55 @@
 			.module('app')
 			.controller('positionListCtrl', positionListCtrl);
 
-	positionListCtrl.$inject = [
-							'$state',
-							'$cookieStore',
-							'$scope',
-							'$stateParams',
-							'SweetAlert',
-							'MemberServices'
-							];
+	positionListCtrl.$inject = ['$state', '$cookieStore', '$stateParams', 'SweetAlert', 'MemberServices'];
 
-	function positionListCtrl(
-							$state,
-							$cookieStore,
-							$scope,
-							$stateParams,
-							SweetAlert,
-							MemberServices
-							) {
+	function positionListCtrl($state, $cookieStore, $stateParams, SweetAlert, MemberServices) {
+		var vm = this;
 
+		// Var Init
+		vm.positions = [];
+
+		// Func Init
+		vm.addPosition = addPosition;
+		vm.updatePosition = updatePosition;
+
+		// Run
 		isLogin();
-		$scope.positions = [];
-		$scope.addPosition = addPosition;
-		$scope.updatePosition = updatePosition;
-
 		getPositionsAll();
 
 		function isLogin() {
-			$scope.user = $cookieStore.get('user');
-			if(!$scope.user) {
+			vm.user = $cookieStore.get('user');
+			if(!vm.user) {
 				$state.go('member');
-			} else {
-				// getItemsByBranch($scope.user.relationships.branch);
 			}
 		}
 		
 		function getPositionsAll() {
 			MemberServices.getPositionsAll()
 				.success(function(data) {
-					// console.log(data);
-					$scope.positions = data.data;
+					vm.positions = data.data;
 				}).error(function(error) {
 					console.log(error);
 				});
 		}
 
 		function addPosition(position) {
-			$scope.loading = true;
+			vmloading = true;
 			MemberServices.addPosition(position)
 				.success(function(data) {
 					if(data.status == "success") {
 						getPositionsAll();
 					}
-					$scope.loading = false;
+					vm.loading = false;
 				}).error(function(error) {
 					console.log(error);
-					$scope.loading = false;
+					vm.loading = false;
 				})
-			$scope.newPosition = ""
+			vm.newPosition = ""
 		}
 
 		function updatePosition(position) {
-			$scope.loading = true;
+			vm.loading = true;
 			SweetAlert.swal({
 			    title: "Are you sure?",
 			    text: "You will not be able to recover this user",
@@ -85,14 +73,14 @@
 							if(data.status == "success") {
 								position.update = false;
 							}
-							$scope.loading = false;
+							vm.loading = false;
 						}).error(function(error) {
 							console.log(error);
-							$scope.loading = false;
+							vm.loading = false;
 						})
 			      	SweetAlert.swal("Updated!", "User has been updated successfully", "success");
 			    } else {
-			    	$scope.loading = false;
+			    	vm.loading = false;
 			    	getPositionsAll();
 			      	SweetAlert.swal("Cancelled", "User does not update yet", "error");
 			    }

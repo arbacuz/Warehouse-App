@@ -53,3 +53,9 @@
 .loading {
 	opacity: .2;
 }
+
+@media screen and (max-width: 991px) {
+	.content .form-control .row {
+		margin: 0;
+	}
+}

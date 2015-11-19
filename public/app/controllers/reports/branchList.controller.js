@@ -5,69 +5,57 @@
 			.module('app')
 			.controller('branchListCtrl', branchListCtrl);
 
-	branchListCtrl.$inject = [
-							'$state',
-							'$cookieStore',
-							'$scope',
-							'$stateParams',
-							'SweetAlert',
-							'BranchServices'
-							];
+	branchListCtrl.$inject = ['$state', '$cookieStore', '$stateParams', 'SweetAlert', 'BranchServices'];
 
-	function branchListCtrl(
-							$state,
-							$cookieStore,
-							$scope,
-							$stateParams,
-							SweetAlert,
-							BranchServices
-							) {
+	function branchListCtrl($state, $cookieStore, $stateParams, SweetAlert, BranchServices) {
+		var vm = this;
 
+		// Var Init
+		vm.branches = [];
+
+		// Func Init
+		vm.addBranch = addBranch;
+		vm.updateBranch = updateBranch;
+
+		// Run
 		isLogin();
-		$scope.branches = [];
-		$scope.addBranch = addBranch;
-		$scope.updateBranch = updateBranch;
-
 		getBranchAll();
 
 		function isLogin() {
-			$scope.user = $cookieStore.get('user');
-			if(!$scope.user) {
+			vm.user = $cookieStore.get('user');
+			if(!vm.user) {
 				$state.go('member');
-			} else {
-				// getItemsByBranch($scope.user.relationships.branch);
 			}
 		}
 		
 		function getBranchAll() {
-			$scope.loading = true;
+			vm.loading = true;
 			BranchServices.getBranchAll()
 				.success(function(data) {
-					// console.log(data);
-					$scope.branches = data.data;
-					$scope.loading = false;;
+					vm.branches = data.data;
+					vm.loading = false;;
 				}).error(function(error) {
 					console.log(error);
 				});
 		}
 
 		function addBranch(branch) {
-			$scope.loading = true;
+			vm.loading = true;
 			BranchServices.addBranch(branch)
 				.success(function(data) {
 					if(data.status == "success") {
 						getBranchAll();
 					}
-					$scope.loading = false;
+					vm.loading = false;
 				}).error(function(error) {
 					console.log(error);
-					$scope.loading = false;
+					vm.loading = false;
 				})
-			$scope.newBranch = ""
+			vm.newBranch = ""
 		}
 
 		function updateBranch(branch) {
-			$scope.loading = true;
+			vm.loading = true;
 			SweetAlert.swal({
 			    title: "Are you sure?",
 			    text: "You will not be able to recover this branch",
@@ -87,10 +75,10 @@
 							if(data.status == "success") {
 								branch.update = false;
 							}
-							$scope.loading = false;
+							vm.loading = false;
 						}).error(function(error) {
 							console.log(error);
-							$scope.loading = false;
+							vm.loading = false;
 						})
 			      	SweetAlert.swal("Updated!", "Branch has been updated successfully", "success");
 			    } else {

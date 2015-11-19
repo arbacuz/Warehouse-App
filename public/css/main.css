@@ -6390,6 +6390,9 @@ small {
 .underline {
   text-decoration: underline; }
 
+@media screen and (max-width: 991px) {
+  .row .text-right {
+    text-align: left !important; } }
 .btn {
   outline: none;
   border: none;
@@ -6645,6 +6648,9 @@ table {
 .loading {
   opacity: .2; }
 
+@media screen and (max-width: 991px) {
+  .content .form-control .row {
+    margin: 0; } }
 .menu-box {
   display: block;
   cursor: pointer;

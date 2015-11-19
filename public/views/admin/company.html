@@ -5,7 +5,7 @@
 	<div class="form-control">
 		<div class="row">
 			<div class="col-md-12">
-				<table ng-class="{ 'loading': loading }">
+				<table ng-class="{ 'loading': vm.loading }">
 					<thead>
 						<tr>
 							<th class="text-center">ID</th>
@@ -17,7 +17,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="animated fadeIn" ng-repeat="company in companies | orderBy:'attributes._id'">
+						<tr class="animated fadeIn" ng-repeat="company in vm.companies | orderBy:'attributes._id'">
 							<td class="bold text-center narrow">
 								{{ company.attributes._id }}
 							</td>
@@ -33,13 +33,13 @@
 							<td>
 								<select ng-change="company.update = true"
 										ng-model="company.relationships.companyType"
-										ng-options="type.attributes.name for type in companiesType track by type.attributes.name"
+										ng-options="type.attributes.name for type in vm.companiesType track by type.attributes.name"
 										class="input-md">
 								</select>
 								<i class="fa fa-caret-down caret-select select-md"></i>
 							</td>
 							<td style="width: 170px;">
-								<button ng-class="{'btn-success-border':company.update}" class="btn btn-sm btn-default animated fadeIn" ng-click="company.update && updateCompany(company)">update</button>
+								<button ng-class="{'btn-success-border':company.update}" class="btn btn-sm btn-default animated fadeIn" ng-click="company.update && vm.updateCompany(company)">update</button>
 							</td>
 						</tr>
 					</tbody>
@@ -86,9 +86,9 @@
 						<p class="small bold form-text">Company type</p>
 					</div>
 					<div class="col-md-7 text-left">
-						<select ng-init="newCompany.type = companiesType[0]" 
+						<select ng-init="newCompany.type = vm.companiesType[0]" 
 								ng-model="newCompany.type"
-								ng-options="type.attributes.name for type in companiesType"
+								ng-options="type.attributes.name for type in vm.companiesType"
 								class="input-lg">
 						</select>
 						<i class="fa fa-caret-down caret-select"></i>
@@ -100,7 +100,7 @@
 			<div class="col-md-6 col-md-offset-6">
 				<div class="row">
 					<div class="col-md-7 col-md-offset-5">
-						<button ng-click="addCompany(newCompany)" class="btn btn-md btn-success">Add</button>
+						<button ng-click="vm.addCompany(newCompany)" class="btn btn-md btn-success">Add</button>
 					</div>
 				</div>
 			</div>

@@ -9,10 +9,6 @@ $json = json_decode($data);
 
 $email = $json->user->email;
 $password = $json->user->password;
-$email = stripslashes($email);
-$password = stripslashes($password);
-$email = mysql_real_escape_string($email);
-$password = mysql_real_escape_string($password);
 
 #-> Connect to the database
 $db = new Database();
