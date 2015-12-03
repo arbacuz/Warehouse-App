@@ -18,6 +18,7 @@
 		// Func Init
 		vm.addUser = addUser;
 		vm.updateUser = updateUser;
+		vm.deleteUser = deleteUser;
 
 		// Run
 		isLogin();
@@ -106,6 +107,44 @@
 							vm.loading = false;
 						})
 			      	SweetAlert.swal("Updated!", "User has been updated successfully", "success");
+			    } else {
+			    	vm.loading = false;
+			    	getUsersAll();
+			      	SweetAlert.swal("Cancelled", "User does not update yet", "error");
+			    }
+			  }); 
+		}
+
+		function deleteUser(user) {
+			vm.loading = true;
+			SweetAlert.swal({
+			    title: "Are you sure?",
+			    text: "All of related data will be cascade permanently! (include all transactions)",
+			    type: "warning",
+			    showCancelButton: true,
+			    confirmButtonColor: "#DD6B55",
+			    confirmButtonText: "Yes, delete it!",
+			    closeOnConfirm: false,
+			    cancelButtonText: "No, cancel please!",
+				closeOnCancel: false
+			  },
+			  function(isConfirm){
+			  	if (isConfirm) {
+			  		MemberServices.deleteUser(user)
+						.success(function(data) {
+							console.log(data);
+							if(data.status == "success") {
+								user.update = false;
+								SweetAlert.swal("Deleted!", "User has been deleted successfully", "success");
+							} else {
+								SweetAlert.swal("Error", data.messages, "error");
+							}
+							vm.loading = false;
+							getUsersAll();
+						}).error(function(error) {
+							console.log(error);
+							vm.loading = false;
+						})
 			    } else {
 			    	vm.loading = false;
 			    	getUsersAll();

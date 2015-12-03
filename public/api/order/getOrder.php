@@ -44,7 +44,7 @@ if($query)
 				$arr["data"]["items"][$i]["attributes"]["name"] = $result["itemName"];
 				$arr["data"]["items"][$i]["attributes"]["code"] = $result["itemCode"];
 				$arr["data"]["items"][$i]["attributes"]["cost"] = $result["costPerUnit"];
-				$arr["data"]["items"][$i]["attributes"]["quantity"] = $result["quantity"];
+				$arr["data"]["items"][$i]["attributes"]["quantity"] = $result["orderQuantity"];
 				$arr["data"]["items"][$i]["relationships"]["type"]["_id"] = $result["typeID"];
 				$arr["data"]["items"][$i]["relationships"]["type"]["name"] = $result["typeName"];
 				$i ++;

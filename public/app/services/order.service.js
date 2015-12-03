@@ -26,7 +26,8 @@
 			getOrdersByStatus: 		getOrdersByStatus,
 			getOrdersByInvoice: 	getOrdersByInvoice,
 			getStatusesAll: 		getStatusesAll,
-			getStockcard: 			getStockcard
+			getStockcard: 			getStockcard,
+			dashboard: 				dashboard
 		};
 		return orderServices;
 
@@ -112,6 +113,12 @@
 		function getStockcard(branch,month,item) {
 			var data = angular.toJson({'branch':branch, 'month':month, 'itemName':item});
 			return $http.post(urlBase+'api/order/getStockcard.php',data);
+		}
+
+		function dashboard(user) {
+			console.log(user);
+			var data = angular.toJson({'user':user});
+			return $http.post(urlBase+'api/order/dashboard.php',data);
 		}
 
 	}

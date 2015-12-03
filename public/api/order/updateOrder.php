@@ -36,6 +36,23 @@ if($statusID == 1) {
 		"invoiceCode" => $invCode,
 		"deliverdDate" => $deliverdDate
 		);
+	#Updated Item qty in itemBranch
+	$sql = "SELECT oi.itemID, oi.orderQuantity , ib.quantity, o.branchID FROM ".TB_ORDER." o 
+					INNER JOIN ".TB_ORDERITEM." oi ON o.orderID=oi.orderID 
+					INNER JOIN ".TB_BRANCH." b ON o.branchID = b.branchID
+					INNER JOIN ".TB_ITEMBRANCH." ib ON oi.itemID = ib.itemID
+					WHERE o.orderID=$orderID";
+	$queryItem = $db->querydb($sql);
+	while($resultItem = $db->fetch($queryItem))
+		{
+		$qty = intval($resultItem["quantity"]) - intval($resultItem["orderQuantity"]);
+
+		$itemUpdate = array(
+			"quantity" => $qty 
+			);
+		$itemUpdateWhere = "branchID = ".$resultItem['branchID']." AND itemID = ".$resultItem['itemID'];
+		$queryUpdateItem = $db->update(TB_ITEMBRANCH,$itemUpdate,$itemUpdateWhere);
+		}
 } else {
 	$data = array(
 		"statusID" => $statusID

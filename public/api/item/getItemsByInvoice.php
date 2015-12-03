@@ -51,7 +51,7 @@ if($query){
 	}
 }else{
 	$arr["status"] = "error";
-	$arr["messages"] = "Error occure when you add the data to $table table.";
+	$arr["messages"] = "Error occured when you add the data to $table table.";
 	echo json_encode($arr);
 	exit();
 }

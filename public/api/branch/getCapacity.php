@@ -35,6 +35,8 @@ if($query) {
 } 
 else {
 	$arr["status"] = "error";
+	$arr["messages"] = "Cannot get the capacity.";
+
 }
 
 

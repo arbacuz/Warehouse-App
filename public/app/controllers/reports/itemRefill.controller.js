@@ -33,6 +33,8 @@
 					console.log(data);
 					if(data.status == "success") {
 						vm.items = data.data;
+					} else {
+						SweetAlert.swal("Error", data.messages, "error");
 					}
 				}).error(function(error) {
 					console.log(error);

@@ -31,6 +31,9 @@
 			ItemServices.getItemsByBranch(branch)
 				.success(function(data) {
 					vm.items = data.data;
+					if(data.status == "error") {
+						SweetAlert.swal("Error", data.messages, "error");
+					}
 				}).error(function(error) {
 					console.log(error);
 				})

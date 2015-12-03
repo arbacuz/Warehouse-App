@@ -72,6 +72,9 @@
 				} else if (item.attributes.quantity - qty < 0) {
 					swal.showInputError("Not enough item units!");
 					return false;
+				} else if (qty < 0) {
+					swal.showInputError("You cannot assign number of item lower than 0.");
+					return false;
 				} else {
 					SweetAlert.swal("Nice!", item.attributes.name + " " + qty + " units have been add to request" , "success");
 					item.attributes.quantity -= qty;

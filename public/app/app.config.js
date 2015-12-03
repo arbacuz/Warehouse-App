@@ -18,7 +18,9 @@
 			****************************/
 			.state('home', {
 				url: '/',
-				templateUrl: './views/styleguide.html'
+				templateUrl: './views/dashboard.html',
+				controller: 'DashboardCtrl',
+				controllerAs: 'vm'
 			})
 
 			/***************************

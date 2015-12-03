@@ -74,13 +74,15 @@
 							console.log(data);
 							if(data.status == "success") {
 								branch.update = false;
+								SweetAlert.swal("Updated!", "Branch has been updated successfully", "success");
+							} else {
+								SweetAlert.swal("Error", data.messages, "error");
 							}
 							vm.loading = false;
 						}).error(function(error) {
 							console.log(error);
 							vm.loading = false;
 						})
-			      	SweetAlert.swal("Updated!", "Branch has been updated successfully", "success");
 			    } else {
 			    	$scope.loading = false;
 			    	getBranchAll();

@@ -10,6 +10,9 @@
 	function stockCardCtrl($state, $cookieStore, OrderServices) {
 		var vm = this;
 
+		// Var Init
+		vm.transactions = [];
+
 		// Func Init
 		vm.searchStock = searchStock;
 
@@ -28,6 +31,7 @@
 				.success(function(data){
 					console.log("success");
 					console.log(data);
+					vm.transactions = data.data;
 				}).error(function(error) {
 					console.log("error");
 					console.log(error);

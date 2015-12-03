@@ -16,6 +16,7 @@
 		// Func Init
 		vm.addPosition = addPosition;
 		vm.updatePosition = updatePosition;
+		vm.deletePosition = deletePosition;
 
 		// Run
 		isLogin();
@@ -38,7 +39,7 @@
 		}
 
 		function addPosition(position) {
-			vmloading = true;
+			vm.loading = true;
 			MemberServices.addPosition(position)
 				.success(function(data) {
 					if(data.status == "success") {
@@ -86,6 +87,45 @@
 			    }
 			  }); 
 		}
+
+		function deletePosition(position) {
+			vm.loading = true;
+			SweetAlert.swal({
+			    title: "Are you sure?",
+			    text: "All of related data will be cascade permanently! (include staffs)",
+			    type: "warning",
+			    showCancelButton: true,
+			    confirmButtonColor: "#DD6B55",
+			    confirmButtonText: "Yes, delete it!",
+			    closeOnConfirm: false,
+			    cancelButtonText: "No, cancel please!",
+				closeOnCancel: false
+			  },
+			  function(isConfirm){
+			  	if (isConfirm) {
+			  		MemberServices.deletePosition(position)
+						.success(function(data) {
+							console.log(data);
+							if(data.status == "success") {
+								position.update = false;
+								SweetAlert.swal("Deleted!", "Position has been deleted successfully", "success");
+							} else {
+								SweetAlert.swal("Error", data.messages, "error");
+							}
+							vm.loading = false;
+							getPositionsAll();
+						}).error(function(error) {
+							console.log(error);
+							vm.loading = false;
+						})
+			    } else {
+			    	vm.loading = false;
+			    	getPositionsAll();
+			      	SweetAlert.swal("Cancelled", "User does not update yet", "error");
+			    }
+			  }); 
+		}
+
 
 
 	}

@@ -45,7 +45,7 @@
 						<p class="small bold form-text">Item</p>
 					</div>
 					<div class="col-md-7">
-						<input ng-model="vm.stockItem" type="text" class="input-lg" placeholder="Type item code/name">
+						<input ng-model="vm.stockItem" type="text" class="input-lg" placeholder="Type item code">
 					</div>
 				</div>
 			</div>
@@ -102,32 +102,21 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td class="bold">2 Jan 2015</td>
-							<td class="underline">INV3422</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td>100</td>
-							<td>10.50</td>
-							<td>1,050.00</td>
-							<td>100</td>
-							<td>10.50</td>
-							<td>1,050.00</td>
-						</tr>
-						<tr>
-							<td class="bold">4 Feb 2015</td>
-							<td class="underline">REG0023</td>
-							<td>1,000</td>
-							<td>10.50</td>
-							<td>10,500.00</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td>900</td>
-							<td>10.50</td>
-							<td>9,450.00</td>
-
+						<tr ng-repeat="transaction in vm.transactions">
+							<td ng-show="transaction.in.attributes.code != '' && vm.transactions[$index-1].in.attributes.date != vm.transactions[$index].in.attributes.date && vm.transactions[$index-1].out.attributes.date != vm.transactions[$index].in.attributes.date" class="bold">{{transaction.in.attributes.date | date:'d MMM yyyy' }}</td>
+							<td ng-show="transaction.out.attributes.code != '' && vm.transactions[$index-1].in.attributes.date != vm.transactions[$index].in.attributes.date && vm.transactions[$index-1].out.attributes.date != vm.transactions[$index].in.attributes.date" class="bold">{{transaction.out.attributes.date | date:'d MMM yyyy' }}</td>
+							<td ng-show="vm.transactions[$index-1].in.attributes.date == vm.transactions[$index].in.attributes.date || vm.transactions[$index-1].out.attributes.date == vm.transactions[$index].in.attributes.date"></td>
+							<td ng-show="transaction.in.attributes.code != ''" class="underline">{{transaction.in.attributes.code}}</td>
+							<td ng-show="transaction.out.attributes.code != ''" class="underline">{{transaction.out.attributes.code}}</td>
+							<td>{{transaction.in.attributes.quantity}}</td>
+							<td>{{transaction.in.attributes.cost}}</td>
+							<td>{{transaction.in.attributes.value}}</td>
+							<td>{{transaction.out.attributes.quantity}}</td>
+							<td>{{transaction.out.attributes.cost}}</td>
+							<td>{{transaction.out.attributes.value}}</td>
+							<td>{{transaction.balance.attributes.quantity}}</td>
+							<td>{{transaction.balance.attributes.cost}}</td>
+							<td>{{transaction.balance.attributes.value}}</td>
 						</tr>
 					</tbody>
 				</table>

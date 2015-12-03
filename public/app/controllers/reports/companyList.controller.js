@@ -85,13 +85,15 @@
 							console.log(data);
 							if(data.status == "success") {
 								company.update = false;
+								SweetAlert.swal("Updated!", "Company has been updated successfully", "success");
+							} else {
+								SweetAlert.swal("Error", data.messages, "error");
 							}
 							vm.loading = false;
 						}).error(function(error) {
 							console.log(error);
 							vm.loading = false;
 						});
-			      	SweetAlert.swal("Updated!", "Company has been updated successfully", "success");
 			    } else {
 			      	vm.loading = false;
 			    	getCompaniesAll();

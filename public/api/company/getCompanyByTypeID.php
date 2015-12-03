@@ -33,6 +33,8 @@ if($query) {
 	}
 } else {
 	$arr["status"] = "error";
+	$arr["messages"] = "Cannot get the company type.";
+
 }
 
 #-> Return json data.

@@ -71,7 +71,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="item in vm.order.items">
+                        <tr ui-sref="itemInfo({id: '{{item.attributes._id}}'})" ng-repeat="item in vm.order.items">
                             <td class="bold narrow text-center">{{ $index + 1 }}</td>
                             <td class="underline">{{ item.attributes.code }}</td>
                             <td class="underline">{{ item.attributes.name }}</td>

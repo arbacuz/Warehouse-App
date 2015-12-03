@@ -26,17 +26,9 @@
 		</div>
 		<div class="row">
 			<div class="col-md-6">
-				<div class="row" ng-hide="vm.showTable">
+				<div class="row" >
 					<div class="col-md-7 col-md-offset-5">
 						<button ng-click="vm.getItemsByReg(regCode,vm.user.relationships.branch)" class="btn btn-md btn-success">Search</button>
-					</div>
-				</div>
-				<div class="row" ng-show="vm.showTable">
-					<div class="col-md-5 text-right">
-						<p class="small bold form-text">Registration Date</p>
-					</div>
-					<div class="col-md-7">
-						<p class="small form-text">{{ vm.items[0].relationships.register.registerdate }}</p>
 					</div>
 				</div>
 			</div>
@@ -47,25 +39,6 @@
 					</div>
 					<div class="col-md-7 ">
 						<p class="small form-text">{{ vm.user.relationships.branch.address }}</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-6">
-				<div class="row" ng-show="vm.showTable">
-					<div class="col-md-7 col-md-offset-5">
-						<button ng-click="vm.getItemsByReg(regCode,user.relationships.branch)" class="btn btn-md btn-success">Search</button>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="row" ng-show="vm.showTable">
-					<div class="col-md-5 text-right">
-						<p class="small bold form-text">Supplier</p>
-					</div>
-					<div class="col-md-7">
-						<p class="small form-text">{{ vm.items[0].relationships.register.companyName }}</p>
 					</div>
 				</div>
 			</div>

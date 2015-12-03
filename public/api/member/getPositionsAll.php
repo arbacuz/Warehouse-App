@@ -27,6 +27,8 @@ if($query) {
 	}
 } else {
 	$arr["status"] = "error";
+	$arr["messages"] = "Cannot get the position.";
+
 }
 
 #-> Return json data.

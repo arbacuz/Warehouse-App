@@ -32,6 +32,19 @@ while($items[$i]){
 		$where = "itemID = $itemID AND branchID = $branchID";
 		$query = $db->update($table,$data,$where);		
 	}
+	$sqlREG = "SELECT * FROM ".TB_REGISTER." r INNER JOIN ".TB_REGISTERITEM." ri ON r.registerID=ri.registerID WHERE ri.itemID=$itemID ORDER BY r.registerID DESC LIMIT 1";
+	$queryREG = $db->querydb($sqlREG);
+	if($resultREG=$db->fetch($queryREG)){
+		$itemLeft = $result["quantity"] - $qty;
+		$itemInREG = $resultREG["registerQuantity"] - $itemLeft;
+		$dataREG = array(
+			"registerQuantity" => $itemInREG,
+			);
+		$whereREG = "itemID = $itemID AND registerID = ".$resultREG["registerID"];
+		$updateQueryREG = $db->update(TB_REGISTERITEM,$dataREG,$whereREG);	
+
+	}
+
 	$i++;#Get next item
 }
 #-> Preparing return data.

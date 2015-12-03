@@ -67,6 +67,7 @@
 				closeOnConfirm: false,
 				inputPlaceholder: "1 - 99999"
 			},function(qty){
+				console.log(qty);
 				if (qty === false) return false;
 				if (qty === "") {
 					swal.showInputError("You need to add number!");
@@ -75,6 +76,9 @@
 					swal.showInputError("Please enter the number!");
 				} else if (item.attributes.quantity - qty < 0) {
 					swal.showInputError("Not enough item units!");
+					return false;
+				} else if (qty < 0) {
+					swal.showInputError("You cannot assign number of item lower than 0.");
 					return false;
 				} else {
 					SweetAlert.swal("Nice!", item.attributes.name + " " + qty + " units have been add to order" , "success");

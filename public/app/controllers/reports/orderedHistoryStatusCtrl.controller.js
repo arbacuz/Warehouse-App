@@ -5,9 +5,9 @@
 			.module('app')
 			.controller('orderedHistoryStatusCtrl', orderedHistoryStatusCtrl);
 
-	orderedHistoryStatusCtrl.$inject = ['$state','$cookieStore','OrderServices','ItemServices','SweetAlert'];
+	orderedHistoryStatusCtrl.$inject = ['$state','$cookieStore','OrderServices','ItemServices','SweetAlert','$stateParams'];
 
-	function orderedHistoryStatusCtrl($state,$cookieStore,OrderServices,ItemServices,SweetAlert) {
+	function orderedHistoryStatusCtrl($state,$cookieStore,OrderServices,ItemServices,SweetAlert,$stateParams) {
 		var vm = this;
 
 		// Var Init

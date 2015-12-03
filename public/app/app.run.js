@@ -12,7 +12,7 @@
             $rootScope.$previousState = from;
         });
 		// isLogin();
-
+		
 		// function isLogin() {
 		// 	$rootScope.user = $cookieStore.get('user');
 		// 	console.log($rootScope.user);

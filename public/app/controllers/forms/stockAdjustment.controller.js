@@ -44,6 +44,9 @@
 					if(data.status == "success") {
 						SweetAlert.swal("Completed", "Stock adjust successfully.", "success");
 						getItemsByBranch(vm.user.relationships.branch);
+					} else {
+						SweetAlert.swal("Error", data.messages, "error");
+						getItemsByBranch(vm.user.relationships.branch);
 					}
 				}).error(function(error) {
 					console.log(error);

@@ -57,20 +57,16 @@
                         <th>Customer</th>
                         <th>Staff</th>
                         <th>Status</th>
-                        <th>Option</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="order in vm.orders | orderBy:'order.attributes._id'">
+                    <tr ui-sref="orderInfo({id: '{{order.attributes._id}}'})" ng-repeat="order in vm.orders | orderBy:'order.attributes._id'">
                         <td class="bold underline">{{ order.attributes.date | date:'d MMM yyyy' }}</td>
                         <td class="bold underline">{{ order.attributes.invoiceCode }}</td>
                         <td ng-show="order.relationships.company">{{ order.relationships.company.name }}</td>
                         <td>{{ order.relationships.staff.name }}</td>
                         <td> 
                             <span class="label label-success">{{ order.relationships.status.attributes.name }}</span>
-                        </td>
-                        <td style="width: 170px;">
-                            <button ng-class="{'btn-success-border':order.update}" class="btn btn-sm btn-default animated fadeIn" ng-click="order.update && vm.updateOrder(order)">update</button>
                         </td>
                     </tr>
                 </tbody>

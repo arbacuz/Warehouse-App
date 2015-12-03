@@ -35,6 +35,7 @@
 						vm.showTable = true;
 					} else {
 						vm.showTable = false;
+						SweetAlert.swal("Error", data.messages, "error");
 					}
 				}).error(function(error) {
 					console.log(error);

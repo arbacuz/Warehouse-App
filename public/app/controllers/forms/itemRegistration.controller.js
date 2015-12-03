@@ -51,27 +51,31 @@
 		}
 
 		function completeItems(supplier, items, user) {
+			console.log(items);
+			console.log(user);
 			vm.loading = true;
 			SweetAlert.swal({
 			    title: "Are you sure?",
-			    text: "You cannot recover the item after upadted.",
+			    text: "Do you want to add items to the system?",
 			    type: "warning",
 			    showCancelButton: true,
 			    confirmButtonColor: "#DD6B55",
-			    confirmButtonText: "Yes, update it!",
+			    confirmButtonText: "Yes, add them!",
 			    closeOnConfirm: false,
 			    cancelButtonText: "No, cancel please!",
 				closeOnCancel: false
 			  },
 			  function(isConfirm){
 			  	if (isConfirm) {
+
 			  		ItemServices.registerItem(supplier, items, user)
 						.success(function(data) {
+							console.log(data);
 							if(data.status == "success") {
 								SweetAlert.swal("Complete!", "Item has been registered successfully", "success");
 								vm.loading = false;
 							} else {
-								SweetAlert.swal("Error!", "Item does not register yet", "error");
+								SweetAlert.swal("Error!", data.messages, "error");
 								vm.loading = false;
 							}
 							vm.items = [];

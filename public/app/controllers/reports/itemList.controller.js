@@ -17,6 +17,7 @@
 		// Func Init
 		vm.updateItem = updateItem;
 		vm.addItem = addItem;
+		vm.deleteItem = deleteItem;
 		
 		// Run
 		isLogin();
@@ -34,6 +35,9 @@
 			ItemServices.getItemsAll()
 				.success(function(data) {
 					vm.items = data.data;
+					if(data.status == "error") {
+						SweetAlert.swal("Error", data.messages, "error");
+					}
 				}).error(function(error) {
 					console.log(error);
 				});
@@ -45,7 +49,7 @@
 					if(data.status == "success") {
 						vm.itemTypes = data.data;
 					} else {
-						console.log(data.status + data.messages);
+						SweetAlert.swal("Error", data.messages, "error");
 					}
 				}).error(function(error) {
 					console.log(error);
@@ -58,6 +62,8 @@
 				.success(function(data) {
 					if(data.status == "success") {
 						getItemsAll();
+					} else {
+						SweetAlert.swal("Error", data.messages, "error");
 					}
 					vm.loading = false;
 				}).error(function(error) {
@@ -87,13 +93,53 @@
 							console.log(data);
 							if(data.status == "success") {
 								item.update = false;
+								SweetAlert.swal("Updated!", "Item has been updated successfully", "success");
+							} else {
+								SweetAlert.swal("Error", data.messages, "error");
 							}
 							vm.loading = false;
 						}).error(function(error) {
 							console.log(error);
 							vm.loading = false;
 						})
-			      	SweetAlert.swal("Updated!", "Item has been updated successfully", "success");
+			    } else {
+			    	vm.loading = false;
+			    	getItemsAll();
+			      	SweetAlert.swal("Cancelled", "Item does not update yet", "error");
+			    }
+			  }); 
+		}
+
+		function deleteItem(item) {
+			vm.loading = true;
+			SweetAlert.swal({
+			    title: "Are you sure?",
+			    text: "All of related data will be cascade permanently!",
+			    type: "warning",
+			    showCancelButton: true,
+			    confirmButtonColor: "#DD6B55",
+			    confirmButtonText: "Yes, delete it!",
+			    closeOnConfirm: false,
+			    cancelButtonText: "No, cancel please!",
+				closeOnCancel: false
+			  },
+			  function(isConfirm){
+			  	if (isConfirm) {
+			  		ItemServices.deleteItem(item)
+						.success(function(data) {
+							console.log(data);
+							if(data.status == "success") {
+								item.update = false;
+								SweetAlert.swal("Deleted!", "Item has been deleted successfully", "success");
+							} else {
+								SweetAlert.swal("Error", data.messages, "error");
+							}
+							vm.loading = false;
+							getItemsAll();
+						}).error(function(error) {
+							console.log(error);
+							vm.loading = false;
+						})
 			    } else {
 			    	vm.loading = false;
 			    	getItemsAll();

@@ -36,7 +36,7 @@ if($query){
 	}
 }else{
 	$arr["status"] = "error";
-	$arr["messages"] = "Error occure when you query the data to item table.";
+	$arr["messages"] = "Error occured when you query the data to item table.";
 	echo json_encode($arr);
 	exit();
 }

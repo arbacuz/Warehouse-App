@@ -60,17 +60,21 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="order in vm.orders | orderBy:'order.attributes._id'">
-                        <td class="bold underline text-center">{{ order.attributes._id}}</td>
-                        <td class="underline">{{ order.attributes.date | date:'d MMM yyyy'  }}</td>
-                        <td ng-show="order.relationships.company">{{ order.relationships.company.name }}</td>
+                        <td ui-sref="orderInfo({id: '{{order.attributes._id}}'})" class="bold underline text-center">{{ order.attributes._id}}</td>
+                        <td ui-sref="orderInfo({id: '{{order.attributes._id}}'})" class="underline">{{ order.attributes.date | date:'d MMM yyyy'  }}</td>
+                        <td ng-show="order.relationships.company.name!=null">{{ order.relationships.company.name }}</td>
+                        <td ng-show="order.relationships.company.name==null">{{ order.relationships.toBranch.name }}</td>
                         <td>{{ order.relationships.staff.name }}</td>
-                        <td> 
+                        <td ng-hide="order.relationships.status.attributes.name == 'Delivered'">
                             <select ng-change="order.update = true"
                                     ng-model="order.relationships.status"
                                     ng-options="status.attributes.name for status in vm.statuses track by status.attributes.name"
                                     class="input-md">
                             </select>
                             <i style="margin-left:-25px;" class="fa fa-caret-down caret-select select-md"></i>
+                        </td>
+                        <td ng-show="order.relationships.status.attributes.name == 'Delivered'">
+                            <span class="label label-success">{{order.relationships.status.attributes.name}}</span>
                         </td>
                         <td style="width: 170px;">
                             <button ng-class="{'btn-success-border':order.update}" class="btn btn-sm btn-default animated fadeIn" ng-click="order.update && vm.updateOrder(order)">update</button>

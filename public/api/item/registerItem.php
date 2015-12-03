@@ -11,6 +11,7 @@ $items = $json->items;
 $companyID = $json->supplier->attributes->_id;
 $staffID = $json->user->attributes->_id;
 $branchID = $json->user->relationships->branch->_id;
+$capacity = $json->user->relationships->branch->capacity;
 $registerDate = date('Y-m-d H:i:s');
 
 // var_dump($items);
@@ -29,10 +30,20 @@ $registerDate = date('Y-m-d H:i:s');
 // $branchID = 1;
 ######################
 
-
 #-> Connect to the database
 $db = new Database();
 $db->connectdb(DB_NAME,DB_USER,DB_PASS);
+
+$amountItemQ = $db->querydb("SELECT COUNT(*) FROM ".TB_ITEMBRANCH." WHERE branchID = $branchID");
+$amountItem = $db->fetch($amountItemQ);
+$arr = array();
+if($amountItem > $capacity) {
+	// $arr = array();
+	$arr["status"] = "error";
+	$arr["messages"] = "Items capacity of this branch is exceed!";
+} else {
+
+
 
 #-> Add Data
 #==============
@@ -149,8 +160,10 @@ while($items[$i]) {
 	$checkAddRegisterItem = $db->add(TB_REGISTERITEM,$data);
 	$i++;#Get next item
 }
+
+}
 #Send status
-$arr = array();
+
 if($query) {
 	$arr["status"] = "success";
 	$arr["messages"] = "Complete adding Item to $table table.";

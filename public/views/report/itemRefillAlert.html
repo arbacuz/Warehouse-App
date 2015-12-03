@@ -39,7 +39,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr style="cursor: default;"class="animated fadeIn" ng-hide="items[0].attributes">
+						<tr style="cursor: default;"class="animated fadeIn" ng-hide="vm.items[0].attributes">
 							<td class="text-center" colspan="5">No Items have quantity lower than 50</td>
 						</tr>
 						<tr ui-sref="itemInfo({id: '{{item.attributes._id}}'})" ng-show="item.attributes" ng-repeat="item in vm.items">

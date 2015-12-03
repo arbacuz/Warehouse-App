@@ -5,9 +5,9 @@
 			.module('app')
 			.controller('MemberCtrl', MemberCtrl);
 
-	MemberCtrl.$inject = ['$state','$cookieStore','MemberServices'];
+	MemberCtrl.$inject = ['$state','$cookieStore','MemberServices','$rootScope'];
 
-	function MemberCtrl($state,$cookieStore,MemberServices) {
+	function MemberCtrl($state,$cookieStore,MemberServices,$rootScope) {
 		var vm = this;
 
 		// Func Init
@@ -19,7 +19,9 @@
 					if(data.status == "success") {
 						var user = data.data;
 						$cookieStore.put('user',user);
-						$state.go('home', {} , {reload: true});
+						$rootScope.user = user;
+						// location.reload();
+						$state.go('home', {}, {reload: true});
 					} else {
 						console.log(data);
 					}

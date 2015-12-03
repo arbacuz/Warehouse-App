@@ -5,9 +5,9 @@
 			.module('app')
 			.controller('orderedHistoryItemCtrl', orderedHistoryItemCtrl);
 
-	orderedHistoryItemCtrl.$inject = ['$state','$cookieStore','OrderServices','ItemServices','SweetAlert'];
+	orderedHistoryItemCtrl.$inject = ['$state','$cookieStore','OrderServices','ItemServices','SweetAlert','$stateParams'];
 
-	function orderedHistoryItemCtrl($state,$cookieStore,OrderServices,ItemServices,SweetAlert) {
+	function orderedHistoryItemCtrl($state,$cookieStore,OrderServices,ItemServices,SweetAlert,$stateParams) {
 		var vm = this;
 
 		// Var Init
@@ -33,6 +33,7 @@
 		function getOrdersByItem(item,branch) {
 			OrderServices.getOrdersByItem(item,branch)
 				.success(function (data) {
+					console.log(data);
 					vm.orders = data.data;
 				}).error(function (error) {
 					console.log(error);
@@ -60,6 +61,7 @@
 		function updateOrder(order) {
 			OrderServices.updateOrder(order)
 				.success(function(data) {
+					console.log(data);
 					if(data.status == "success") {
 						SweetAlert.swal("Updated!",data.messages,"success");
 						order.update = false;

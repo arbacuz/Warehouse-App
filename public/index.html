@@ -17,7 +17,7 @@
 				<ul class="menu-list">
 					<p class="topic">user</p>
 					<a ui-sref="profile" ui-sref-active="active" class="menu-item menu-user">
-						<div style="background-image:url('./assets/profile.png');" class="profile-img"></div>
+						<div style="background-image:url('./assets/profile.png'); background-size:cover; border-size: 0px" class="profile-img"></div>
 						<div class="profile-detail">
 							<div class="user-name">
 								{{ vm.user.attributes.name }}
@@ -29,7 +29,7 @@
 					</a>
 				</ul>
 			</div>
-			<div class="tab-section">
+			<div ng-hide="vm.user.relationships.position._id == 1" class="tab-section">
 				<ul class="menu-list">
 					<p class="topic">menu</p>
 					<a ui-sref="itemRegistration" ui-sref-active="active" class="menu-item">
@@ -49,13 +49,13 @@
 			<div class="tab-section">
 				<ul class="menu-list">
 					<p class="topic">report</p>
-					<a ui-sref="stockcard" ui-sref-active="active" class="menu-item">
+					<a ng-hide="vm.user.relationships.position._id == 4" ui-sref="stockcard" ui-sref-active="active" class="menu-item">
 						<i class="fa fa-money"></i> Stock Card
 					</a>
-					<a ui-sref="invoice" ui-sref-active="active" class="menu-item">
+					<a ng-hide="vm.user.relationships.position._id == 4" ui-sref="invoice" ui-sref-active="active" class="menu-item">
 						<i class="fa fa-list-alt"></i> Invoice History
 					</a>
-					<a ui-sref="itemRegHistory" ui-sref-active="active" class="menu-item">
+					<a ng-hide="vm.user.relationships.position._id == 4" ui-sref="itemRegHistory" ui-sref-active="active" class="menu-item">
 						<i class="fa fa-archive"></i> Item Register History
 					</a>
 					<a ui-sref="itemRemain" ui-sref-active="active" class="menu-item">
@@ -67,14 +67,14 @@
 					<a ui-sref="orderHistory" ui-sref-active="active" class="menu-item">
 						<i class="fa fa-list-alt"></i> Order History
 					</a>
-					<a ui-sref="capacity" ui-sref-active="active" class="menu-item">
+					<a ng-hide="vm.user.relationships.position._id == 4" ui-sref="capacity" ui-sref-active="active" class="menu-item">
 						<i class="fa fa-list-alt"></i> Capacity
 					</a>
-					<a ui-sref="staffInfo" ui-sref-active="active" class="menu-item">
+					<a ng-hide="vm.user.relationships.position._id == 4" ui-sref="staffInfo" ui-sref-active="active" class="menu-item">
 						<i class="fa fa-list-alt"></i> Staff Info
 					</a>
-					<a ui-sref="admin" class="menu-item">
-						<i class="fa fa-exclamation-circle"></i> Admin
+					<a ng-hide="vm.user.relationships.position._id == 4" ui-sref="admin" class="menu-item">
+						<i class="fa fa-exclamation-circle"></i> MORE
 					</a>
 				</ul>
 			</div>
@@ -121,6 +121,7 @@
 	<script src="./app/controllers/member.controller.js"></script>
 	<script src="./app/controllers/main.controller.js"></script>
 	<script src="./app/controllers/profile.controller.js"></script>
+	<script src="./app/controllers/dashboard.controller.js"></script>
 
 	<!-- forms controllers -->
 	<script src="./app/controllers/forms/itemRegistration.controller.js"></script>

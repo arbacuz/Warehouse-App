@@ -30,6 +30,9 @@
 			ItemServices.getItem(itemID)
 				.success(function(data) {
 					vm.item = data.data;
+					if(data.status == "error") {
+						SweetAlert.swal("Error", data.messages, "error");
+					}
 				}).error(function(data) {
 					console.log(data);
 				})

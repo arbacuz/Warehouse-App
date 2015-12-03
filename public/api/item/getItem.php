@@ -34,6 +34,7 @@ if($query) {
 	}
 } else {
 	$arr["status"] = "error";
+	$arr["messages"] = "Cannot get the item.";
 }
 
 #-> Return json data.

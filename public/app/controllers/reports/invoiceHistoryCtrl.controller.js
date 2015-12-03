@@ -5,9 +5,9 @@
 			.module('app')
 			.controller('invoiceHistoryCtrl', invoiceHistoryCtrl);
 
-	invoiceHistoryCtrl.$inject = ['$state','$cookieStore','OrderServices','ItemServices','SweetAlert'];
+	invoiceHistoryCtrl.$inject = ['$state','$cookieStore','OrderServices','ItemServices','SweetAlert','$stateParams'];
 
-	function invoiceHistoryCtrl($state,$cookieStore,OrderServices,ItemServices,SweetAlert) {
+	function invoiceHistoryCtrl($state,$cookieStore,OrderServices,ItemServices,SweetAlert,$stateParams) {
 		var vm = this;
 
 		// Var Init
