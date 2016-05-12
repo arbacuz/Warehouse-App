@@ -2,6 +2,7 @@
 // if(eregi("config.php",$_SERVER['PHP_SELF'])) {
 // 	header("Location: ../index.php");
 // }
+header('Access-Control-Allow-Origin: *');  
 
 #-> config MySQL Connected
 define ("DB_HOST","localhost");

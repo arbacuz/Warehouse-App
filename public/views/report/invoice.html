@@ -9,7 +9,7 @@
 						<p class="small bold form-text">From</p>
 					</div>
 					<div class="col-md-7 ">
-						<input type="date" class="input-lg">
+						<input ng-change="date.toDate && vm.getInvoiceHistory(date,vm.user.relationships.branch)" ng-model="date.fromDate" class="input-lg"  type="date" placeholder="from date">
 					</div>
 				</div>
 			</div>
@@ -19,7 +19,7 @@
 						<p class="small bold form-text">Branch</p>
 					</div>
 					<div class="col-md-7 ">
-						<p class="small form-text">Bangmod</p>
+						<p class="small form-text">{{ vm.user.relationships.branch.name }}</p>
 					</div>
 				</div>
 			</div>
@@ -31,7 +31,7 @@
 						<p class="small bold form-text">To</p>
 					</div>
 					<div class="col-md-7">
-						<input type="date" class="input-lg">
+						<input ng-change="date.fromDate && vm.getInvoiceHistory(date,vm.user.relationships.branch)" ng-model="date.toDate" class="input-lg" type="date" placeholder="to date">
 					</div>
 				</div>
 			</div>
@@ -41,16 +41,7 @@
 						<p class="small bold form-text">Address</p>
 					</div>
 					<div class="col-md-7 ">
-						<p class="small form-text">134 Prachauthid Ladprao Rd.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-6">
-				<div class="row">
-					<div class="col-md-7 col-md-offset-5">
-						<button ng-click="showTable = !showTable" class="btn btn-md btn-success">Search</button>
+						<p class="small form-text">{{ vm.user.relationships.branch.address }}</p>
 					</div>
 				</div>
 			</div>
@@ -58,33 +49,28 @@
 		<hr>
 		<div class="row">
 			<div class="col-md-12">
-				<table class="animated fadeIn" ng-show="showTable">
-					<thead>
-						<tr>
-							<th></th>
-							<th>Date</th>
-							<th>Invoice Code</th>
-							<th>Customer</th>
-							<th>Total Price</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td class="bold narrow text-center">1</td>
-							<td>20 Jan 2015</td>
-							<td class="underline">INV3422</td>
-							<td>Babara INC.</td>
-							<td>103,500</td>
-						</tr>
-						<tr>
-							<td class="bold narrow text-center">2</td>
-							<td>23 Jan 2015</td>
-							<td class="underline">INV3455</td>
-							<td>Masahiro Co.</td>
-							<td>64,000</td>
-						</tr>
-					</tbody>
-				</table>
+				<table class="animated fadeIn">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Invoice Code</th>
+                        <th>Customer</th>
+                        <th>Staff</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ui-sref="orderInfo({id: '{{order.attributes._id}}'})" ng-repeat="order in vm.orders | orderBy:'order.attributes._id'">
+                        <td class="bold underline">{{ order.attributes.date | date:'d MMM yyyy' }}</td>
+                        <td class="bold underline">{{ order.attributes.invoiceCode }}</td>
+                        <td ng-show="order.relationships.company">{{ order.relationships.company.name }}</td>
+                        <td>{{ order.relationships.staff.name }}</td>
+                        <td> 
+                            <span class="label label-success">{{ order.relationships.status.attributes.name }}</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 			</div>
 		</div>
 	</div>

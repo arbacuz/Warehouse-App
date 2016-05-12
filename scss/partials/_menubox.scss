@@ -1,4 +1,5 @@
 .menu-box {
+	display: block;
 	cursor: pointer;
 	width: 100%;
 	height: 250px;
@@ -27,4 +28,8 @@
 		color: $color-white;
 		background-color: $color-primary;
 	}
+}
+a.menu-box {
+	display: block;
+	text-decoration: none;
 }

@@ -15,53 +15,61 @@
 			deleteCompany: 		deleteCompany,
 			getCompaniesAll: 	getCompaniesAll,
 			getCompany: 		getCompany,
-			getCompanyByTypeName:getCompanyByTypeName,
+			getCompanyByTypeID: getCompanyByTypeID,
 			addCompanyType: 	addCompanyType,
 			updateCompanyType: 	updateCompanyType,
 			deleteCompanyType: 	deleteCompanyType,
-			getCompanyType: 	getCompanyType
+			getCompanyTypesAll: getCompanyTypesAll
 		};
 		return companyServices;
 
 		function addCompany(company) {
-
+			var data = angular.toJson({'company':company});
+			return $http.post(urlBase+'api/company/addCompany.php',data);
 		}
 
 		function updateCompany(company) {
-
+			var data = angular.toJson({'company':company});
+			return $http.post(urlBase+'api/company/updateCompany.php',data);
 		}
 
 		function deleteCompany(company) {
-
+			console.log(company);
+			var data = angular.toJson({'company':company});
+			return $http.post(urlBase+'api/company/deleteCompany.php',data);
 		}
 
 		function getCompaniesAll() {
-
+			return $http.get(urlBase+'api/company/getCompaniesAll.php');
 		}
 
 		function getCompany(company) {
-
+			var data = angular.toJson({'company':company});
+			return $http.post(urlBase+'api/company/getCompany.php',data);
 		}
 
-		function getCompanyByTypeName(type) {
-			var data = angular.toJson({'typeName':type});
-			return $http.post(urlBase+'api/company/getCompanyByTypeName.php',data);
+		function getCompanyByTypeID(type) {
+			var data = angular.toJson({'companyTypeID':type});
+			return $http.post(urlBase+'api/company/getCompanyByTypeID.php',data);
 		}
 
-		function addCompanyType() {
-
+		function addCompanyType(companyType) {
+			var data = angular.toJson({'companyType':companyType});
+			return $http.post(urlBase+'api/company/addCompanyType.php',data);
 		}
 
-		function updateCompanyType(type) {
-
+		function updateCompanyType(companyType) {
+			var data = angular.toJson({'companyType':companyType});
+			return $http.post(urlBase+'api/company/updateCompanyType.php',data);
 		}
 
-		function deleteCompanyType(type) {
-
+		function deleteCompanyType(companyType) {
+			var data = angular.toJson({'companyType':companyType});
+			return $http.post(urlBase+'api/company/deleteCompanyType.php',data);
 		}
 
-		function getCompanyType() {
-
+		function getCompanyTypesAll() {
+			return $http.get(urlBase+'api/company/getCompanyTypesAll.php');
 		}
 
 

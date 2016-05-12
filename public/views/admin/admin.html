@@ -1,0 +1,49 @@
+<div class="content animated fadeIn">
+	<h1>Admin</h1>
+	<hr>
+	<div class="row">
+		<div ng-show="vm.user.relationships.position._id == 1 || vm.user.relationships.position._id == 2" class="col-md-4">
+			<a ui-sref="itemAdmin" ui-sref-active="active" class="menu-box">
+				<i class="fa fa-caret-square-o-down"></i>
+				<!-- <img src="./assets/icons/item.svg" alt=""> -->
+				<br>
+				Item
+			</a>
+		</div>
+		<div ng-show="vm.user.relationships.position._id == 1 || vm.user.relationships.position._id == 2" class="col-md-4">
+			<a ui-sref="positionAdmin" ui-sref-active="active" class="menu-box">
+				<i class="fa fa-list-alt"></i>
+				<!-- <img src="./assets/icons/time.svg" alt=""> -->
+				<br>
+				Position
+			</a>
+		</div>
+		<div ng-show="vm.user.relationships.position._id != 4"class="col-md-4">
+			<a ui-sref="staffAdmin" ui-sref-active="active" class="menu-box">
+				<i class="fa fa-list-alt"></i>
+				<!-- <img src="./assets/icons/time.svg" alt=""> -->
+				<br>
+				Staff
+			</a>
+		</div>
+	</div>
+	<br>
+	<div class="row">
+		<div ng-show="vm.user.relationships.position._id == 1 " class="col-md-4">
+			<a ui-sref="companyAdmin" ui-sref-active="active" class="menu-box">
+				<i class="fa fa-list-alt"></i>
+				<!-- <img src="./assets/icons/time.svg" alt=""> -->
+				<br>
+				Company
+			</a>
+		</div>
+		<div ng-show="vm.user.relationships.position._id == 1" class="col-md-4">
+			<a ui-sref="branchAdmin" ui-sref-active="active" class="menu-box">
+				<i class="fa fa-list-alt"></i>
+				<!-- <img src="./assets/icons/time.svg" alt=""> -->
+				<br>
+				Branch
+			</a>
+		</div>
+	</div>
+</div>

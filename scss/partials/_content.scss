@@ -18,15 +18,29 @@
 		.row {
 			margin: 10px 0;
 		}
+		table {
+			.caret-select {
+				display: none;
+				position: relative;
+				left: auto;
+				top: 2px;
+				margin-left: -27px;
+			}
+			tr:hover {
+				.caret-select {
+					display: inline-block;
+				}
+			}
+		}
 		.caret-select {
-	    position: absolute;
-	    left: 83%;
-	    top: 14px;
-	    font-size: 21px;
-	    color: $color-grey;
-	    &.select-md {
-	    	left: 128px;
-	    }
+		    position: absolute;
+		    left: 83%;
+		    top: 14px;
+		    font-size: 21px;
+		    color: $color-grey;
+		    &.select-md {
+		    	left: 0;
+		    }
 		}
 	}
 }
@@ -35,4 +49,13 @@
 }
 .u__margin20 {
   margin: 20px 0;
+}
+.loading {
+	opacity: .2;
+}
+
+@media screen and (max-width: 991px) {
+	.content .form-control .row {
+		margin: 0;
+	}
 }

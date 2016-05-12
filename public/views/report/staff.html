@@ -1,0 +1,43 @@
+<div class="content animated fadeIn">
+	<h1>Staff</h1>
+	<hr>
+	<div class="form-control">
+		<div class="row">
+			<div class="col-md-12">
+				<table ng-class="{ 'loading': vm.loading }">
+					<thead>
+						<tr>
+							<th class="text-center">ID</th>
+							<th>name</th>
+							<th>email</th>
+							<th>position</th>
+							<th>branch</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="staff in vm.staffs">
+							<td class="bold text-center narrow">
+								{{ staff.attributes._id }}
+							</td>
+							<td>
+								{{ staff.attributes.name }}
+							</td>
+							<td>
+								{{ staff.attributes.email }}
+							</td>
+							<td>
+								{{ staff.relationships.position.attributes.name }}
+							</td>
+							<td>
+								{{ staff.relationships.branch.attributes.name }}
+							</td>
+							
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+		

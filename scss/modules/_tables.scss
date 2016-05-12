@@ -36,7 +36,7 @@ table {
 				background-color: $table-row-color-even;
 			}
 			&:hover {
-				background-color: lighten($table-row-color-even,1);
+				background-color: darken($table-row-color-even,6);
 			}
 		}
 		td {

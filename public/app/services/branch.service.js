@@ -20,27 +20,32 @@
 		return branchServices;
 
 		function addBranch(branch) {
-
+			var data = angular.toJson({'branch':branch});
+			return $http.post(urlBase+'api/branch/addBranch.php',data);
 		}
 
 		function updateBranch(branch) {
-
+			var data = angular.toJson({'branch':branch});
+			return $http.post(urlBase+'api/branch/updateBranch.php',data);
 		}
 
 		function deleteBranch(branch) {
-
+			var data = angular.toJson({'branch':branch});
+			return $http.post(urlBase+'api/branch/deleteBranch.php',data);
 		}
 
 		function getBranchAll() {
-
+			return $http.get(urlBase+'api/branch/getBranchAll.php');
 		}
 
 		function getBranch(branch) {
-			/* branchName */
+			var data = angular.toJson({'branch':branch});
+			return $http.post(urlBase+'api/branch/getBranch.php',data);
 		}
 
 		function getCapacity(branch) {
-			/* branchName */
+			var data = angular.toJson({'branch':branch});
+			return $http.post(urlBase+'api/branch/getCapacity.php',data);
 		}
 
 	}

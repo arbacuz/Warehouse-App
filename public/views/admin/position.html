@@ -1,0 +1,54 @@
+<div class="content animated fadeIn">
+	<h1>Position</h1>
+	<button ui-sref="admin" class="btn btn-md btn-primary-border btn-goback-top">Go Back</button>
+	<hr>
+	<div class="form-control">
+		<div class="row">
+			<div class="col-md-12">
+				<table ng-class="{ 'loading': vm.loading }">
+					<thead>
+						<tr>
+							<th class="text-center">ID</th>
+							<th>name</th>
+							<th>option</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="position in vm.positions">
+							<td class="bold text-center">
+								{{ position.attributes._id }}
+							</td>
+							<td>
+								<input ng-change="position.update = true" type="text" class="input-lg" placeholder="Position Name" ng-model="position.attributes.name">
+							</td>
+							<td style="width: 170px;">
+								<button ng-class="{'btn-success-border':position.update}" class="btn btn-sm btn-default animated fadeIn" ng-click="position.update && vm.updatePosition(position)">update</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="row">
+					<div class="col-md-5 text-right">
+						<p class="small bold form-text">Position Name</p>
+					</div>
+					<div class="col-md-7 ">
+						<input ng-model="newPosition.name" class="input-lg" type="text" placeholder="Enter the name">
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="row">
+					<div class="col-md-7 col-md-offset-5">
+						<button ng-click="vm.addPosition(newPosition)" class="btn btn-md btn-success">Add</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+		

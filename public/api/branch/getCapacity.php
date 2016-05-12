@@ -6,58 +6,42 @@ include_once("../../includes/class_mysql.php");
 #-> Get data from js and initialize
 $data = file_get_contents("php://input");
 $json = json_decode($data);
+$branchID = $json->branch->_id;
+$branchName = $json->branch->name;
 
 
 #-> Connect to the database
 $db = new Database();
 $db->connectdb(DB_NAME,DB_USER,DB_PASS);
 
-// IF ADD: 		$query = $db->add($table,$data)
-// IF UPDATE:   $query = $db->update($table,$data,$where)
-// IF DELETE:	$query = $db->delete($table,$where)
-// IF QUERY: 	$query = $db->querydb("QUERY STATEMENT");
-//
-// SEE MORE ./includes/class_mysql.php
-
-$arr = array();
-
+#-> Query the data.
+$query = $db->querydb("SELECT count(ib.itemID),b.branchName,b.branchID,b.branchAddress,b.branchTel,b.capacity FROM ".TB_BRANCH." b INNER JOIN ".TB_ITEMBRANCH." ib ON b.branchID=ib.branchID WHERE b.branchID=$branchID;");
 #-> Preparing return data.
-/*************** JSON SHOULD BE *******************
-**
-** {
-**	 status: "success or error",
-**   messages: "error messages",
-**   data: {
-**     attributes: {
-**        columns1: data1,
-**        columns2: data2,
-**		  ..
-**	   }
-**	   relations: {
-**		  tables1: {
-**			columns1: data1,
-**			columns2: data2,
-**			..
-**		  },
-**		  tables2: {
-**			columns1: data1,
-**			columns2: data2,
-**			..
-**		  }
-**	   }
-**   }	
-** }
-**
-***************************************************/
+$arr = array();
 if($query) {
-	$result = $db->fetch($query);
-	// ASSIGN DATA TO ARRAY
-} else {
-	// IF NO RESULT
+	$arr["status"] = "success";
+	if($result = $db->fetch($query)) {
+		$arr["data"]["attributes"]["name"]=$result["branchName"];
+		$arr["data"]["attributes"]["address"] = $result["branchAddress"];
+		$arr["data"]["attributes"]["telephone"] = $result["branchTel"];
+		$arr["data"]["attributes"]["capacity"] = $result["capacity"];
+		$capacity = $result["capacity"];
+		$count = $result["count(ib.itemID)"];
+		$usage = $count*100/$capacity;
+		$free = 100 - $usage;
+		$arr["data"]["attributes"]["usage"] = $usage;
+		$arr["data"]["attributes"]["free"] = $free;
+	}
+} 
+else {
+	$arr["status"] = "error";
+	$arr["messages"] = "Cannot get the capacity.";
+
 }
 
+
 #-> Return json data.
-echo json_encode($arr);
+echo json_encode($arr,JSON_NUMERIC_CHECK);
 
 #-> Close database.
 $db->closedb();

@@ -6,37 +6,29 @@ include_once("../../includes/class_mysql.php");
 #-> Get data from js and initialize
 $data = file_get_contents("php://input");
 $json = json_decode($data);
+// var_dump($json);
+$itemID = $json->item->attributes->_id;
 
 #-> Connect to the database
 $db = new Database();
 $db->connectdb(DB_NAME,DB_USER,DB_PASS);
+#-> Delete Data
 
-#-> Add Data
-$i = 0;
-while($json[$[i]) {
-	// $query = $db->add(TB_BILL,array("timestamp"=>$timestamp,"user_id"=>$user_id,"bill_status"=>$bill_status,"bill_price"=>$bill_price));
-	$i ++;
-}
-
+$table = TB_ITEM;
+$where = "itemID = $itemID";
+$query = $db->delete($table,$where);
 $arr = array();
-#-> Preparing return data.
-// if($query) {
-// 	$query = $db->querydb("SELECT bill_id FROM ".TB_BILL." WHERE timestamp='$timestamp'");
-// 	$result = $db->fetch($query);
-// 	$i = 0;
-// 	while($product_id[$i]) {
-// 		$query = $db->add(TB_ORDER,array("bill_id"=>$result["bill_id"],"product_id"=>$product_id[$i],"order_amount"=>$order_amount[$i]));
-// 		$i++;
-// 	}
-// 	$arr["status"] = "success";
-// 	$arr["messages"] = "Your order was add completely.";
-// } else {
-// 	$arr["status"] = "error";
-// 	$arr["messages"] = "Failed.";
-// }
-
+if($query){
+	if($query) {
+		$arr["status"] = "success";
+		$arr["messages"] = "Complete deleting data in item table.";
+	} else {
+		$arr["status"] = "error";
+		$arr["messages"] = "Error occure when you delete the data in item table.";
+	}
+}
 #-> Return json data.
-echo json_encode($json);
+echo json_encode($arr);
 
 #-> Close database.
 $db->closedb();

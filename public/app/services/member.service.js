@@ -10,13 +10,10 @@
 	function MemberServices($q, $http, $rootScope) {
 		var urlBase = "http://localhost:8888/warehouse-proj/Warehouse-App/public/";
 		var memberServices = {
-			base64: 			base64,
-			registerUser: 		registerUser,
+			addUser: 			addUser,
 			login: 				login,
 			logout: 			logout,
-			addCredetial: 		addCredetial,
-			removeCredetial: 	removeCredetial,
-			getUserByUsername: 	getUserByUsername,
+			getUser: 			getUser,
 			getUsersAll: 		getUsersAll,
 			updateUser: 		updateUser,
 			deleteUser: 		deleteUser,
@@ -27,26 +24,13 @@
 		};
 		return memberServices;
 
-		var base64 = {
-			encode: encode,
-			decode: decode
-		};
-
-		function encode(username,password) {
-			console.log("base64.decode");
-		}
-
-		function decode(username,token) {
-			console.log("base64.decode");
-		}
-
-		function registerUser(user) {
-			console.log("registerUser");
+		function addUser(user) {
+			var data = angular.toJson({'user':user});
+			return $http.post(urlBase+'api/member/addUser.php',data);
 		}
 
 		function login(user) {
-			var data = angular.toJson(user);
-			console.log(data);
+			var data = angular.toJson({'user':user});
 			return $http.post(urlBase+'api/member/login.php',data);
 		}
 
@@ -54,43 +38,42 @@
 			console.log("logout");
 		}
 
-		function addCredetial() {
-			console.log("addCredetial");
-		}
-
-		function removeCredetial(username) {
-			console.log("removeCredetial");
-		}
-
-		function getUserByUsername(username) {
-			console.log("getUserByUserName");
+		function getUser(user) {
+			var data = angular.toJson({'user':user});
+			return $http.post(urlBase+'api/member/getUser.php',data);
 		}
 
 		function getUsersAll() {
-			console.log("getUserAll");
+			return $http.get(urlBase+'api/member/getUsersAll.php');
 		}
 
-		function updateUser(username) {
-
+		function updateUser(user) {
+			var data = angular.toJson({'user':user});
+			return $http.post(urlBase+'api/member/updateUser.php',data);
 		}
-		function deleteUser(username) {
-			console.log("deleteUserByUserName");
+
+		function deleteUser(user) {
+			var data = angular.toJson({'user':user});
+			return $http.post(urlBase+'api/member/deleteUser.php',data);
 		}
 
 		function addPosition(position) {
-
+			var data = angular.toJson({'position':position});
+			return $http.post(urlBase+'api/member/addPosition.php',data);
 		}
 
 		function updatePosition(position) {
-
+			var data = angular.toJson({'position':position});
+			return $http.post(urlBase+'api/member/updatePosition.php',data);
 		}
 
 		function deletePosition(position) {
-
+			var data = angular.toJson({'position':position});
+			return $http.post(urlBase+'api/member/deletePosition.php',data);
 		}
 
 		function getPositionsAll() {
-
+			return $http.get(urlBase+'api/member/getPositionsAll.php');
 		}
 	}
 

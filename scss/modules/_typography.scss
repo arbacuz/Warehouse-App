@@ -151,3 +151,9 @@ small {
 .underline {
 	text-decoration: underline;
 }
+
+@media screen and (max-width: 991px) {
+	.row .text-right {
+		text-align: left !important;
+	}
+}
